@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useInView, useMotionValue, useSpring } from "framer-motion";
+import { useMotionValue, useSpring } from "framer-motion";
 
 // Splits "500+", "1,000+", "6+", "3" into a numeric part to animate and a
-// suffix/format to preserve, so real résumé numbers can count up on scroll.
+// suffix/format to preserve, so real résumé numbers can count up on mount.
 export function AnimatedNumber({ value }: { value: string }) {
   const match = value.match(/^([\d,]+)(.*)$/);
   const numeric = match ? Number(match[1].replace(/,/g, "")) : null;
@@ -12,15 +12,14 @@ export function AnimatedNumber({ value }: { value: string }) {
   const hasCommas = match ? match[1].includes(",") : false;
 
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
   const motionValue = useMotionValue(0);
   const spring = useSpring(motionValue, { duration: 1200, bounce: 0 });
 
   useEffect(() => {
-    if (inView && numeric !== null) {
+    if (numeric !== null) {
       motionValue.set(numeric);
     }
-  }, [inView, numeric, motionValue]);
+  }, [numeric, motionValue]);
 
   useEffect(() => {
     if (numeric === null) return;
