@@ -8,7 +8,7 @@ type Message = { role: "user" | "assistant"; content: string };
 
 const GREETING: Message = {
   role: "assistant",
-  content: `Hi! Ask me anything about ${profile.name.split(" ")[0]}'s projects, experience, or skills.`,
+  content: `Hi, I'm ${profile.name.split(" ")[0]}'s AI assistant. Ask me anything about my projects, experience, or skills.`,
 };
 
 export function ChatWidget() {
