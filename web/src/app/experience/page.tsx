@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { Briefcase, Globe, Smartphone, GitBranch, type LucideIcon } from "lucide-react";
 import { experience } from "@/lib/data/experience";
@@ -6,6 +5,7 @@ import { profile } from "@/lib/data/profile";
 import { SectionHeading } from "@/components/ui";
 import { Timeline, TimelineItem } from "@/components/timeline";
 import { Reveal } from "@/components/reveal";
+import { pageMetadata } from "@/lib/site";
 
 const iconFor: Record<string, LucideIcon> = {
   "Various US Clients": Globe,
@@ -13,7 +13,11 @@ const iconFor: Record<string, LucideIcon> = {
   "Daytona & Outreachy (Fedora)": GitBranch,
 };
 
-export const metadata: Metadata = { title: "Experience · Nyuydine Bill Leynyuy" };
+export const metadata = pageMetadata({
+  title: "Experience",
+  description: `Professional experience timeline for ${profile.name}: ${profile.role}.`,
+  path: "/experience",
+});
 
 export default function ExperiencePage() {
   return (

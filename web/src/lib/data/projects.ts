@@ -20,6 +20,7 @@ export type Project = {
   stack: string[];
   diagram?: string[];
   hasVisual?: boolean;
+  screenshot?: string;
   links?: ProjectLink[];
 };
 
@@ -90,7 +91,7 @@ export const projects: Project[] = [
       "AI-powered SaaS platform for IT-helpdesk automation, taken from concept to a deployed beta.",
     overview:
       "ResolveMeQ automates IT-helpdesk ticket triage and resolution. It's architected as a modular, service-oriented system so the AI workload, the core business logic, and the client can each be built, deployed, and scaled independently.",
-    hasVisual: true,
+    screenshot: "/projects/resolvemeq.png",
     highlights: [
       "Designed the architecture up front as a modular, service-oriented system, separating the Django core API, a FastAPI AI service, and the React client into independently deployable services, keeping AI workloads isolated and each piece free to scale on its own.",
       "Built the Django backend and REST API with authentication, authorization, subscription billing via DODO Payments, and the core business logic, backed by a normalized PostgreSQL schema with indexing and query tuning for ticket and workflow data.",
@@ -154,7 +155,7 @@ export const projects: Project[] = [
       "USA-based AI recruitment platform. Built the backend, frontend, mobile app, and AI pipeline as one connected product.",
     overview:
       "UmEmployed matches candidates to jobs using a connected pipeline of AI models rather than isolated scripts: resume parsing, scoring, job matching, and recommendations feeding straight into the web dashboards and the mobile app.",
-    hasVisual: true,
+    screenshot: "/projects/umemployed.png",
     highlights: [
       "Designed and built the Django and Django REST Framework backend: API architecture, OAuth2-based authentication and authorization, and Stripe/PayPal payment integration.",
       "Built React dashboard interfaces that surface the platform's AI outputs (resume scores, match results, recommendations) in a form recruiters and candidates could act on directly.",

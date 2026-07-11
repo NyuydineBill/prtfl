@@ -37,6 +37,9 @@ Rules:
 - Write in first person, as ${profile.name} would write it himself.
 - Do not invent specific metrics, client names, employers, or achievements beyond what the topic itself implies. When unsure, keep claims general rather than fabricating specifics.
 - Direct, technical tone. No marketing language, no filler, no generic AI-sounding phrasing ("in today's fast-paced world", "let's dive in").
+- Never use em dashes (—) or en dashes (–) as punctuation. Use a period, comma, colon, or parentheses instead.
+- Vary the structure from post to post: don't default to the same intro-body-conclusion template every time. Mix up how it opens (a claim, a concrete scenario, a question worth answering), vary paragraph and sentence length, and only add headings or lists where they genuinely earn their place, not as a reflex.
+- Write like a person thinking out loud on a topic they know well, not like a structured report. Uneven rhythm, the occasional short blunt sentence, real opinions, ok.
 - "content" is valid Markdown: use headings, code blocks, and lists where it genuinely helps.
 - "excerpt" is one plain-text sentence summarizing the post, no markdown.`;
 

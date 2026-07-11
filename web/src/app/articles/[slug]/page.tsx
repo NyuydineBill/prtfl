@@ -32,7 +32,31 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPost(slug);
-  return { title: post ? `${post.title} · Nyuydine Bill Leynyuy` : "Article" };
+  if (!post) return { title: "Article" };
+
+  const description = post.excerpt ?? undefined;
+
+  return {
+    title: post.title,
+    description,
+    alternates: { canonical: `/articles/${post.slug}` },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description,
+      url: `/articles/${post.slug}`,
+      publishedTime: post.published_at ?? undefined,
+      modifiedTime: post.updated_at ?? undefined,
+      tags: post.tags ?? undefined,
+      images: post.cover_image ? [{ url: post.cover_image }] : undefined,
+    },
+    twitter: {
+      card: post.cover_image ? "summary_large_image" : "summary",
+      title: post.title,
+      description,
+      images: post.cover_image ? [post.cover_image] : undefined,
+    },
+  };
 }
 
 export default async function ArticlePage({

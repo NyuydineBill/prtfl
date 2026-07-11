@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { GraduationCap, Users, Award, Sparkles } from "lucide-react";
 import { teaching } from "@/lib/data/teaching";
@@ -9,8 +8,14 @@ import { Timeline, TimelineItem } from "@/components/timeline";
 import { OrgBadge } from "@/components/org-badge";
 import { Gallery } from "@/components/gallery";
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Community · Nyuydine Bill Leynyuy" };
+export const metadata = pageMetadata({
+  title: "Community",
+  description:
+    "Teaching, mentorship, and leadership work: IT instruction, tutoring, and leading the Microsoft Learn Student Ambassadors chapter at the University of Bamenda.",
+  path: "/community",
+});
 
 export default function CommunityPage() {
   const featuredCert = certifications.find((c) => c.featured);

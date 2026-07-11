@@ -1,7 +1,7 @@
 export const skillGroups: { category: string; items: string[] }[] = [
   {
     category: "Languages",
-    items: ["Python", "JavaScript", "TypeScript", "Java", "C", "C++"],
+    items: ["Python", "JavaScript", "TypeScript", "C", "C++"],
   },
   {
     category: "Frontend & Mobile",
@@ -9,11 +9,11 @@ export const skillGroups: { category: string; items: string[] }[] = [
   },
   {
     category: "Backend",
-    items: ["Django", "Django REST Framework", "FastAPI"],
+    items: ["Django", "Django REST Framework", "FastAPI", "Flask"],
   },
   {
     category: "Databases",
-    items: ["PostgreSQL", "MySQL", "SQLite"],
+    items: ["PostgreSQL", "MySQL", "SQLite", "MongoDB"],
   },
   {
     category: "Cloud & DevOps",
@@ -27,6 +27,7 @@ export const skillGroups: { category: string; items: string[] }[] = [
       "Azure",
       "AWS",
       "Cloudflare",
+      "VPS Setup",
     ],
   },
   {

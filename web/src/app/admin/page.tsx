@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import type { Post } from "@/lib/posts";
 import { SectionHeading } from "@/components/ui";
 
-export const metadata: Metadata = { title: "Admin · Nyuydine Bill Leynyuy" };
+export const metadata: Metadata = { title: "Admin" };
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {

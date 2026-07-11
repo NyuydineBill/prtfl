@@ -1,10 +1,14 @@
-import type { Metadata } from "next";
 import { profile } from "@/lib/data/profile";
 import { SectionHeading } from "@/components/ui";
 import { ContactForm } from "@/components/contact-form";
 import { Reveal } from "@/components/reveal";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Contact · Nyuydine Bill Leynyuy" };
+export const metadata = pageMetadata({
+  title: "Contact",
+  description: `Get in touch with ${profile.name} for engineering engagements, collaborations, or questions.`,
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

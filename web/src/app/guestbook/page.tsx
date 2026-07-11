@@ -1,11 +1,15 @@
-import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import type { GuestbookEntry } from "@/lib/guestbook";
 import { SectionHeading } from "@/components/ui";
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal";
 import { GuestbookForm } from "@/components/guestbook-form";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Guestbook · Nyuydine Bill Leynyuy" };
+export const metadata = pageMetadata({
+  title: "Guestbook",
+  description: "Leave a note or read what visitors and collaborators have shared.",
+  path: "/guestbook",
+});
 export const dynamic = "force-dynamic";
 
 export default async function GuestbookPage() {

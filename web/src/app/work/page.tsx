@@ -1,11 +1,16 @@
 import Link from "next/link";
-import type { Metadata } from "next";
 import { projects } from "@/lib/data/projects";
 import { Eyebrow, SectionHeading } from "@/components/ui";
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal";
 import { ProjectUpvote } from "@/components/project-upvote";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Work · Nyuydine Bill Leynyuy" };
+export const metadata = pageMetadata({
+  title: "Work",
+  description:
+    "Projects taken from architecture through to deployment: ResolveMeQ, UmEmployed, and other production systems and open-source work.",
+  path: "/work",
+});
 
 export default function WorkPage() {
   return (

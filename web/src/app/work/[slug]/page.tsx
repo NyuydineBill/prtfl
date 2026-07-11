@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { projects } from "@/lib/data/projects";
@@ -21,7 +22,26 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
-  return { title: project ? `${project.name} · Nyuydine Bill Leynyuy` : "Project" };
+  if (!project) return { title: "Project" };
+
+  return {
+    title: project.name,
+    description: project.summary,
+    alternates: { canonical: `/work/${project.slug}` },
+    openGraph: {
+      type: "article",
+      title: project.name,
+      description: project.summary,
+      url: `/work/${project.slug}`,
+      images: project.screenshot ? [{ url: project.screenshot }] : undefined,
+    },
+    twitter: {
+      card: project.screenshot ? "summary_large_image" : "summary",
+      title: project.name,
+      description: project.summary,
+      images: project.screenshot ? [project.screenshot] : undefined,
+    },
+  };
 }
 
 export default async function ProjectPage({
@@ -84,10 +104,21 @@ export default async function ProjectPage({
         </p>
       </Reveal>
 
-      {(project.diagram || project.hasVisual) && (
+      {(project.diagram || project.screenshot || project.hasVisual) && (
         <Reveal delay={0.05} className="mt-8">
           {project.diagram ? (
             <ProjectFlowDiagram steps={project.diagram} />
+          ) : project.screenshot ? (
+            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-border bg-surface">
+              <Image
+                src={project.screenshot}
+                alt={`${project.name} screenshot`}
+                fill
+                sizes="(min-width: 768px) 720px, 100vw"
+                className="object-cover object-top"
+                priority
+              />
+            </div>
           ) : (
             <ProjectVisualPlaceholder name={project.name} />
           )}
@@ -165,7 +196,7 @@ export default async function ProjectPage({
       {project.highlights && project.highlights.length > 0 && (
         <div className="mt-12 max-w-2xl">
           <h2 className="font-mono text-xs uppercase tracking-wider text-accent">
-            How it was built
+            My contributions
           </h2>
           <RevealGroup className="mt-4 flex flex-col gap-4" stagger={0.06}>
             {project.highlights.map((point) => (

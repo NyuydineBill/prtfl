@@ -1,13 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import type { Post } from "@/lib/posts";
 import { SectionHeading, Chip } from "@/components/ui";
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal";
 import { SubscribeForm } from "@/components/subscribe-form";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Articles · Nyuydine Bill Leynyuy" };
+export const metadata = pageMetadata({
+  title: "Articles",
+  description: "Notes on software architecture, AI systems, and building production software.",
+  path: "/articles",
+});
 export const dynamic = "force-dynamic";
 
 export default async function ArticlesPage() {

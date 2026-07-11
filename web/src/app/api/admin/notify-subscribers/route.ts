@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { sendEmail } from "@/lib/email";
 import { profile } from "@/lib/data/profile";
+import { siteUrl } from "@/lib/site";
 
 export async function POST(request: Request) {
   const supabase = await createClient();
@@ -38,7 +39,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ sent: 0, total: 0 });
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nyuydine.online";
   const articleUrl = `${siteUrl}/articles/${slug}`;
 
   let sent = 0;

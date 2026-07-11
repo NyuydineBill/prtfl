@@ -1,9 +1,14 @@
-import type { Metadata } from "next";
 import { skillGroups } from "@/lib/data/skills";
 import { SectionHeading } from "@/components/ui";
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Stack · Nyuydine Bill Leynyuy" };
+export const metadata = pageMetadata({
+  title: "Stack",
+  description:
+    "Languages, frameworks, cloud infrastructure, and tools used across production systems: Python, TypeScript, Django, React, PostgreSQL, Docker, Azure, AWS, and more.",
+  path: "/stack",
+});
 
 export default function StackPage() {
   return (
