@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project Deep Dive | SYSTEM_ARCHITECT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container": "#171f33",
+            "inverse-on-surface": "#283044",
+            "primary-container": "#0ea5e9",
+            "surface-container-low": "#131b2e",
+            "surface-dim": "#0b1326",
+            "surface-variant": "#2d3449",
+            "on-secondary-fixed": "#0d1c2d",
+            "on-error-container": "#ffdad6",
+            "on-tertiary-fixed": "#00201c",
+            "surface-tint": "#89ceff",
+            "on-surface-variant": "#bec8d2",
+            "outline-variant": "#3e4850",
+            "tertiary": "#3cddc7",
+            "secondary-container": "#39485a",
+            "on-tertiary-container": "#003b34",
+            "error": "#ffb4ab",
+            "on-primary-container": "#003751",
+            "electric-cyan": "#22D3EE",
+            "on-primary-fixed-variant": "#004c6e",
+            "primary": "#89ceff",
+            "slate-surface": "#1E293B",
+            "on-primary-fixed": "#001e2f",
+            "on-primary": "#00344d",
+            "error-container": "#93000a",
+            "surface-bright": "#31394d",
+            "tertiary-container": "#00af9d",
+            "secondary": "#b9c8de",
+            "tertiary-fixed-dim": "#3cddc7",
+            "surface-container-lowest": "#060e20",
+            "inverse-surface": "#dae2fd",
+            "blueprint-grid": "rgba(30, 41, 59, 0.5)",
+            "on-error": "#690005",
+            "on-tertiary-fixed-variant": "#005047",
+            "outline": "#88929b",
+            "on-background": "#dae2fd",
+            "on-secondary": "#233143",
+            "on-tertiary": "#003731",
+            "on-secondary-fixed-variant": "#39485a",
+            "background": "#0b1326",
+            "surface": "#0b1326",
+            "primary-fixed": "#c9e6ff",
+            "secondary-fixed-dim": "#b9c8de",
+            "on-secondary-container": "#a7b6cc",
+            "on-surface": "#dae2fd",
+            "inverse-primary": "#006591",
+            "terminal-green": "#10B981",
+            "surface-container-high": "#222a3d",
+            "deep-charcoal": "#020617",
+            "secondary-fixed": "#d4e4fa",
+            "tertiary-fixed": "#62fae3",
+            "primary-fixed-dim": "#89ceff",
+            "surface-container-highest": "#2d3449"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "margin-desktop": "64px",
+            "grid-unit": "8px",
+            "margin-mobile": "16px",
+            "gutter": "24px",
+            "base": "4px"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Hanken Grotesk"],
+            "headline-lg": ["Hanken Grotesk"],
+            "body-md": ["Hanken Grotesk"],
+            "metric-lg": ["JetBrains Mono"],
+            "code-sm": ["JetBrains Mono"],
+            "label-caps": ["JetBrains Mono"],
+            "headline-xl": ["Hanken Grotesk"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+            "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+            "metric-lg": ["24px", {"lineHeight": "1.0", "fontWeight": "700"}],
+            "code-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+            "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+            "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #0b1326;
+      background-image: radial-gradient(circle at 2px 2px, rgba(30, 41, 59, 0.5) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+    .blueprint-line-y {
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, #334155, transparent);
+    }
+    .blueprint-line-x {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #334155, transparent);
+    }
+    .glass-card {
+      background: rgba(23, 31, 51, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(62, 72, 80, 0.5);
+    }
+    .scan-line {
+      width: 100%;
+      height: 2px;
+      background: rgba(34, 211, 238, 0.2);
+      position: absolute;
+      top: 0;
+      animation: scan 4s linear infinite;
+    }
+    @keyframes scan {
+      0% { top: 0; }
+      100% { top: 100%; }
+    }
+    .pulse-dot {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+  </style>
+</head>
+<body class="text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar Implementation -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-background/80 backdrop-blur-md border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-electric-cyan" style="font-variation-settings: 'FILL' 1;">architecture</span>
+<h1 class="font-label-caps text-label-caps font-bold text-electric-cyan">ROOT &gt; ARCHITECTURE &gt; DEEP_DIVE</h1>
+</div>
+<nav class="hidden md:flex gap-gutter">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">EXPERTISE</a>
+<a class="font-label-caps text-label-caps text-electric-cyan border-b border-electric-cyan pb-1" href="#">PROJECTS</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">STACK</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">TIMELINE</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-variant/20 p-2 rounded transition-all">terminal</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-variant/20 p-2 rounded transition-all">monitoring</button>
+<button class="bg-primary-container text-on-primary-container font-label-caps text-label-caps px-4 py-2 rounded hover:brightness-110 transition-all">DOWNLOAD_CV</button>
+</div>
+</header>
+<!-- SideNavBar Implementation (Hidden on Mobile) -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-0 h-full z-40 bg-surface-container-low border-r border-outline-variant w-64 pt-24 pb-8 px-4 justify-between">
+<div class="space-y-6">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full bg-surface-variant border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a software architect with a focused expression, wearing a dark turtleneck. The lighting is dramatic and technical, with a soft blue rim light that reflects the System Architect aesthetic. Minimalist dark office background with soft bokeh of server lights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmuzP7fSmQj48k97IYDpONr-wFrkOgl54DJxXhN05AfKR2OH_wyGgQc1hzsoKRvD6b4ZtU8x9qcFUruALIKZCT19tzbC0uET-tX0m2SRUuFjznHR9rakigdT8DSMZsjpxP4b7pGmzs3qqa6EhehDo0upmL7kk7RIkiZd7fDuVb1DOoR_Srnh0T_7FPUVAhE5tn3B7E1D1u4YklOjCzy8ADUcgfwyZBpADlhyHWHVLftmKe5iIHl92xtv0OTLf4o0iW8jlsmXHjdaw"/>
+</div>
+<div>
+<p class="font-label-caps text-[10px] text-primary">ARCHITECT_OS</p>
+<p class="font-code-sm text-[11px] text-on-surface-variant">v4.2.0-stable</p>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-3 px-3 py-3 rounded text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer group">
+<span class="material-symbols-outlined group-hover:text-electric-cyan">architecture</span>
+<span class="font-code-sm">Expertise</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-3 rounded bg-surface-variant text-electric-cyan border-r-2 border-electric-cyan transition-colors cursor-pointer">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-code-sm">Projects</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-3 rounded text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer group">
+<span class="material-symbols-outlined">layers</span>
+<span class="font-code-sm">Stack</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-3 rounded text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer group">
+<span class="material-symbols-outlined">history</span>
+<span class="font-code-sm">Timeline</span>
+</div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:underline cursor-pointer">
+<span class="material-symbols-outlined text-sm">settings</span>
+<span class="font-code-sm">Settings</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:underline cursor-pointer">
+<span class="material-symbols-outlined text-sm">database</span>
+<span class="font-code-sm">Logs</span>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="lg:pl-64 pt-24 min-h-screen px-margin-mobile md:px-margin-desktop pb-20">
+<!-- Hero Section: Bento Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-20">
+<!-- Title Block -->
+<div class="lg:col-span-8 flex flex-col justify-end space-y-6">
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container border border-electric-cyan/30 rounded-full w-fit">
+<div class="w-2 h-2 rounded-full bg-terminal-green pulse-dot"></div>
+<span class="font-code-sm text-xs text-terminal-green uppercase tracking-widest">System Active: Production Scale</span>
+</div>
+<h2 class="font-headline-xl text-headline-xl text-on-surface">Architecting Digital <span class="text-electric-cyan">Resilience</span> &amp; Trust.</h2>
+<p class="font-body-md text-on-surface-variant max-w-2xl">
+          Deep dive into the infrastructure and logic behind <span class="text-on-surface font-bold">ResolveMeQ</span> and the <span class="text-on-surface font-bold">Cameroon Digital Trust Network (CDTN)</span>. High-density, national-scale engineering solutions designed for observability and modular growth.
+        </p>
+</div>
+<!-- Quick Metrics Grid -->
+<div class="lg:col-span-4 grid grid-cols-2 gap-4">
+<div class="glass-card p-4 flex flex-col justify-between aspect-square border-l-4 border-l-electric-cyan">
+<span class="material-symbols-outlined text-on-surface-variant">monitoring</span>
+<div>
+<p class="font-metric-lg text-metric-lg text-on-surface">35ms</p>
+<p class="font-label-caps text-[10px] text-on-surface-variant mt-1">P95 LATENCY</p>
+</div>
+</div>
+<div class="glass-card p-4 flex flex-col justify-between aspect-square border-l-4 border-l-terminal-green">
+<span class="material-symbols-outlined text-on-surface-variant">group</span>
+<div>
+<p class="font-metric-lg text-metric-lg text-on-surface">1k+</p>
+<p class="font-label-caps text-[10px] text-on-surface-variant mt-1">ACTIVE NODES</p>
+</div>
+</div>
+<div class="glass-card p-4 flex flex-col justify-between aspect-square border-l-4 border-l-primary">
+<span class="material-symbols-outlined text-on-surface-variant">security</span>
+<div>
+<p class="font-metric-lg text-metric-lg text-on-surface">99.9%</p>
+<p class="font-label-caps text-[10px] text-on-surface-variant mt-1">UPTIME SLA</p>
+</div>
+</div>
+<div class="glass-card p-4 flex flex-col justify-between aspect-square border-l-4 border-l-tertiary">
+<span class="material-symbols-outlined text-on-surface-variant">hub</span>
+<div>
+<p class="font-metric-lg text-metric-lg text-on-surface">NATL</p>
+<p class="font-label-caps text-[10px] text-on-surface-variant mt-1">SCALE REACH</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Project 01: ResolveMeQ Section -->
+<section class="mb-32">
+<div class="flex items-center gap-4 mb-8">
+<div class="h-px flex-grow bg-outline-variant"></div>
+<h3 class="font-label-caps text-label-caps text-primary tracking-[0.4em]">01_COMPONENT: RESOLVEMEQ</h3>
+<div class="h-px w-24 bg-outline-variant"></div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+<div class="space-y-8">
+<div>
+<h4 class="font-headline-lg text-headline-lg mb-4">The AI-Powered SaaS Blueprint</h4>
+<p class="font-body-md text-on-surface-variant">
+              ResolveMeQ isn't just an IT helpdesk; it's a modular, service-oriented ecosystem designed for automation. Built as a collection of independently maintainable pieces, it handles AI workloads in isolation to ensure high throughput and zero downtime for the core business logic.
+            </p>
+</div>
+<div class="space-y-4">
+<div class="flex items-start gap-4 p-4 border border-outline-variant bg-surface-container-lowest/50">
+<span class="material-symbols-outlined text-electric-cyan">error_outline</span>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface mb-1">THE PROBLEM</p>
+<p class="font-body-md text-on-surface-variant text-sm">Traditional IT helpdesks suffer from slow response times and high manual overhead in ticket triage and resolution.</p>
+</div>
+</div>
+<div class="flex items-start gap-4 p-4 border border-electric-cyan/20 bg-surface-container-high/30">
+<span class="material-symbols-outlined text-terminal-green">check_circle</span>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface mb-1">THE SOLUTION</p>
+<p class="font-body-md text-on-surface-variant text-sm">A multi-step AI reasoning pipeline that analyzes, triages, and resolves tickets autonomously using FastAPI microservices and LLM orchestration.</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<div class="bg-surface-variant px-3 py-2 rounded font-code-sm text-xs text-center border border-outline-variant">Django</div>
+<div class="bg-surface-variant px-3 py-2 rounded font-code-sm text-xs text-center border border-outline-variant">FastAPI</div>
+<div class="bg-surface-variant px-3 py-2 rounded font-code-sm text-xs text-center border border-outline-variant">PostgreSQL</div>
+<div class="bg-surface-variant px-3 py-2 rounded font-code-sm text-xs text-center border border-outline-variant">React</div>
+<div class="bg-surface-variant px-3 py-2 rounded font-code-sm text-xs text-center border border-outline-variant">Docker</div>
+<div class="bg-surface-variant px-3 py-2 rounded font-code-sm text-xs text-center border border-outline-variant">Redis</div>
+</div>
+</div>
+<div class="relative aspect-video glass-card overflow-hidden group">
+<div class="scan-line"></div>
+
+<div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-12">
+<div class="w-full h-full border border-dashed border-outline-variant rounded flex items-center justify-center relative bg-surface-dim/40 backdrop-blur-sm">
+<div class="absolute top-4 left-4 font-code-sm text-[10px] text-on-surface-variant uppercase tracking-tighter">System Schema: rm_v01</div>
+<!-- Abstract Diagram Logic -->
+<div class="flex gap-8 items-center">
+<div class="w-16 h-16 border border-electric-cyan flex items-center justify-center font-label-caps text-[10px] text-electric-cyan">REACT<br/>CLIENT</div>
+<span class="material-symbols-outlined text-on-surface-variant">arrow_forward</span>
+<div class="w-20 h-20 border-2 border-primary bg-primary/10 flex items-center justify-center font-label-caps text-[10px] text-primary text-center">CORE<br/>API<br/>(DJANGO)</div>
+<span class="material-symbols-outlined text-on-surface-variant">sync_alt</span>
+<div class="w-16 h-16 border border-tertiary flex items-center justify-center font-label-caps text-[10px] text-tertiary text-center">AI<br/>SVCS</div>
+</div>
+<div class="absolute bottom-4 right-4 flex gap-2">
+<span class="w-2 h-2 rounded-full bg-terminal-green animate-pulse"></span>
+<span class="w-2 h-2 rounded-full bg-terminal-green animate-pulse" style="animation-delay: 0.5s"></span>
+</div>
+</div>
+</div>
+<div class="absolute bottom-4 left-1/2 -translate-x-1/2 font-label-caps text-xs bg-surface-container px-3 py-1 border border-outline-variant rounded-full">
+            INTERACTIVE_ARCHITECTURE_VIEW
+          </div>
+</div>
+</div>
+</section>
+<!-- Project 02: CDTN Section -->
+<section class="mb-32">
+<div class="flex items-center gap-4 mb-8">
+<div class="h-px w-24 bg-outline-variant"></div>
+<h3 class="font-label-caps text-label-caps text-tertiary tracking-[0.4em]">02_INFRASTRUCTURE: CDTN</h3>
+<div class="h-px flex-grow bg-outline-variant"></div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Content Block -->
+<div class="lg:col-span-5 order-2 lg:order-1 flex flex-col justify-center">
+<div class="inline-flex items-center gap-2 mb-6 text-tertiary">
+<span class="material-symbols-outlined">public</span>
+<span class="font-label-caps text-label-caps">NATIONAL_SCALE_DEPLOYMENT</span>
+</div>
+<h4 class="font-headline-lg text-headline-lg mb-6">Cameroon Digital Trust Network</h4>
+<p class="font-body-md text-on-surface-variant mb-8">
+            An enterprise-level initiative for a nation-wide digital trust and verification platform. The architecture is structured as modular reasoning, verification, and intelligence layers, ensuring transparency and auditability for high-stakes assessments.
+          </p>
+<div class="space-y-6">
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 border-t border-tertiary/40">
+<p class="font-label-caps text-[10px] text-tertiary mb-1">SECURITY MODEL</p>
+<p class="font-code-sm text-sm">Policy-driven Verification</p>
+</div>
+<div class="p-4 border-t border-tertiary/40">
+<p class="font-label-caps text-[10px] text-tertiary mb-1">AI ENGINE</p>
+<p class="font-code-sm text-sm">Explainable (XAI) Reasoner</p>
+</div>
+<div class="p-4 border-t border-tertiary/40">
+<p class="font-label-caps text-[10px] text-tertiary mb-1">AUDIT PATH</p>
+<p class="font-code-sm text-sm">Immutable Transaction Logs</p>
+</div>
+<div class="p-4 border-t border-tertiary/40">
+<p class="font-label-caps text-[10px] text-tertiary mb-1">GOVERNANCE</p>
+<p class="font-code-sm text-sm">Human-in-the-loop Gateways</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Visual Block -->
+<div class="lg:col-span-7 order-1 lg:order-2">
+<div class="relative h-[500px] border border-outline-variant bg-surface-container-lowest overflow-hidden">
+<div class="w-full h-full bg-cover bg-center opacity-40" data-alt="A sophisticated architectural visualization of a digital network over a stylized map of Cameroon. The map is rendered in deep indigo and slate tones with glowing cyan and teal data points representing regional nodes. Fine lines connect the nodes in a complex web of trust, symbolizing a national-scale digital infrastructure. The lighting is clean and technological, reminiscent of a high-end cloud console dashboard." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAm_Iaz361Iiyh8AQxbha-I12U6SGCCrY-DDJw8eRIb4aYPtzfsYMQ2CYOvuEv-U6LtNczd9zLgTxTHyXIBOB7q0cbzUm6QSwWKVzvx3pf4Ue0wNWL6Xh8iJhwF3odAoR_f_mxXVv6Aeu74oc7dcGAEjw942hmxzoJxaQzA7GPZwju4Ck6MkKmku6Yi5UxE_4awlXecXtyIq2QX6FeOgc8bVnkoZC5DQZX_WbPNvKUBvnl5q30fJW3jCyTmg2PA6WSZg8lZE4wo8Nw')"></div>
+<!-- Floating HUD Overlay -->
+<div class="absolute inset-0 p-8 flex flex-col justify-between pointer-events-none">
+<div class="flex justify-between items-start">
+<div class="glass-card px-4 py-2 border-l-2 border-l-electric-cyan">
+<p class="font-label-caps text-[10px] text-on-surface-variant">ACTIVE REGIONS</p>
+<p class="font-code-sm text-electric-cyan">REG_SOUTH_WEST_01</p>
+<p class="font-code-sm text-electric-cyan">REG_LITTORAL_04</p>
+</div>
+<div class="font-code-sm text-[10px] text-on-surface-variant opacity-50 text-right">
+                    LATITUDE: 3.8480° N<br/>LONGITUDE: 11.5021° E
+                  </div>
+</div>
+<div class="flex gap-4">
+<div class="flex-1 glass-card p-4">
+<p class="font-label-caps text-[10px] text-tertiary mb-2">VERIFICATION_THROUGHPUT</p>
+<div class="h-16 flex items-end gap-1">
+<div class="bg-tertiary w-full h-[60%]"></div>
+<div class="bg-tertiary w-full h-[40%]"></div>
+<div class="bg-tertiary w-full h-[85%]"></div>
+<div class="bg-tertiary w-full h-[70%]"></div>
+<div class="bg-tertiary w-full h-[95%]"></div>
+<div class="bg-tertiary w-full h-[50%]"></div>
+</div>
+</div>
+<div class="flex-1 glass-card p-4 flex flex-col justify-center items-center">
+<p class="font-label-caps text-[10px] text-on-surface-variant mb-1">SYSTEM_HEALTH</p>
+<div class="relative w-12 h-12 flex items-center justify-center">
+<svg class="absolute inset-0 transform -rotate-90">
+<circle class="text-surface-variant" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-terminal-green" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-dasharray="125.6" stroke-dashoffset="25" stroke-width="4"></circle>
+</svg>
+<span class="font-code-sm text-xs">80%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Technical Specs Grid -->
+<section class="mb-32">
+<h3 class="font-headline-lg text-headline-lg text-center mb-16">The <span class="text-electric-cyan">Architect's</span> Stack</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="p-6 border border-outline-variant bg-surface-container-low hover:border-electric-cyan transition-colors group">
+<span class="material-symbols-outlined text-electric-cyan mb-4">terminal</span>
+<h5 class="font-label-caps text-label-caps mb-4">LANGUAGES</h5>
+<ul class="font-code-sm text-on-surface-variant space-y-2">
+<li>Python / Django / FastAPI</li>
+<li>TypeScript / React / Next.js</li>
+<li>C++ / Embedded Core</li>
+<li>Java / System Runtime</li>
+</ul>
+</div>
+<div class="p-6 border border-outline-variant bg-surface-container-low hover:border-primary transition-colors group">
+<span class="material-symbols-outlined text-primary mb-4">cloud</span>
+<h5 class="font-label-caps text-label-caps mb-4">CLOUD_OS</h5>
+<ul class="font-code-sm text-on-surface-variant space-y-2">
+<li>Azure / App Services / Blob</li>
+<li>AWS / EC2 / S3 / Lambda</li>
+<li>Docker / Kubernetes</li>
+<li>CI/CD / GitHub Actions</li>
+</ul>
+</div>
+<div class="p-6 border border-outline-variant bg-surface-container-low hover:border-tertiary transition-colors group">
+<span class="material-symbols-outlined text-tertiary mb-4">psychology</span>
+<h5 class="font-label-caps text-label-caps mb-4">AI_SERVICES</h5>
+<ul class="font-code-sm text-on-surface-variant space-y-2">
+<li>LLM Integration / LangChain</li>
+<li>NLP / spaCy / Embeddings</li>
+<li>Explainable AI (XAI)</li>
+<li>Recommendation Systems</li>
+</ul>
+</div>
+<div class="p-6 border border-outline-variant bg-surface-container-low hover:border-secondary transition-colors group">
+<span class="material-symbols-outlined text-secondary mb-4">shield_lock</span>
+<h5 class="font-label-caps text-label-caps mb-4">SYSTEM_GOV</h5>
+<ul class="font-code-sm text-on-surface-variant space-y-2">
+<li>OAuth2 / JWT / IAM</li>
+<li>Secure API Design</li>
+<li>Audit Logging</li>
+<li>Observability / Grafana</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Narrative Quote -->
+<section class="max-w-4xl mx-auto text-center py-20 relative">
+<div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+<span class="text-[200px] font-bold">"</span>
+</div>
+<p class="font-headline-lg text-headline-lg text-on-surface mb-8 italic">
+        "I generally spend more time on the design than on any single line of implementation. I think in systems before writing code."
+      </p>
+<div class="flex items-center justify-center gap-4">
+<div class="h-px w-12 bg-electric-cyan"></div>
+<p class="font-label-caps text-label-caps text-electric-cyan tracking-widest">NYUYDINE BILL LEYNYUY</p>
+<div class="h-px w-12 bg-electric-cyan"></div>
+</div>
+</section>
+</main>
+<!-- Footer Implementation -->
+<footer class="w-full py-8 px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-gutter bg-surface-dim border-t border-outline-variant">
+<div class="flex items-center gap-4">
+<span class="font-label-caps text-label-caps text-primary">SYSTEM_ARCHITECT</span>
+<span class="text-on-surface-variant text-[10px] opacity-50">/ PROJECT_DEEP_DIVE_2025</span>
+</div>
+<p class="font-code-sm text-code-sm text-on-surface-variant">© 2024 SYSTEM_ARCHITECT. ALL RIGHTS RESERVED.</p>
+<div class="flex gap-6">
+<a class="font-code-sm text-code-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">GITHUB</a>
+<a class="font-code-sm text-code-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">LINKEDIN</a>
+<a class="font-code-sm text-code-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">SYSTEM_STATUS</a>
+</div>
+</footer>
+<!-- Micro-interactions Script -->
+<script>
+    document.addEventListener('mousemove', (e) => {
+      const mouseX = e.clientX / window.innerWidth;
+      const mouseY = e.clientY / window.innerHeight;
+      document.body.style.backgroundPosition = `${mouseX * 10}px ${mouseY * 10}px`;
+    });
+
+    // Simple smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+  </script>
+</body></html>

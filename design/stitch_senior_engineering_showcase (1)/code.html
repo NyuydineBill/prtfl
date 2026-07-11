@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NYUYDINE BILL LEYNYUY | SYSTEM ARCHITECT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#171f33",
+                        "inverse-on-surface": "#283044",
+                        "primary-container": "#0ea5e9",
+                        "surface-container-low": "#131b2e",
+                        "surface-dim": "#0b1326",
+                        "surface-variant": "#2d3449",
+                        "on-secondary-fixed": "#0d1c2d",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#00201c",
+                        "surface-tint": "#89ceff",
+                        "on-surface-variant": "#bec8d2",
+                        "outline-variant": "#3e4850",
+                        "tertiary": "#3cddc7",
+                        "secondary-container": "#39485a",
+                        "on-tertiary-container": "#003b34",
+                        "error": "#ffb4ab",
+                        "on-primary-container": "#003751",
+                        "electric-cyan": "#22D3EE",
+                        "on-primary-fixed-variant": "#004c6e",
+                        "primary": "#89ceff",
+                        "slate-surface": "#1E293B",
+                        "on-primary-fixed": "#001e2f",
+                        "on-primary": "#00344d",
+                        "error-container": "#93000a",
+                        "surface-bright": "#31394d",
+                        "tertiary-container": "#00af9d",
+                        "secondary": "#b9c8de",
+                        "tertiary-fixed-dim": "#3cddc7",
+                        "surface-container-lowest": "#060e20",
+                        "inverse-surface": "#dae2fd",
+                        "blueprint-grid": "rgba(30, 41, 59, 0.5)",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed-variant": "#005047",
+                        "outline": "#88929b",
+                        "on-background": "#dae2fd",
+                        "on-secondary": "#233143",
+                        "on-tertiary": "#003731",
+                        "on-secondary-fixed-variant": "#39485a",
+                        "background": "#0b1326",
+                        "surface": "#0b1326",
+                        "primary-fixed": "#c9e6ff",
+                        "secondary-fixed-dim": "#b9c8de",
+                        "on-secondary-container": "#a7b6cc",
+                        "on-surface": "#dae2fd",
+                        "inverse-primary": "#006591",
+                        "terminal-green": "#10B981",
+                        "surface-container-high": "#222a3d",
+                        "deep-charcoal": "#020617",
+                        "secondary-fixed": "#d4e4fa",
+                        "tertiary-fixed": "#62fae3",
+                        "primary-fixed-dim": "#89ceff",
+                        "surface-container-highest": "#2d3449"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "grid-unit": "8px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "metric-lg": ["JetBrains Mono"],
+                        "code-sm": ["JetBrains Mono"],
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-xl": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "metric-lg": ["24px", {"lineHeight": "1.0", "fontWeight": "700"}],
+                        "code-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .blueprint-bg {
+            background-image: radial-gradient(circle, #1E293B 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .architect-card-hover:hover {
+            border-color: #22D3EE;
+            background-color: rgba(34, 211, 238, 0.05);
+        }
+        .status-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-electric-cyan selection:text-deep-charcoal blueprint-bg">
+<!-- TopNavBar Navigation Cluster -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-background/80 backdrop-blur-md border-b border-outline-variant">
+<div class="font-label-caps text-label-caps font-bold text-electric-cyan">
+            ROOT &gt; ARCHITECTURE
+        </div>
+<nav class="hidden md:flex gap-8">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#expertise">EXPERTISE</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#projects">PROJECTS</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#stack">STACK</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#timeline">TIMELINE</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-electric-cyan transition-colors" data-icon="terminal">terminal</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-electric-cyan transition-colors" data-icon="monitoring">monitoring</span>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-4 py-2 hover:brightness-110 transition-all rounded-sm">
+                DOWNLOAD_CV
+            </button>
+</div>
+</header>
+<!-- SideNavBar (Desktop Only) -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-0 h-full z-40 bg-surface-container-low border-r border-outline-variant w-64 pt-24 px-4 pb-8">
+<div class="mb-12 px-2">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-sm overflow-hidden border border-electric-cyan/30">
+<img class="w-full h-full object-cover" data-alt="Professional portrait of Nyuydine Bill Leynyuy, a system architect, with sharp lighting against a dark technical background, symbolizing precision and engineering expertise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcmUC-7nFPOy8t7cH-Wq5wuzI1ti3WMyyBXYI6AgccrupB2H62r18Bz-kklqS0x7FfK8yJcY1JZlYfqvmJV5-N4SWM9TnMk5g5bPhA35Uug662rwQhAwhlt84fXZEHoxOtqAkQfaZJQxecUe2Cz9_-0FLXNCPA9icCWi26pFpy0dlmlWKU1-59febHlE_lIi3Oh1yC75djj3lCp7y4dAwEy4nW3Men-1Si1qoJ1ZwOiNZAYvSu-h5Da7j7Deh_bpn2_5qOCKsEbYM"/>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-primary">ARCHITECT_OS</p>
+<p class="font-code-sm text-[10px] text-on-surface-variant">v4.2.0-stable</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-3 font-code-sm text-code-sm text-on-surface-variant hover:bg-surface-container-high transition-colors group" href="#expertise">
+<span class="material-symbols-outlined group-hover:text-electric-cyan transition-colors" data-icon="architecture">architecture</span> Expertise
+            </a>
+<a class="flex items-center gap-3 px-3 py-3 font-code-sm text-code-sm bg-surface-variant text-electric-cyan border-r-2 border-electric-cyan transition-colors group" href="#projects">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span> Projects
+            </a>
+<a class="flex items-center gap-3 px-3 py-3 font-code-sm text-code-sm text-on-surface-variant hover:bg-surface-container-high transition-colors group" href="#stack">
+<span class="material-symbols-outlined group-hover:text-electric-cyan transition-colors" data-icon="layers">layers</span> Stack
+            </a>
+<a class="flex items-center gap-3 px-3 py-3 font-code-sm text-code-sm text-on-surface-variant hover:bg-surface-container-high transition-colors group" href="#timeline">
+<span class="material-symbols-outlined group-hover:text-electric-cyan transition-colors" data-icon="history">history</span> Timeline
+            </a>
+</nav>
+<div class="pt-8 border-t border-outline-variant flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 font-code-sm text-code-sm text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span> Settings
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 font-code-sm text-code-sm text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="database">database</span> Logs
+            </a>
+</div>
+</aside>
+<main class="lg:ml-64 pt-24 pb-20 px-margin-mobile md:px-margin-desktop">
+<!-- Hero Section -->
+<section class="min-h-[819px] flex flex-col justify-center border-b border-outline-variant py-20 relative overflow-hidden">
+<div class="absolute inset-0 pointer-events-none opacity-20">
+
+</div>
+<div class="max-w-4xl relative z-10">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-high border border-outline-variant mb-8">
+<span class="w-2 h-2 bg-terminal-green status-pulse"></span>
+<span class="font-code-sm text-code-sm text-terminal-green">SYSTEM_ACTIVE: UPTIME 99.9%</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl mb-6">
+                    NYUYDINE BILL LEYNYUY<br/>
+<span class="text-electric-cyan">SYSTEM ARCHITECT</span>
+</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mb-10 border-l-2 border-outline-variant pl-6">
+                    Designing and building production software systems: architecture, full-stack engineering, AI services, and cloud infrastructure. I work across the full stack, spanning product and software architecture, backend, frontend, mobile engineering, AI systems, and cloud infrastructure.
+                </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-8 py-4 hover:brightness-110 transition-all rounded-sm flex items-center gap-2">
+                        INITIATE_PROJECT <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="bg-transparent border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-8 py-4 hover:border-electric-cyan hover:text-electric-cyan transition-all rounded-sm">
+                        VIEW_ARCHIVE
+                    </button>
+</div>
+</div>
+</section>
+<!-- Core Expertise (Bento Grid) -->
+<section class="py-24 border-b border-outline-variant" id="expertise">
+<div class="mb-12">
+<h2 class="font-label-caps text-label-caps text-electric-cyan mb-2">01 // DOMAIN_CAPABILITIES</h2>
+<h3 class="font-headline-lg text-headline-lg">Core Expertise</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Expertise Card 1 -->
+<div class="bg-surface-container-low border border-outline-variant p-8 architect-card-hover transition-all">
+<span class="material-symbols-outlined text-electric-cyan text-4xl mb-6" data-icon="architecture">architecture</span>
+<h4 class="font-label-caps text-label-caps text-primary mb-4">Software Architecture</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">System design, service boundaries, microservices, and distributed systems architecture with a focus on observability.</p>
+<ul class="font-code-sm text-code-sm text-on-surface-variant space-y-2">
+<li class="flex items-center gap-2"><span class="w-1 h-1 bg-electric-cyan"></span> Distributed Systems</li>
+<li class="flex items-center gap-2"><span class="w-1 h-1 bg-electric-cyan"></span> REST API Design</li>
+<li class="flex items-center gap-2"><span class="w-1 h-1 bg-electric-cyan"></span> Database Normalization</li>
+</ul>
+</div>
+<!-- Expertise Card 2 -->
+<div class="bg-surface-container-low border border-outline-variant p-8 architect-card-hover transition-all">
+<span class="material-symbols-outlined text-electric-cyan text-4xl mb-6" data-icon="psychology">psychology</span>
+<h4 class="font-label-caps text-label-caps text-primary mb-4">AI Systems</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Integrating LLMs and ML pipelines into production systems. Explainable AI and reliable workflow orchestration.</p>
+<ul class="font-code-sm text-code-sm text-on-surface-variant space-y-2">
+<li class="flex items-center gap-2"><span class="w-1 h-1 bg-electric-cyan"></span> NLP &amp; Prompt Engineering</li>
+<li class="flex items-center gap-2"><span class="w-1 h-1 bg-electric-cyan"></span> Inference Microservices</li>
+<li class="flex items-center gap-2"><span class="w-1 h-1 bg-electric-cyan"></span> AI Orchestration</li>
+</ul>
+</div>
+<!-- Expertise Card 3 -->
+<div class="bg-surface-container-low border border-outline-variant p-8 architect-card-hover transition-all">
+<span class="material-symbols-outlined text-electric-cyan text-4xl mb-6" data-icon="cloud">cloud</span>
+<h4 class="font-label-caps text-label-caps text-primary mb-4">Cloud Infrastructure</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Operating highly available systems on Azure and AWS. CI/CD automation and container orchestration.</p>
+<ul class="font-code-sm text-code-sm text-on-surface-variant space-y-2">
+<li class="flex items-center gap-2"><span class="w-1 h-1 bg-electric-cyan"></span> Docker &amp; Kubernetes</li>
+<li class="flex items-center gap-2"><span class="w-1 h-1 bg-electric-cyan"></span> GitHub Actions CI/CD</li>
+<li class="flex items-center gap-2"><span class="w-1 h-1 bg-electric-cyan"></span> Monitoring &amp; Alerts</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Flagship Projects -->
+<section class="py-24 border-b border-outline-variant" id="projects">
+<div class="mb-12">
+<h2 class="font-label-caps text-label-caps text-electric-cyan mb-2">02 // DEPLOYED_SYSTEMS</h2>
+<h3 class="font-headline-lg text-headline-lg">Flagship Projects</h3>
+</div>
+<div class="space-y-12">
+<!-- Project 1: ResolveMeQ -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<div class="lg:col-span-7 bg-surface-container-low border border-outline-variant overflow-hidden">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container">
+<span class="font-code-sm text-code-sm text-on-surface-variant">RESOLVEMEQ // DASHBOARD_VIEW</span>
+<div class="flex gap-1.5">
+<div class="w-2 h-2 rounded-full bg-error/40"></div>
+<div class="w-2 h-2 rounded-full bg-primary/40"></div>
+<div class="w-2 h-2 rounded-full bg-terminal-green/40"></div>
+</div>
+</div>
+<img class="w-full aspect-video object-cover opacity-80 hover:opacity-100 transition-opacity" data-alt="A clean, dark-mode SaaS dashboard interface for ResolveMeQ, showing a dense but organized layout of IT support tickets, AI resolution stats, and real-time system monitoring graphs with electric blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5Fm8ufZdUCZxVHZ58oHz4flmLmG_pGPCKvD-Cxrw4BlkP2X9PLoPVmR25T4S2Z79xxg06AkBXg8E1oLw53phFfsspkegQCwOP8dqrM6ChBap8_-tlK-eOSAVzpEhZ4MVg9W17966rOBj_k9s8eCRFRO3DV5srRULj5SMS3k5d3jy3TgMBGG9VVolkzL58fCQNeIxnj6U3XAss1NXe-Ar9YTgfvJ1hqt7A_wRG83i1rE9DqjrEW9R-NUGl0q-ZusrxMpNELe4hnLA"/>
+</div>
+<div class="lg:col-span-5">
+<div class="inline-block px-2 py-0.5 bg-electric-cyan/10 text-electric-cyan font-label-caps text-[10px] mb-4">SaaS PLATFORM</div>
+<h4 class="font-headline-lg text-headline-lg mb-4">ResolveMeQ</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+                            AI-powered SaaS platform for IT-helpdesk automation. Architected as a modular system separating Django API, FastAPI AI services, and React client.
+                        </p>
+<div class="grid grid-cols-2 gap-4 mb-8">
+<div class="p-4 bg-surface-container border border-outline-variant">
+<p class="font-label-caps text-[10px] text-on-surface-variant mb-1">LATENCY</p>
+<p class="font-metric-lg text-metric-lg text-primary">&lt;45ms</p>
+</div>
+<div class="p-4 bg-surface-container border border-outline-variant">
+<p class="font-label-caps text-[10px] text-on-surface-variant mb-1">ACCURACY</p>
+<p class="font-metric-lg text-metric-lg text-terminal-green">94.2%</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="bg-surface-variant px-2 py-1 font-code-sm text-[12px] text-on-surface-variant border border-outline-variant">Python</span>
+<span class="bg-surface-variant px-2 py-1 font-code-sm text-[12px] text-on-surface-variant border border-outline-variant">FastAPI</span>
+<span class="bg-surface-variant px-2 py-1 font-code-sm text-[12px] text-on-surface-variant border border-outline-variant">PostgreSQL</span>
+<span class="bg-surface-variant px-2 py-1 font-code-sm text-[12px] text-on-surface-variant border border-outline-variant">Docker</span>
+</div>
+<a class="inline-flex items-center gap-2 font-label-caps text-label-caps text-electric-cyan hover:underline" href="#">
+                            EXPLORE_ARCHITECTURE <span class="material-symbols-outlined text-sm" data-icon="open_in_new">open_in_new</span>
+</a>
+</div>
+</div>
+<!-- Project 2: CDTN -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start pt-12 border-t border-outline-variant">
+<div class="lg:col-span-5 order-2 lg:order-1">
+<div class="inline-block px-2 py-0.5 bg-tertiary/10 text-tertiary font-label-caps text-[10px] mb-4">NATIONAL_INFRASTRUCTURE</div>
+<h4 class="font-headline-lg text-headline-lg mb-4">Cameroon Digital Trust Network</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+                            Enterprise architecture initiative for a national-scale, AI-powered digital trust and verification platform with Explainable AI reasoning.
+                        </p>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-electric-cyan mt-1" data-icon="verified_user">verified_user</span>
+<div>
+<p class="font-label-caps text-[12px] text-primary">Trust Intelligence Pipeline</p>
+<p class="font-code-sm text-[13px] text-on-surface-variant">Multi-engine risk scoring and evidence correlation.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-electric-cyan mt-1" data-icon="visibility">visibility</span>
+<div>
+<p class="font-label-caps text-[12px] text-primary">Auditable XAI</p>
+<p class="font-code-sm text-[13px] text-on-surface-variant">Transparent reasoning systems for high-stakes decisions.</p>
+</div>
+</div>
+</div>
+<a class="inline-flex items-center gap-2 font-label-caps text-label-caps text-electric-cyan hover:underline" href="#">
+                            REVIEW_SPECIFICATIONS <span class="material-symbols-outlined text-sm" data-icon="description">description</span>
+</a>
+</div>
+<div class="lg:col-span-7 order-1 lg:order-2 bg-surface-container-low border border-outline-variant overflow-hidden">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container">
+<span class="font-code-sm text-code-sm text-on-surface-variant">CDTN // ARCHITECTURE_SCHEMATIC</span>
+<span class="font-code-sm text-code-sm text-terminal-green">ENCRYPTED_STREAM</span>
+</div>
+<img class="w-full aspect-video object-cover opacity-80 hover:opacity-100 transition-opacity" data-alt="A highly complex and detailed architectural diagram for the Cameroon Digital Trust Network, showing various layers like evidence correlation, risk scoring, and policy verification, rendered in a professional technical drafting style with white lines on a charcoal background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR1Dhw6NjqVldJvbPKJgIJxtXQlV7X2fnSU8Diqzdd8Iw1KPIN_FpDD88JCyd_qUZROhiKzWAqqiN1HReR9o-9wpJNc4SUD4X_OrHpZSmRyPoRW1ZIj6MntHULRCy9DxzXRLOwU36FvMP-qMFnniPbmTwl9MjsGdtvnzqHL2pDFeVjIHMLwafdBgFostvtdRVoIMR1nCjvNtj4_VALypT46NQCBebaw01X1nASvi5sQNC9ZeKBYCh9vAFVCz5GjSMuIQ0hcAYAvQc"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Technical Stack -->
+<section class="py-24 border-b border-outline-variant" id="stack">
+<div class="mb-12">
+<h2 class="font-label-caps text-label-caps text-electric-cyan mb-2">03 // ENGINE_ROOM</h2>
+<h3 class="font-headline-lg text-headline-lg">Technical Stack</h3>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<div class="space-y-6">
+<h5 class="font-label-caps text-label-caps text-primary border-b border-outline-variant pb-2">LANGUAGES</h5>
+<div class="flex flex-col gap-3 font-code-sm text-code-sm text-on-surface-variant">
+<span>Python (Expert)</span>
+<span>TypeScript / JS</span>
+<span>Java</span>
+<span>C / C++</span>
+</div>
+</div>
+<div class="space-y-6">
+<h5 class="font-label-caps text-label-caps text-primary border-b border-outline-variant pb-2">FRAMEWORKS</h5>
+<div class="flex flex-col gap-3 font-code-sm text-code-sm text-on-surface-variant">
+<span>Django / DRF</span>
+<span>FastAPI</span>
+<span>React / Next.js</span>
+<span>React Native</span>
+</div>
+</div>
+<div class="space-y-6">
+<h5 class="font-label-caps text-label-caps text-primary border-b border-outline-variant pb-2">INFRASTRUCTURE</h5>
+<div class="flex flex-col gap-3 font-code-sm text-code-sm text-on-surface-variant">
+<span>Azure / AWS</span>
+<span>Docker / K8s</span>
+<span>PostgreSQL</span>
+<span>Redis / RabbitMQ</span>
+</div>
+</div>
+<div class="space-y-6">
+<h5 class="font-label-caps text-label-caps text-primary border-b border-outline-variant pb-2">AI &amp; DATA</h5>
+<div class="flex flex-col gap-3 font-code-sm text-code-sm text-on-surface-variant">
+<span>LLM Orchestration</span>
+<span>NLP (spaCy)</span>
+<span>Prompt Engineering</span>
+<span>ML Deployment</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Experience Timeline -->
+<section class="py-24" id="timeline">
+<div class="mb-12">
+<h2 class="font-label-caps text-label-caps text-electric-cyan mb-2">04 // VERSION_HISTORY</h2>
+<h3 class="font-headline-lg text-headline-lg">Professional Experience</h3>
+</div>
+<div class="space-y-8 relative before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-outline-variant">
+<!-- Timeline Item 1 -->
+<div class="pl-8 relative">
+<div class="absolute left-[-4px] top-2 w-2 h-2 bg-electric-cyan rounded-full"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+<h4 class="font-label-caps text-label-caps text-primary">Full-Stack &amp; AI Engineer // UmEmployed</h4>
+<span class="font-code-sm text-code-sm text-on-surface-variant">2023 — 2026</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        USA-based recruitment platform. Built core AI matching engines (85%+ accuracy), cross-platform mobile apps, and scalable Azure/Docker infrastructure.
+                    </p>
+</div>
+<!-- Timeline Item 2 -->
+<div class="pl-8 relative">
+<div class="absolute left-[-4px] top-2 w-2 h-2 bg-outline rounded-full"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+<h4 class="font-label-caps text-label-caps text-primary">Software Engineer // Skye8</h4>
+<span class="font-code-sm text-code-sm text-on-surface-variant">2025</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Built NLP microservices with FastAPI and gRPC. Automated CI/CD pipelines reducing deployment time by 40%.
+                    </p>
+</div>
+<!-- Timeline Item 3 -->
+<div class="pl-8 relative">
+<div class="absolute left-[-4px] top-2 w-2 h-2 bg-outline rounded-full"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+<h4 class="font-label-caps text-label-caps text-primary">Full-Stack Engineer // ZiloTech</h4>
+<span class="font-code-sm text-code-sm text-on-surface-variant">2023 — 2025</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Delivered Z-Learn (EdTech) and Yamo (Food Delivery) end-to-end. Integrated local payment gateways and real-time tracking systems.
+                    </p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Component -->
+<footer class="w-full py-8 px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-gutter bg-surface-dim border-t border-outline-variant">
+<div class="font-label-caps text-label-caps text-primary">
+            NYUYDINE_BILL_LEYNYUY
+        </div>
+<div class="font-code-sm text-code-sm text-on-surface-variant opacity-80">
+            © 2024 SYSTEM_ARCHITECT. ALL RIGHTS RESERVED.
+        </div>
+<div class="flex gap-6">
+<a class="font-code-sm text-code-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="https://github.com/NyuydineBill">GITHUB</a>
+<a class="font-code-sm text-code-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="https://linkedin.com/in/nyuydine-bill">LINKEDIN</a>
+<a class="font-code-sm text-code-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">SYSTEM_STATUS</a>
+</div>
+</footer>
+<!-- Micro-interaction Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.architect-card-hover');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+        });
+    </script>
+</body></html>

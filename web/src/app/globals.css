@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0a0e17;
+  --surface: #10151f;
+  --surface-high: #171d2b;
+  --border: #232b3d;
+  --foreground: #e7ebf3;
+  --muted: #8b96ab;
+  --accent: #5fd0e8;
+  --accent-strong: #8fe0f2;
+  --positive: #34d399;
+  --gold: #e8b872;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-high: var(--surface-high);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-positive: var(--positive);
+  --color-gold: var(--gold);
+  --font-sans: var(--font-hanken);
+  --font-mono: var(--font-jetbrains);
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  background:
+    radial-gradient(ellipse 900px 600px at 15% -10%, rgba(95, 208, 232, 0.10), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 100% 10%, rgba(232, 184, 114, 0.06), transparent 55%),
+    var(--background);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(231, 235, 243, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 80% 60% at 20% 0%, black, transparent 70%);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--background);
+}
+
+.prose-article {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--muted);
+}
+.prose-article > * + * {
+  margin-top: 1.25em;
+}
+.prose-article h1,
+.prose-article h2,
+.prose-article h3,
+.prose-article h4 {
+  color: var(--foreground);
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 2em;
+}
+.prose-article h1 { font-size: 1.75rem; }
+.prose-article h2 { font-size: 1.5rem; }
+.prose-article h3 { font-size: 1.25rem; }
+.prose-article p { color: var(--muted); }
+.prose-article a { color: var(--accent); text-underline-offset: 2px; }
+.prose-article a:hover { text-decoration: underline; }
+.prose-article strong { color: var(--foreground); font-weight: 600; }
+.prose-article ul,
+.prose-article ol {
+  padding-left: 1.5em;
+}
+.prose-article ul { list-style: disc; }
+.prose-article ol { list-style: decimal; }
+.prose-article li + li { margin-top: 0.4em; }
+.prose-article blockquote {
+  border-left: 2px solid var(--accent);
+  padding-left: 1em;
+  color: var(--foreground);
+  font-style: italic;
+}
+.prose-article code {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.875em;
+  background: var(--surface-high);
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  padding: 0.1em 0.4em;
+}
+.prose-article pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1em;
+  overflow-x: auto;
+}
+.prose-article pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+.prose-article hr {
+  border-color: var(--border);
+}
+.prose-article table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+.prose-article th,
+.prose-article td {
+  border: 1px solid var(--border);
+  padding: 0.5em 0.75em;
+  text-align: left;
+}
+.prose-article img {
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

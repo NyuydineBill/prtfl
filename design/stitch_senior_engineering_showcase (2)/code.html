@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Technical Stack | ARCHITECT_OS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#171f33",
+                    "inverse-on-surface": "#283044",
+                    "primary-container": "#0ea5e9",
+                    "surface-container-low": "#131b2e",
+                    "surface-dim": "#0b1326",
+                    "surface-variant": "#2d3449",
+                    "on-secondary-fixed": "#0d1c2d",
+                    "on-error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#00201c",
+                    "surface-tint": "#89ceff",
+                    "on-surface-variant": "#bec8d2",
+                    "outline-variant": "#3e4850",
+                    "tertiary": "#3cddc7",
+                    "secondary-container": "#39485a",
+                    "on-tertiary-container": "#003b34",
+                    "error": "#ffb4ab",
+                    "on-primary-container": "#003751",
+                    "electric-cyan": "#22D3EE",
+                    "on-primary-fixed-variant": "#004c6e",
+                    "primary": "#89ceff",
+                    "slate-surface": "#1E293B",
+                    "on-primary-fixed": "#001e2f",
+                    "on-primary": "#00344d",
+                    "error-container": "#93000a",
+                    "surface-bright": "#31394d",
+                    "tertiary-container": "#00af9d",
+                    "secondary": "#b9c8de",
+                    "tertiary-fixed-dim": "#3cddc7",
+                    "surface-container-lowest": "#060e20",
+                    "inverse-surface": "#dae2fd",
+                    "blueprint-grid": "rgba(30, 41, 59, 0.5)",
+                    "on-error": "#690005",
+                    "on-tertiary-fixed-variant": "#005047",
+                    "outline": "#88929b",
+                    "on-background": "#dae2fd",
+                    "on-secondary": "#233143",
+                    "on-tertiary": "#003731",
+                    "on-secondary-fixed-variant": "#39485a",
+                    "background": "#0b1326",
+                    "surface": "#0b1326",
+                    "primary-fixed": "#c9e6ff",
+                    "secondary-fixed-dim": "#b9c8de",
+                    "on-secondary-container": "#a7b6cc",
+                    "on-surface": "#dae2fd",
+                    "inverse-primary": "#006591",
+                    "terminal-green": "#10B981",
+                    "surface-container-high": "#222a3d",
+                    "deep-charcoal": "#020617",
+                    "secondary-fixed": "#d4e4fa",
+                    "tertiary-fixed": "#62fae3",
+                    "primary-fixed-dim": "#89ceff",
+                    "surface-container-highest": "#2d3449"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-desktop": "64px",
+                    "grid-unit": "8px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "metric-lg": ["JetBrains Mono"],
+                    "code-sm": ["JetBrains Mono"],
+                    "label-caps": ["JetBrains Mono"],
+                    "headline-xl": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "metric-lg": ["24px", {"lineHeight": "1.0", "fontWeight": "700"}],
+                    "code-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-image: radial-gradient(var(--blueprint-grid) 1px, transparent 1px);
+            background-size: 24px 24px;
+            scroll-behavior: smooth;
+        }
+        .technical-border {
+            border: 1px solid #334155;
+        }
+        .status-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(8px);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-background/80 backdrop-blur-md border-b border-outline-variant">
+<div class="font-label-caps text-label-caps font-bold text-electric-cyan">ROOT &gt; ARCHITECTURE</div>
+<nav class="hidden md:flex gap-8">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">EXPERTISE</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">PROJECTS</a>
+<a class="font-label-caps text-label-caps text-electric-cyan border-b border-electric-cyan pb-1" href="#">STACK</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">TIMELINE</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-variant/20 p-2 rounded">terminal</span>
+<button class="bg-primary-container text-on-primary-container px-4 py-2 font-label-caps text-label-caps font-bold hover:brightness-110 transition-all">DOWNLOAD_CV</button>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-0 h-full z-40 bg-surface-container-low border-r border-outline-variant w-64 pt-20">
+<div class="px-6 py-4 border-b border-outline-variant mb-4">
+<div class="font-label-caps text-label-caps text-primary font-bold">ARCHITECT_OS</div>
+<div class="font-code-sm text-code-sm text-on-surface-variant">v4.2.0-stable</div>
+</div>
+<nav class="flex-1">
+<div class="px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 font-code-sm text-code-sm text-on-surface-variant hover:bg-surface-container-high group transition-colors" href="#">
+<span class="material-symbols-outlined text-primary">architecture</span> Expertise
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 font-code-sm text-code-sm text-on-surface-variant hover:bg-surface-container-high group transition-colors" href="#">
+<span class="material-symbols-outlined text-primary">account_tree</span> Projects
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 font-code-sm text-code-sm bg-surface-variant text-electric-cyan border-r-2 border-electric-cyan group transition-colors" href="#">
+<span class="material-symbols-outlined">layers</span> Stack
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 font-code-sm text-code-sm text-on-surface-variant hover:bg-surface-container-high group transition-colors" href="#">
+<span class="material-symbols-outlined text-primary">history</span> Timeline
+                </a>
+</div>
+</nav>
+<div class="px-4 py-6 border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 font-code-sm text-code-sm text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span> Settings
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 font-code-sm text-code-sm text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">database</span> Logs
+            </a>
+</div>
+</aside>
+<main class="lg:ml-64 pt-24 pb-20 px-4 md:px-margin-desktop">
+<!-- Hero Section / Title -->
+<section class="mb-12">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-2 h-2 rounded-full bg-terminal-green status-pulse"></div>
+<span class="font-label-caps text-label-caps text-terminal-green">SYSTEM STATUS: OPTIMIZED</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface max-w-3xl">TECHNICAL_STACK_EXPLORER</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4 max-w-2xl">
+                A high-density visualization of the architectural components, development environments, and intelligence pipelines powering production systems.
+            </p>
+</section>
+<!-- Bento Grid Stack -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- AI Engineering & Orchestration (Primary Focus) -->
+<div class="md:col-span-8 technical-border bg-surface-container p-6 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[120px]">smart_toy</span>
+</div>
+<div class="relative z-10">
+<header class="flex justify-between items-start mb-8">
+<div>
+<div class="font-label-caps text-label-caps text-electric-cyan mb-1">MODULE_01</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">AI ENGINEERING</h2>
+</div>
+<div class="bg-surface-variant/40 technical-border px-3 py-1 font-code-sm text-code-sm text-terminal-green">
+                            LATENCY: 35ms P95
+                        </div>
+</header>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+<div class="space-y-4">
+<h3 class="font-label-caps text-label-caps text-primary border-b border-outline-variant pb-2">LLM &amp; PROMPT WORKFLOWS</h3>
+<ul class="space-y-3">
+<li class="flex items-start gap-2 font-code-sm text-code-sm text-on-surface-variant">
+<span class="text-electric-cyan">▹</span>
+<span>Multi-step reasoning pipelines with structured output parsing (JSON/Schema)</span>
+</li>
+<li class="flex items-start gap-2 font-code-sm text-code-sm text-on-surface-variant">
+<span class="text-electric-cyan">▹</span>
+<span>Context injection &amp; RAG (Retrieval-Augmented Generation) architectures</span>
+</li>
+<li class="flex items-start gap-2 font-code-sm text-code-sm text-on-surface-variant">
+<span class="text-electric-cyan">▹</span>
+<span>Model fine-tuning and evaluation against live usage telemetry</span>
+</li>
+</ul>
+</div>
+<div class="space-y-4">
+<h3 class="font-label-caps text-label-caps text-primary border-b border-outline-variant pb-2">APPLIED INTELLIGENCE</h3>
+<div class="flex flex-wrap gap-2">
+<span class="bg-slate-surface technical-border px-2 py-1 font-code-sm text-code-sm">FastAPI Inference</span>
+<span class="bg-slate-surface technical-border px-2 py-1 font-code-sm text-code-sm">spaCy NLP</span>
+<span class="bg-slate-surface technical-border px-2 py-1 font-code-sm text-code-sm">Explainable AI</span>
+<span class="bg-slate-surface technical-border px-2 py-1 font-code-sm text-code-sm">Resume Scoring</span>
+<span class="bg-slate-surface technical-border px-2 py-1 font-code-sm text-code-sm">Recommendation Engines</span>
+<span class="bg-slate-surface technical-border px-2 py-1 font-code-sm text-code-sm">Vector DBs</span>
+</div>
+</div>
+</div>
+<div class="mt-8 p-4 bg-surface-container-low technical-border border-dashed border-electric-cyan/30">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-2">SYSTEM_LOG: RESOLVEMEQ_ORCHESTRATOR</div>
+<code class="font-code-sm text-code-sm text-electric-cyan/80 block">
+                            [INFO] Initializing multi-agent ticket triage pipeline...<br/>
+                            [INFO] Analyzing intent: "Billing issue, high priority"<br/>
+                            [EXEC] Routing to L2_SUPPORT_LLM with Context_RAG...<br/>
+                            [DONE] Resolution generated with 98.4% confidence score.
+                        </code>
+</div>
+</div>
+</div>
+<!-- Core Languages -->
+<div class="md:col-span-4 technical-border bg-surface-container-low p-6 flex flex-col">
+<div class="font-label-caps text-label-caps text-electric-cyan mb-1">MODULE_02</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-6">LANGUAGES</h2>
+<div class="flex-1 space-y-4">
+<div class="flex justify-between items-end">
+<span class="font-code-sm text-code-sm text-on-surface">Python</span>
+<div class="flex-1 mx-4 h-[1px] bg-outline-variant mb-1.5"></div>
+<span class="font-code-sm text-code-sm text-primary">Mastery</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="font-code-sm text-code-sm text-on-surface">TypeScript</span>
+<div class="flex-1 mx-4 h-[1px] bg-outline-variant mb-1.5"></div>
+<span class="font-code-sm text-code-sm text-primary">Mastery</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="font-code-sm text-code-sm text-on-surface">JavaScript</span>
+<div class="flex-1 mx-4 h-[1px] bg-outline-variant mb-1.5"></div>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Expert</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="font-code-sm text-code-sm text-on-surface">Java</span>
+<div class="flex-1 mx-4 h-[1px] bg-outline-variant mb-1.5"></div>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Expert</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="font-code-sm text-code-sm text-on-surface">C / C++</span>
+<div class="flex-1 mx-4 h-[1px] bg-outline-variant mb-1.5"></div>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Core</span>
+</div>
+</div>
+<div class="mt-8 flex justify-center">
+<div class="w-full h-32 relative">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent"></div>
+<div class="w-full h-full object-cover grayscale opacity-30 mix-blend-screen" data-alt="A sophisticated digital visualization of a code spectrum with various programming language logos glowing in electric blue and cyan colors, arranged in a futuristic grid pattern within a dark technical console interface." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCweAw98uUVVjOUEnIY1UKd7qo0aoYEtq-eFb3WAa1LIVL3EKm_mRcSC7q9Xf7jF2DuN__mIVeUCQZyIsr8gEe2aVU810MBvzKgIAI0HEX8KS9JgfNmfXKhaVbUt9WZcnPqxUU2B_NuFjEbUAp12teHIAHiGvYqNyZUOWo6ajSUC-qKr9-IMiW8Z5eRQezNxn2sCyF-56BJygCT7n2mob4TN2rL6yo_DhuJGyEIItEReXd1VBuJy4Q0RAdKXa0-9cfBYtO_0F2BV1c')"></div>
+</div>
+</div>
+</div>
+<!-- Frontend & Mobile -->
+<div class="md:col-span-5 technical-border bg-surface-container-low p-6">
+<div class="font-label-caps text-label-caps text-electric-cyan mb-1">MODULE_03</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-6">INTERFACE_ENGINEERING</h2>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-variant/20 p-4 technical-border hover:border-primary transition-colors cursor-default">
+<div class="font-label-caps text-label-caps text-primary mb-2">REACT / NEXT.JS</div>
+<p class="font-code-sm text-code-sm text-on-surface-variant">SSR, App Router, Hydration Strategy</p>
+</div>
+<div class="bg-surface-variant/20 p-4 technical-border hover:border-primary transition-colors cursor-default">
+<div class="font-label-caps text-label-caps text-primary mb-2">REACT NATIVE</div>
+<p class="font-code-sm text-code-sm text-on-surface-variant">Cross-platform deployment (iOS/Android)</p>
+</div>
+<div class="bg-surface-variant/20 p-4 technical-border hover:border-primary transition-colors cursor-default">
+<div class="font-label-caps text-label-caps text-primary mb-2">TAILWIND / BOOTSTRAP</div>
+<p class="font-code-sm text-code-sm text-on-surface-variant">Atomic CSS &amp; Design System Implementation</p>
+</div>
+<div class="bg-surface-variant/20 p-4 technical-border hover:border-primary transition-colors cursor-default">
+<div class="font-label-caps text-label-caps text-primary mb-2">REDUX / ZUSTAND</div>
+<p class="font-code-sm text-code-sm text-on-surface-variant">Complex state machines &amp; global storage</p>
+</div>
+</div>
+</div>
+<!-- Backend & Databases -->
+<div class="md:col-span-7 technical-border bg-surface-container-low p-6">
+<div class="font-label-caps text-label-caps text-electric-cyan mb-1">MODULE_04</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-6">SYSTEM_BACKBONE</h2>
+<div class="flex flex-col md:flex-row gap-6">
+<div class="flex-1 space-y-6">
+<div>
+<h3 class="font-label-caps text-label-caps text-primary mb-3">SERVER FRAMEWORKS</h3>
+<div class="flex flex-wrap gap-2">
+<span class="bg-slate-surface technical-border px-3 py-1 font-code-sm text-code-sm text-on-surface">Django</span>
+<span class="bg-slate-surface technical-border px-3 py-1 font-code-sm text-code-sm text-on-surface">FastAPI</span>
+<span class="bg-slate-surface technical-border px-3 py-1 font-code-sm text-code-sm text-on-surface">Node.js</span>
+</div>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps text-primary mb-3">DATA PERSISTENCE</h3>
+<div class="flex flex-wrap gap-2">
+<span class="bg-slate-surface technical-border px-3 py-1 font-code-sm text-code-sm text-on-surface">PostgreSQL</span>
+<span class="bg-slate-surface technical-border px-3 py-1 font-code-sm text-code-sm text-on-surface">MySQL</span>
+<span class="bg-slate-surface technical-border px-3 py-1 font-code-sm text-code-sm text-on-surface">SQLite</span>
+<span class="bg-slate-surface technical-border px-3 py-1 font-code-sm text-code-sm text-on-surface">Redis</span>
+</div>
+</div>
+</div>
+<div class="w-full md:w-48 bg-surface-container h-full min-h-[160px] technical-border border-dashed p-4 flex flex-col justify-center items-center">
+<div class="font-label-caps text-label-caps text-on-surface-variant text-center mb-4">API_SPEC</div>
+<div class="text-electric-cyan text-4xl mb-2">
+<span class="material-symbols-outlined text-4xl">api</span>
+</div>
+<div class="font-code-sm text-code-sm text-terminal-green">REST / gRPC / GraphQL</div>
+</div>
+</div>
+</div>
+<!-- Cloud & DevOps (Bento Box) -->
+<div class="md:col-span-12 technical-border bg-deep-charcoal p-8 relative overflow-hidden">
+<div class="absolute inset-0 opacity-20">
+
+</div>
+<div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+<div>
+<div class="font-label-caps text-label-caps text-electric-cyan mb-1">MODULE_05</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">CLOUD_INFRA</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Scalable containerized deployments with strict CI/CD pipelines.</p>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-3xl text-primary">cloud_done</span>
+<div class="font-code-sm text-code-sm">
+<div class="text-on-surface">AZURE &amp; AWS ECOSYSTEM</div>
+<div class="text-on-surface-variant">Production Management</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container technical-border p-4 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-primary mb-2">dock</span>
+<div class="font-label-caps text-label-caps">DOCKER</div>
+</div>
+<div class="bg-surface-container technical-border p-4 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-primary mb-2">hub</span>
+<div class="font-label-caps text-label-caps">K8S / HELM</div>
+</div>
+<div class="bg-surface-container technical-border p-4 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-primary mb-2">terminal</span>
+<div class="font-label-caps text-label-caps">GITHUB ACTIONS</div>
+</div>
+<div class="bg-surface-container technical-border p-4 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-primary mb-2">monitoring</span>
+<div class="font-label-caps text-label-caps">GRAFANA</div>
+</div>
+</div>
+<div class="bg-surface-container/50 technical-border p-6 backdrop-blur-md">
+<h3 class="font-label-caps text-label-caps text-primary mb-4">SECURITY_PROTOCOL</h3>
+<ul class="space-y-3 font-code-sm text-code-sm text-on-surface-variant">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-terminal-green">check_circle</span>
+                                OAuth2 &amp; JWT Implementation
+                            </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-terminal-green">check_circle</span>
+                                IAM Policy Management
+                            </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-terminal-green">check_circle</span>
+                                Secure API Surface Design
+                            </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-terminal-green">check_circle</span>
+                                Audit Logs &amp; Observability
+                            </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- System Architecture Philosophy (Visual Callout) -->
+<section class="mt-20 technical-border p-8 bg-surface-container-high relative">
+<div class="max-w-4xl">
+<div class="font-label-caps text-label-caps text-electric-cyan mb-2">CORE_TENET</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-6">"I THINK IN SYSTEMS BEFORE WRITING CODE."</h2>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="space-y-2">
+<div class="font-label-caps text-label-caps text-primary">01_PRECISION</div>
+<p class="font-code-sm text-code-sm text-on-surface-variant">Defining service boundaries, APIs, and data models up front to ensure modularity.</p>
+</div>
+<div class="space-y-2">
+<div class="font-label-caps text-label-caps text-primary">02_RELIABILITY</div>
+<p class="font-code-sm text-code-sm text-on-surface-variant">Production reliability and observability are treated as design constraints, not afterthoughts.</p>
+</div>
+<div class="space-y-2">
+<div class="font-label-caps text-label-caps text-primary">03_TRANSPARENCY</div>
+<p class="font-code-sm text-code-sm text-on-surface-variant">Architecting explainable AI systems with auditability and human-review guardrails.</p>
+</div>
+</div>
+</div>
+<div class="absolute right-0 top-0 bottom-0 w-32 hidden md:block opacity-10 pointer-events-none overflow-hidden">
+<div class="text-[200px] font-bold text-outline select-none rotate-90 origin-center translate-x-12 translate-y-20">SYSTEM</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-gutter bg-surface-dim border-t border-outline-variant">
+<div class="font-label-caps text-label-caps text-primary">ARCHITECT_OS // v4.2.0</div>
+<div class="font-code-sm text-code-sm text-on-surface-variant">© 2024 SYSTEM_ARCHITECT. ALL RIGHTS RESERVED.</div>
+<div class="flex gap-6">
+<a class="font-code-sm text-code-sm text-on-surface-variant hover:text-primary hover:underline transition-all opacity-80 hover:opacity-100" href="#">GITHUB</a>
+<a class="font-code-sm text-code-sm text-on-surface-variant hover:text-primary hover:underline transition-all opacity-80 hover:opacity-100" href="#">LINKEDIN</a>
+<a class="font-code-sm text-code-sm text-on-surface-variant hover:text-primary hover:underline transition-all opacity-80 hover:opacity-100 flex items-center gap-1" href="#">
+<div class="w-1.5 h-1.5 rounded-full bg-terminal-green"></div> SYSTEM_STATUS
+            </a>
+</div>
+</footer>
+<!-- Micro-interaction Scripts -->
+<script>
+        // Simple hover effect for technical cards
+        document.querySelectorAll('.technical-border').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.borderColor = 'var(--electric-cyan)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.borderColor = '#334155';
+            });
+        });
+
+        // Atmospheric terminal effect
+        const logContent = [
+            "[INFO] Initializing multi-agent ticket triage pipeline...",
+            "[INFO] Analyzing intent: 'Billing issue, high priority'",
+            "[EXEC] Routing to L2_SUPPORT_LLM with Context_RAG...",
+            "[DONE] Resolution generated with 98.4% confidence score.",
+            "[SYNC] Databases updated at node 04A...",
+            "[SCAN] Security headers validated..."
+        ];
+        
+        let logIndex = 4;
+        setInterval(() => {
+            const logContainer = document.querySelector('code');
+            if(logContainer) {
+                const nextLog = logContent[logIndex % logContent.length];
+                const lines = logContainer.innerHTML.split('<br>');
+                lines.shift();
+                lines.push(nextLog);
+                logContainer.innerHTML = lines.join('<br>');
+                logIndex++;
+            }
+        }, 3000);
+    </script>
+</body></html>

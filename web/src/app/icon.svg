@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#0a0e17" />
+  <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#232b3d" stroke-width="2" />
+  <text
+    x="32"
+    y="34"
+    text-anchor="middle"
+    dominant-baseline="central"
+    font-family="ui-monospace, 'JetBrains Mono', Menlo, monospace"
+    font-size="24"
+    font-weight="700"
+    fill="#5fd0e8"
+  >NB</text>
+</svg>
