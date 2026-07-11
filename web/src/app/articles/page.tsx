@@ -31,7 +31,7 @@ export default async function ArticlesPage() {
         />
       </Reveal>
 
-      <Reveal className="mb-12" delay={0.05}>
+      <Reveal className="mb-8 sm:mb-12" delay={0.05}>
         <SubscribeForm />
       </Reveal>
 

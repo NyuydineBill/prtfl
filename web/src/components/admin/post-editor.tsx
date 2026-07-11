@@ -122,6 +122,14 @@ export function PostEditor({ post }: { post?: Post }) {
       return;
     }
 
+    if (nextStatus === "published" && post?.status !== "published") {
+      fetch("/api/admin/notify-subscribers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, slug, excerpt }),
+      }).catch(() => {});
+    }
+
     setStatus(nextStatus);
     router.push("/admin");
     router.refresh();

@@ -35,7 +35,7 @@ export function SectionHeading({
   description?: string;
 }) {
   return (
-    <div className="mb-12 max-w-2xl">
+    <div className="mb-8 max-w-2xl sm:mb-12">
       {eyebrow && (
         <p className="font-mono text-xs uppercase tracking-wider text-accent">
           {typeof index === "number" && (
@@ -44,9 +44,9 @@ export function SectionHeading({
           {eyebrow}
         </p>
       )}
-      <h2 className="mt-3 text-3xl font-semibold text-foreground sm:text-4xl">{title}</h2>
+      <h2 className="mt-2 text-2xl font-semibold text-foreground sm:mt-3 sm:text-3xl md:text-4xl">{title}</h2>
       {description && (
-        <p className="mt-3 text-base leading-relaxed text-muted">{description}</p>
+        <p className="mt-2 text-base leading-relaxed text-muted sm:mt-3">{description}</p>
       )}
     </div>
   );

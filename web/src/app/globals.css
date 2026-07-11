@@ -28,13 +28,7 @@
   --font-mono: var(--font-jetbrains);
 }
 
-html {
-  overflow-x: hidden;
-}
-
 body {
-  overflow-x: hidden;
-  max-width: 100vw;
   background:
     radial-gradient(ellipse 900px 600px at 15% -10%, rgba(95, 208, 232, 0.10), transparent 60%),
     radial-gradient(ellipse 700px 500px at 100% 10%, rgba(232, 184, 114, 0.06), transparent 55%),

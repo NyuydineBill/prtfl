@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { isSupabaseConfigured, supabase } from "@/lib/supabase/client";
+import { isSupabaseConfigured } from "@/lib/supabase/client";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -10,10 +10,6 @@ export function ContactForm() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!supabase) {
-      setStatus("error");
-      return;
-    }
 
     const form = event.currentTarget;
     const data = new FormData(form);
@@ -25,9 +21,13 @@ export function ContactForm() {
     };
 
     setStatus("submitting");
-    const { error } = await supabase.from("messages").insert(payload);
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
-    if (error) {
+    if (!res.ok) {
       setStatus("error");
       return;
     }

@@ -23,6 +23,5 @@ create policy "authenticated can manage subscribers"
   using (true)
   with check (true);
 
--- Note: this table only captures emails. Actually notifying subscribers
--- when a new article publishes requires wiring up an email provider
--- (e.g. Resend, Postmark) — not included here.
+-- Notified on publish via the SMTP relay configured in the app's env vars
+-- (see /api/admin/notify-subscribers and web/.env.example).

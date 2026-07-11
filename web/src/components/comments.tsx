@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "@/lib/supabase/client";
 import type { Comment } from "@/lib/comments";
 
 export function Comments({ postId, initialComments }: { postId: string; initialComments: Comment[] }) {
@@ -14,18 +13,21 @@ export function Comments({ postId, initialComments }: { postId: string; initialC
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!supabase || !name.trim() || !body.trim()) return;
+    if (!name.trim() || !body.trim()) return;
     setSubmitting(true);
     setError(null);
 
-    const { error: submitError } = await supabase
-      .from("comments")
-      .insert({ post_id: postId, name: name.trim(), body: body.trim() });
+    const res = await fetch("/api/comments", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ postId, name: name.trim(), body: body.trim() }),
+    });
 
     setSubmitting(false);
 
-    if (submitError) {
-      setError(submitError.message);
+    if (!res.ok) {
+      const resBody = await res.json().catch(() => ({}));
+      setError(resBody.error ?? "Something went wrong");
       return;
     }
 

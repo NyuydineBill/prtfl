@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "@/lib/supabase/client";
 
 export function GuestbookForm() {
   const [name, setName] = useState("");
@@ -13,18 +12,21 @@ export function GuestbookForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!supabase || !name.trim() || !message.trim()) return;
+    if (!name.trim() || !message.trim()) return;
     setSubmitting(true);
     setError(null);
 
-    const { error: submitError } = await supabase
-      .from("guestbook")
-      .insert({ name: name.trim(), role: role.trim() || null, message: message.trim() });
+    const res = await fetch("/api/guestbook", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: name.trim(), role: role.trim(), message: message.trim() }),
+    });
 
     setSubmitting(false);
 
-    if (submitError) {
-      setError(submitError.message);
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      setError(body.error ?? "Something went wrong");
       return;
     }
 

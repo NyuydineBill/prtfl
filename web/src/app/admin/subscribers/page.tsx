@@ -46,8 +46,8 @@ export default function AdminSubscribersPage() {
         }
       />
       <p className="mb-6 max-w-xl text-sm text-muted">
-        This list only captures emails — sending an actual notification when you publish a new
-        article requires wiring up an email provider (e.g. Resend), which isn&rsquo;t set up yet.
+        Everyone on this list gets a short email automatically the first time you publish a new
+        article, via the SMTP relay configured in the environment.
       </p>
       <div className="flex flex-col divide-y divide-border rounded-lg border border-border bg-surface">
         {subscribers?.length === 0 && (

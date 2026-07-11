@@ -94,7 +94,7 @@ export default async function ArticlePage({
           <Reactions targetId={post.id} />
         </div>
 
-        <div className="mt-16 max-w-2xl">
+        <div className="mt-10 max-w-2xl sm:mt-16">
           <Comments postId={post.id} initialComments={comments ?? []} />
         </div>
       </Reveal>

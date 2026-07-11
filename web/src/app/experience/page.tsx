@@ -55,7 +55,7 @@ export default function ExperiencePage() {
         })}
       </Timeline>
 
-      <Reveal className="mt-16" delay={0.1}>
+      <Reveal className="mt-10 sm:mt-16" delay={0.1}>
         <div className="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-border bg-surface p-6">
           <div>
             <h2 className="font-mono text-xs uppercase tracking-wider text-accent">

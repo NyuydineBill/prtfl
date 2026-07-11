@@ -20,9 +20,9 @@ export default function HomePage() {
   const degree = profile.education[0];
 
   return (
-    <div className="flex flex-col gap-28">
+    <div className="flex flex-col gap-16 sm:gap-20 lg:gap-28">
       {/* Hero */}
-      <section className="grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+      <section className="grid gap-10 sm:gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
         <Reveal>
           <StatusPill>Available for select engagements</StatusPill>
           <HeroHeadline
@@ -112,7 +112,7 @@ export default function HomePage() {
         <SectionHeading index={1} eyebrow="About" title="How I work" />
         <p className="max-w-3xl text-lg leading-relaxed text-muted">{profile.summary}</p>
         <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted">
-          I&rsquo;m currently completing a {degree.credential} at {degree.institution} ({degree.period}), alongside the production work below.
+          I hold a {degree.credential} from {degree.institution} ({degree.period}), alongside the production work below.
         </p>
         <div className="mt-6 flex flex-wrap gap-2">
           {profile.domains.map((domain) => (

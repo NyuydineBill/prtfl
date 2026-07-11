@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "@/lib/supabase/client";
 
 export function SubscribeForm() {
   const [email, setEmail] = useState("");
@@ -10,16 +9,21 @@ export function SubscribeForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!supabase || !email.trim()) return;
+    if (!email.trim()) return;
     setSubmitting(true);
     setStatus("idle");
 
-    const { error } = await supabase.from("subscribers").insert({ email: email.trim() });
+    const res = await fetch("/api/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email.trim() }),
+    });
 
     setSubmitting(false);
 
-    if (error) {
-      setStatus(error.code === "23505" ? "duplicate" : "error");
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      setStatus(body.code === "23505" ? "duplicate" : "error");
       return;
     }
 

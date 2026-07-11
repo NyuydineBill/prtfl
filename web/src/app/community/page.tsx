@@ -17,7 +17,7 @@ export default function CommunityPage() {
   const otherCerts = certifications.filter((c) => !c.featured);
 
   return (
-    <div className="flex flex-col gap-24">
+    <div className="flex flex-col gap-14 sm:gap-20 lg:gap-24">
       <SectionHeading
         index={1}
         eyebrow="Beyond the code"

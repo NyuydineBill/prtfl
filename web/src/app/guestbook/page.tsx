@@ -30,7 +30,7 @@ export default async function GuestbookPage() {
         <GuestbookForm />
       </Reveal>
 
-      <div className="mt-16">
+      <div className="mt-10 sm:mt-16">
         <h2 className="font-mono text-xs uppercase tracking-wider text-accent">
           Notes
         </h2>
