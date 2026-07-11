@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { profile } from "@/lib/data/profile";
 
 type Message = { role: "user" | "assistant"; content: string };
@@ -78,7 +80,13 @@ export function ChatWidget() {
                       : "self-start border border-border bg-surface-high text-foreground"
                   }`}
                 >
-                  {m.content}
+                  {m.role === "assistant" ? (
+                    <div className="prose-chat">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{m.content}</ReactMarkdown>
+                    </div>
+                  ) : (
+                    m.content
+                  )}
                 </div>
               ))}
               {loading && (
