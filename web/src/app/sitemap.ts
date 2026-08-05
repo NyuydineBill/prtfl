@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { createClient } from "@supabase/supabase-js";
 import { projects } from "@/lib/data/projects";
-import { siteUrl } from "@/lib/site";
+import { services } from "@/lib/data/services";
+import { absoluteUrl, siteUrl } from "@/lib/site";
 
 async function getPublishedArticles() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -11,37 +12,70 @@ async function getPublishedArticles() {
   const supabase = createClient(url, anonKey);
   const { data } = await supabase
     .from("posts")
-    .select("slug, updated_at")
+    .select("slug, updated_at, cover_image")
     .eq("status", "published");
 
   return data ?? [];
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const now = new Date();
+
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: siteUrl, changeFrequency: "weekly", priority: 1 },
-    { url: `${siteUrl}/work`, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${siteUrl}/articles`, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${siteUrl}/experience`, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${siteUrl}/stack`, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${siteUrl}/community`, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${siteUrl}/guestbook`, changeFrequency: "weekly", priority: 0.4 },
-    { url: `${siteUrl}/contact`, changeFrequency: "yearly", priority: 0.4 },
+    { url: siteUrl, lastModified: now, changeFrequency: "weekly", priority: 1 },
+    {
+      url: `${siteUrl}/services`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.95,
+    },
+    { url: `${siteUrl}/work`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${siteUrl}/articles`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    {
+      url: `${siteUrl}/experience`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    { url: `${siteUrl}/stack`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    {
+      url: `${siteUrl}/community`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${siteUrl}/guestbook`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.4,
+    },
+    { url: `${siteUrl}/contact`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
   ];
+
+  const serviceRoutes: MetadataRoute.Sitemap = services.map((service) => ({
+    url: `${siteUrl}/services/${service.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.9,
+  }));
 
   const projectRoutes: MetadataRoute.Sitemap = projects.map((project) => ({
     url: `${siteUrl}/work/${project.slug}`,
+    lastModified: now,
     changeFrequency: "monthly",
     priority: project.featured ? 0.8 : 0.6,
+    images: project.screenshot ? [absoluteUrl(project.screenshot)] : undefined,
   }));
 
   const articles = await getPublishedArticles();
   const articleRoutes: MetadataRoute.Sitemap = articles.map((article) => ({
     url: `${siteUrl}/articles/${article.slug}`,
-    lastModified: article.updated_at ? new Date(article.updated_at) : undefined,
+    lastModified: article.updated_at ? new Date(article.updated_at) : now,
     changeFrequency: "monthly",
     priority: 0.7,
+    images: article.cover_image ? [article.cover_image] : undefined,
   }));
 
-  return [...staticRoutes, ...projectRoutes, ...articleRoutes];
+  return [...staticRoutes, ...serviceRoutes, ...projectRoutes, ...articleRoutes];
 }

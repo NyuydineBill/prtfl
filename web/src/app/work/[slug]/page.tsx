@@ -3,12 +3,16 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { projects } from "@/lib/data/projects";
+import { servicesForProject } from "@/lib/data/services";
 import { Chip, Eyebrow } from "@/components/ui";
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal";
 import { ProjectFlowDiagram } from "@/components/project-diagram";
 import { ProjectVisualPlaceholder } from "@/components/project-visual-placeholder";
 import { GithubIcon } from "@/components/brand-icons";
 import { ProjectUpvote } from "@/components/project-upvote";
+import { JsonLd } from "@/components/json-ld";
+import { breadcrumbSchema, creativeWorkSchema } from "@/lib/schema";
+import { defaultOgImage, pageMetadata, siteName } from "@/lib/site";
 import { ExternalLink, Package } from "lucide-react";
 
 export function generateStaticParams() {
@@ -22,24 +26,34 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
-  if (!project) return { title: "Project" };
+  if (!project) {
+    return { title: "Project", robots: { index: false, follow: false } };
+  }
+
+  const image = project.screenshot ?? defaultOgImage.url;
 
   return {
-    title: project.name,
-    description: project.summary,
-    alternates: { canonical: `/work/${project.slug}` },
+    ...pageMetadata({
+      title: project.name,
+      description: project.summary,
+      path: `/work/${project.slug}`,
+      image: project.screenshot,
+    }),
     openGraph: {
-      type: "article",
+      type: "website",
       title: project.name,
       description: project.summary,
       url: `/work/${project.slug}`,
-      images: project.screenshot ? [{ url: project.screenshot }] : undefined,
+      siteName,
+      images: project.screenshot
+        ? [{ url: project.screenshot, alt: `${project.name} screenshot` }]
+        : [defaultOgImage],
     },
     twitter: {
-      card: project.screenshot ? "summary_large_image" : "summary",
+      card: "summary_large_image",
       title: project.name,
       description: project.summary,
-      images: project.screenshot ? [project.screenshot] : undefined,
+      images: [image],
     },
   };
 }
@@ -53,8 +67,21 @@ export default async function ProjectPage({
   const project = projects.find((p) => p.slug === slug);
   if (!project) notFound();
 
+  const relatedServices = servicesForProject(project.slug);
+
   return (
     <div>
+      <JsonLd
+        data={[
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Work", path: "/work" },
+            { name: project.name, path: `/work/${project.slug}` },
+          ]),
+          creativeWorkSchema(project),
+        ]}
+      />
+
       <Link href="/work" className="text-sm text-muted hover:text-accent">
         ← Work
       </Link>
@@ -235,6 +262,25 @@ export default async function ProjectPage({
             <p className="mt-3 max-w-2xl text-base leading-relaxed text-foreground">
               {project.impact}
             </p>
+          </div>
+        </Reveal>
+      )}
+
+      {relatedServices.length > 0 && (
+        <Reveal delay={0.05} className="mt-12">
+          <h2 className="font-mono text-xs uppercase tracking-wider text-accent">
+            Related services
+          </h2>
+          <div className="mt-4 flex flex-wrap gap-3">
+            {relatedServices.map((service) => (
+              <Link
+                key={service.slug}
+                href={`/services/${service.slug}`}
+                className="rounded-md border border-border px-4 py-2 text-sm text-foreground hover:border-accent hover:text-accent"
+              >
+                {service.name}
+              </Link>
+            ))}
           </div>
         </Reveal>
       )}

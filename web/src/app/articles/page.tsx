@@ -12,7 +12,6 @@ export const metadata = pageMetadata({
   description: "Notes on software architecture, AI systems, and building production software.",
   path: "/articles",
 });
-export const dynamic = "force-dynamic";
 
 export default async function ArticlesPage() {
   const supabase = await createClient();
@@ -28,6 +27,7 @@ export default async function ArticlesPage() {
     <div>
       <Reveal>
         <SectionHeading
+          as="h1"
           index={1}
           eyebrow="Writing"
           title="Articles"
@@ -36,7 +36,12 @@ export default async function ArticlesPage() {
       </Reveal>
 
       <Reveal className="mb-8 sm:mb-12" delay={0.05}>
-        <SubscribeForm />
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <SubscribeForm />
+          <Link href="/feed.xml" className="text-sm text-accent hover:underline">
+            RSS feed →
+          </Link>
+        </div>
       </Reveal>
 
       {!posts || posts.length === 0 ? (
@@ -51,7 +56,13 @@ export default async function ArticlesPage() {
               >
                 {post.cover_image && (
                   <div className="relative aspect-[21/9] w-full">
-                    <Image src={post.cover_image} alt="" fill className="object-cover" />
+                    <Image
+                      src={post.cover_image}
+                      alt={`Cover image for ${post.title}`}
+                      fill
+                      sizes="(min-width: 768px) 720px, 100vw"
+                      className="object-cover"
+                    />
                   </div>
                 )}
                 <div className="p-6">

@@ -17,11 +17,17 @@ export default function WorkPage() {
     <div>
       <Reveal>
         <SectionHeading
+          as="h1"
           index={1}
           eyebrow="Selected work"
           title="Projects"
-          description="Systems I've taken from architecture through to deployment. More case studies coming."
+          description="Systems I've taken from architecture through to deployment. Looking for help building something similar? See services."
         />
+      </Reveal>
+      <Reveal className="-mt-4 mb-8 sm:-mt-8" delay={0.04}>
+        <Link href="/services" className="inline-flex text-sm text-accent hover:underline">
+          Browse remote engineering services →
+        </Link>
       </Reveal>
       <RevealGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
         {projects.map((project) => (

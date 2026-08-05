@@ -1,5 +1,6 @@
 import { profile } from "@/lib/data/profile";
 import { projects } from "@/lib/data/projects";
+import { services } from "@/lib/data/services";
 import { experience } from "@/lib/data/experience";
 import { skillGroups } from "@/lib/data/skills";
 import { teaching } from "@/lib/data/teaching";
@@ -21,17 +22,24 @@ Core expertise: ${profile.expertise.map((e) => `${e.title} — ${e.description}`
 Domains: ${profile.domains.join(", ")}
 Education: ${profile.education.map((e) => `${e.credential}, ${e.institution} (${e.period})`).join("; ")}`);
 
+  sections.push(`# Services\n${services
+    .map(
+      (s) =>
+        `- ${s.name} (/services/${s.slug}): ${s.summary} Fit: ${s.fit.join("; ")}. Not a fit: ${s.notAFit.join("; ")}.`,
+    )
+    .join("\n")}`);
+
   sections.push(`# Projects\n${projects
     .map(
       (p) =>
-        `- ${p.name} (${p.category}, ${p.role}, ${p.period}, status: ${p.status}): ${p.overview}`
+        `- ${p.name} (${p.category}, ${p.role}, ${p.period}, status: ${p.status}): ${p.overview}`,
     )
     .join("\n")}`);
 
   sections.push(`# Work experience\n${experience
     .map(
       (e) =>
-        `- ${e.role} at ${e.org} (${e.location}, ${e.period}): ${e.summary ?? ""} ${e.highlights.join(" ")}`
+        `- ${e.role} at ${e.org} (${e.location}, ${e.period}): ${e.summary ?? ""} ${e.highlights.join(" ")}`,
     )
     .join("\n")}`);
 

@@ -4,6 +4,7 @@ import { GraduationCap, ArrowRight, Layers, Sparkles, Cloud, Download, type Luci
 import { GithubIcon } from "@/components/brand-icons";
 import { profile } from "@/lib/data/profile";
 import { projects } from "@/lib/data/projects";
+import { services } from "@/lib/data/services";
 import { experience } from "@/lib/data/experience";
 import { Eyebrow, SectionHeading, StatusPill } from "@/components/ui";
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal";
@@ -11,6 +12,15 @@ import { AnimatedNumber } from "@/components/animated-number";
 import { HeroHeadline } from "@/components/hero-headline";
 import { TiltCard } from "@/components/tilt-card";
 import { AmbientGlow } from "@/components/ambient-glow";
+import { pageMetadata } from "@/lib/site";
+
+export const metadata = pageMetadata({
+  title: `${profile.name} · ${profile.role}`,
+  description:
+    "Senior software engineer and architect available for remote engagements across AI products, full-stack development, architecture consulting, and mentoring.",
+  path: "/",
+  absoluteTitle: true,
+});
 
 const expertiseIcons: LucideIcon[] = [Layers, Sparkles, Cloud];
 
@@ -35,8 +45,14 @@ export default function HomePage() {
 
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
-              href="/work"
+              href="/services"
               className="rounded-md bg-accent px-5 py-3 text-sm font-medium text-background transition-transform hover:-translate-y-0.5 hover:opacity-90"
+            >
+              View services
+            </Link>
+            <Link
+              href="/work"
+              className="rounded-md border border-border px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
             >
               Explore my work
             </Link>
@@ -151,11 +167,40 @@ export default function HomePage() {
         </RevealGroup>
       </section>
 
-      {/* Featured projects */}
+      {/* Services */}
       <section>
         <Reveal>
           <SectionHeading
             index={3}
+            eyebrow="Services"
+            title="Engagements I take on"
+            description="Remote work across AI products, full-stack delivery, architecture, and mentoring. Each page explains fit, process, and related case studies."
+          />
+        </Reveal>
+        <RevealGroup className="grid gap-4 sm:grid-cols-2">
+          {services.map((service) => (
+            <RevealItem key={service.slug}>
+              <Link
+                href={`/services/${service.slug}`}
+                className="group block h-full rounded-lg border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-[0_0_30px_-12px_var(--color-accent)]"
+              >
+                <Eyebrow>{service.category}</Eyebrow>
+                <h3 className="mt-2 flex items-center gap-1.5 text-lg font-medium text-foreground group-hover:text-accent">
+                  {service.name}
+                  <ArrowRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
+                </h3>
+                <p className="mt-2 text-base leading-relaxed text-muted">{service.description}</p>
+              </Link>
+            </RevealItem>
+          ))}
+        </RevealGroup>
+      </section>
+
+      {/* Featured projects */}
+      <section>
+        <Reveal>
+          <SectionHeading
+            index={4}
             eyebrow="Selected work"
             title="Flagship projects"
             description="A few of the systems I've architected end to end. Full list of projects on the work page."
@@ -209,7 +254,7 @@ export default function HomePage() {
 
       {/* Current role */}
       <Reveal>
-        <SectionHeading index={4} eyebrow="Currently" title="What I'm doing now" />
+        <SectionHeading index={5} eyebrow="Currently" title="What I'm doing now" />
         <div className="rounded-lg border border-border bg-surface p-6">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <h3 className="font-medium text-foreground">
@@ -224,12 +269,14 @@ export default function HomePage() {
               {currentRole.summary}
             </p>
           )}
-          <Link
-            href="/experience"
-            className="mt-4 inline-block text-sm text-accent hover:underline"
-          >
-            Full experience timeline →
-          </Link>
+          <div className="mt-4 flex flex-wrap gap-4">
+            <Link href="/services" className="text-sm text-accent hover:underline">
+              See how we can work together →
+            </Link>
+            <Link href="/experience" className="text-sm text-accent hover:underline">
+              Full experience timeline →
+            </Link>
+          </div>
         </div>
       </Reveal>
     </div>

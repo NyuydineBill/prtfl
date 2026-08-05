@@ -15,6 +15,7 @@ export default function StackPage() {
     <div>
       <Reveal>
         <SectionHeading
+          as="h1"
           index={1}
           eyebrow="Technical stack"
           title="Tools I work with"

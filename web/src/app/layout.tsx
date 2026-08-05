@@ -2,8 +2,16 @@ import type { Metadata } from "next";
 import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteShell } from "@/components/site-shell";
+import { JsonLd } from "@/components/json-ld";
+import { personSchema, websiteSchema } from "@/lib/schema";
 import { profile } from "@/lib/data/profile";
-import { siteUrl } from "@/lib/site";
+import {
+  absoluteUrl,
+  defaultDescription,
+  defaultOgImage,
+  siteName,
+  siteUrl,
+} from "@/lib/site";
 
 const hanken = Hanken_Grotesk({
   variable: "--font-hanken",
@@ -23,30 +31,60 @@ export const metadata: Metadata = {
     default: `${profile.name} · ${profile.role}`,
     template: `%s · ${profile.name}`,
   },
-  description: profile.tagline,
+  description: defaultDescription,
   keywords: [
     profile.name,
     "Software Engineer",
     "Software Architect",
     "Full-Stack Developer",
     "AI Engineer",
+    "AI product engineering",
+    "remote software engineer",
+    "software architecture consulting",
+    "engineering mentoring",
     ...profile.domains,
   ],
   authors: [{ name: profile.name, url: siteUrl }],
-  alternates: { canonical: siteUrl },
+  creator: profile.name,
+  publisher: profile.name,
+  category: "technology",
+  alternates: {
+    canonical: siteUrl,
+    types: {
+      "application/rss+xml": absoluteUrl("/feed.xml"),
+    },
+  },
   openGraph: {
     type: "website",
     url: siteUrl,
-    siteName: `${profile.name} · ${profile.role}`,
+    siteName,
+    locale: "en_US",
     title: `${profile.name} · ${profile.role}`,
-    description: profile.tagline,
-    images: [{ url: "/hero-photo.jpg", width: 812, height: 1080, alt: profile.name }],
+    description: defaultDescription,
+    images: [defaultOgImage],
   },
   twitter: {
     card: "summary_large_image",
     title: `${profile.name} · ${profile.role}`,
-    description: profile.tagline,
-    images: ["/hero-photo.jpg"],
+    description: defaultDescription,
+    images: [defaultOgImage.url],
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+      : undefined,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 
@@ -61,6 +99,7 @@ export default function RootLayout({
       className={`${hanken.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-background text-foreground">
+        <JsonLd data={[personSchema(), websiteSchema()]} />
         <SiteShell>{children}</SiteShell>
       </body>
     </html>

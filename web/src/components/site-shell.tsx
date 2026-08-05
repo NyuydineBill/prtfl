@@ -77,6 +77,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         {open && (
           <div className="border-t border-border px-4 py-4 lg:hidden">
             <NavLinks
+              variant="mobile"
               className="flex flex-col gap-3"
               itemClassName="w-fit"
               onNavigate={() => setOpen(false)}
@@ -110,9 +111,9 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
             height={76}
             className="h-[76px] w-[76px] rounded-full border border-border object-cover"
           />
-          <h1 className="mt-4 text-lg font-semibold leading-tight text-foreground">
+          <p className="mt-4 text-lg font-semibold leading-tight text-foreground">
             {profile.name}
-          </h1>
+          </p>
           <p className="mt-1 text-sm text-muted">{profile.role}</p>
 
           <div className="mt-5 flex flex-col gap-2 border-t border-border pt-5">

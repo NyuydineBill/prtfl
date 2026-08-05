@@ -15,7 +15,7 @@ const iconFor: Record<string, LucideIcon> = {
 
 export const metadata = pageMetadata({
   title: "Experience",
-  description: `Professional experience timeline for ${profile.name}: ${profile.role}.`,
+  description: `Professional experience for ${profile.name}, senior software engineer and architect available for remote engagements.`,
   path: "/experience",
 });
 
@@ -23,10 +23,11 @@ export default function ExperiencePage() {
   return (
     <div>
       <SectionHeading
+        as="h1"
         index={1}
         eyebrow="Work history"
         title="Experience"
-        description="A chronological record of roles, projects, and production systems I've worked on."
+        description="A chronological record of roles, projects, and production systems I've worked on. For engagement options, see services."
       />
 
       <Timeline>
@@ -67,14 +68,23 @@ export default function ExperiencePage() {
             </h2>
             <p className="mt-2 max-w-md text-base text-muted">
               Teaching, mentoring, community leadership, and certifications live on their own page.
+              Mentoring engagements are described under services.
             </p>
           </div>
-          <Link
-            href="/community"
-            className="shrink-0 rounded-md border border-border px-4 py-2 text-sm text-foreground hover:border-accent hover:text-accent"
-          >
-            View community & teaching →
-          </Link>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/community"
+              className="shrink-0 rounded-md border border-border px-4 py-2 text-sm text-foreground hover:border-accent hover:text-accent"
+            >
+              View community & teaching →
+            </Link>
+            <Link
+              href="/services"
+              className="shrink-0 rounded-md border border-border px-4 py-2 text-sm text-foreground hover:border-accent hover:text-accent"
+            >
+              View services →
+            </Link>
+          </div>
         </div>
       </Reveal>
 

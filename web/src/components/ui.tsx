@@ -28,12 +28,17 @@ export function SectionHeading({
   eyebrow,
   title,
   description,
+  as = "h2",
 }: {
   index?: number;
   eyebrow?: string;
   title: string;
   description?: string;
+  /** Use h1 for the page title; leave h2 for in-page sections. */
+  as?: "h1" | "h2";
 }) {
+  const Heading = as;
+
   return (
     <div className="mb-8 max-w-2xl sm:mb-12">
       {eyebrow && (
@@ -44,7 +49,9 @@ export function SectionHeading({
           {eyebrow}
         </p>
       )}
-      <h2 className="mt-2 text-2xl font-semibold text-foreground sm:mt-3 sm:text-3xl md:text-4xl">{title}</h2>
+      <Heading className="mt-2 text-2xl font-semibold text-foreground sm:mt-3 sm:text-3xl md:text-4xl">
+        {title}
+      </Heading>
       {description && (
         <p className="mt-2 text-base leading-relaxed text-muted sm:mt-3">{description}</p>
       )}

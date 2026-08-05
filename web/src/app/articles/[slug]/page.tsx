@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { cache } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { createClient } from "@/lib/supabase/server";
@@ -9,11 +10,13 @@ import { Chip } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { Reactions } from "@/components/reactions";
 import { Comments } from "@/components/comments";
+import { JsonLd } from "@/components/json-ld";
+import { articleSchema, breadcrumbSchema } from "@/lib/schema";
+import { defaultOgImage, pageMetadata, siteName } from "@/lib/site";
 import type { Comment } from "@/lib/comments";
+import type { Post } from "@/lib/posts";
 
-export const dynamic = "force-dynamic";
-
-async function getPost(slug: string) {
+const getPost = cache(async (slug: string): Promise<Post | null> => {
   const supabase = await createClient();
   if (!supabase) return null;
   const { data } = await supabase
@@ -23,7 +26,7 @@ async function getPost(slug: string) {
     .eq("status", "published")
     .maybeSingle();
   return data;
-}
+});
 
 export async function generateMetadata({
   params,
@@ -32,29 +35,39 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPost(slug);
-  if (!post) return { title: "Article" };
+  if (!post) {
+    return { title: "Article", robots: { index: false, follow: false } };
+  }
 
-  const description = post.excerpt ?? undefined;
+  const description = post.excerpt ?? `Article by Nyuydine Bill Leynyuy: ${post.title}`;
+  const image = post.cover_image ?? defaultOgImage.url;
 
   return {
-    title: post.title,
-    description,
-    alternates: { canonical: `/articles/${post.slug}` },
+    ...pageMetadata({
+      title: post.title,
+      description,
+      path: `/articles/${post.slug}`,
+      image: post.cover_image ?? undefined,
+      type: "article",
+    }),
     openGraph: {
       type: "article",
       title: post.title,
       description,
       url: `/articles/${post.slug}`,
+      siteName,
       publishedTime: post.published_at ?? undefined,
       modifiedTime: post.updated_at ?? undefined,
       tags: post.tags ?? undefined,
-      images: post.cover_image ? [{ url: post.cover_image }] : undefined,
+      images: post.cover_image
+        ? [{ url: post.cover_image, alt: post.title }]
+        : [defaultOgImage],
     },
     twitter: {
-      card: post.cover_image ? "summary_large_image" : "summary",
+      card: "summary_large_image",
       title: post.title,
       description,
-      images: post.cover_image ? [post.cover_image] : undefined,
+      images: [image],
     },
   };
 }
@@ -80,6 +93,17 @@ export default async function ArticlePage({
 
   return (
     <div>
+      <JsonLd
+        data={[
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Articles", path: "/articles" },
+            { name: post.title, path: `/articles/${post.slug}` },
+          ]),
+          articleSchema(post),
+        ]}
+      />
+
       <Link href="/articles" className="text-sm text-muted hover:text-accent">
         ← Articles
       </Link>
@@ -106,7 +130,14 @@ export default async function ArticlePage({
 
         {post.cover_image && (
           <div className="relative mt-8 aspect-[21/9] w-full max-w-2xl overflow-hidden rounded-lg border border-border">
-            <Image src={post.cover_image} alt="" fill className="object-cover" />
+            <Image
+              src={post.cover_image}
+              alt={`Cover image for ${post.title}`}
+              fill
+              sizes="(min-width: 768px) 672px, 100vw"
+              className="object-cover"
+              priority
+            />
           </div>
         )}
 

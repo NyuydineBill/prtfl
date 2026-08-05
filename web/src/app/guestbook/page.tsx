@@ -26,6 +26,7 @@ export default async function GuestbookPage() {
     <div>
       <Reveal>
         <SectionHeading
+          as="h1"
           index={1}
           eyebrow="Guestbook"
           title="Leave a note"

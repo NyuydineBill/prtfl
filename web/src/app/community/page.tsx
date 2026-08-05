@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { GraduationCap, Users, Award, Sparkles } from "lucide-react";
 import { teaching } from "@/lib/data/teaching";
 import { leadership } from "@/lib/data/leadership";
@@ -23,12 +24,21 @@ export default function CommunityPage() {
 
   return (
     <div className="flex flex-col gap-14 sm:gap-20 lg:gap-24">
-      <SectionHeading
-        index={1}
-        eyebrow="Beyond the code"
-        title="Teaching, leadership & community"
-        description="Software is most of what I do, but not all of it. I tutor, I've trained people on the ground, and I've led a technical community. The same instinct to explain systems clearly shows up in all three."
-      />
+      <div>
+        <SectionHeading
+          as="h1"
+          index={1}
+          eyebrow="Beyond the code"
+          title="Teaching, leadership & community"
+          description="Software is most of what I do, but not all of it. I tutor, I've trained people on the ground, and I've led a technical community. Looking for mentoring? See the mentoring service."
+        />
+        <Link
+          href="/services/engineering-mentoring"
+          className="-mt-4 inline-block text-sm text-accent hover:underline sm:-mt-8"
+        >
+          Engineering mentoring engagements →
+        </Link>
+      </div>
 
       {/* Teaching */}
       <section>
@@ -156,6 +166,7 @@ export default function CommunityPage() {
                       src={featuredCert.certificateImage}
                       alt={`${featuredCert.name} certificate`}
                       fill
+                      sizes="(min-width: 640px) 224px, 100vw"
                       className="object-cover"
                     />
                   </div>

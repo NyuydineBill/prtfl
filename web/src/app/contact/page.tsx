@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { profile } from "@/lib/data/profile";
 import { SectionHeading } from "@/components/ui";
 import { ContactForm } from "@/components/contact-form";
@@ -6,7 +7,7 @@ import { pageMetadata } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Contact",
-  description: `Get in touch with ${profile.name} for engineering engagements, collaborations, or questions.`,
+  description: `Contact ${profile.name} for remote AI product engineering, full-stack development, architecture consulting, or mentoring.`,
   path: "/contact",
 });
 
@@ -15,11 +16,18 @@ export default function ContactPage() {
     <div>
       <Reveal>
         <SectionHeading
+          as="h1"
           index={1}
           eyebrow="Get in touch"
           title="Contact"
-          description="Open to select engagements and interesting problems. The fastest way to reach me is email."
+          description="Open to select remote engagements across AI products, full-stack development, architecture consulting, and mentoring. The fastest way to reach me is email."
         />
+
+        <p className="mb-6 -mt-4 text-sm text-muted sm:-mt-8">
+          <Link href="/services" className="text-accent hover:underline">
+            Review services before writing →
+          </Link>
+        </p>
 
         <div className="mb-10 flex flex-wrap gap-3">
           <a
