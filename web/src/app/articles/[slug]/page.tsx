@@ -1,15 +1,13 @@
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { cache } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { createClient } from "@/lib/supabase/server";
 import { Chip } from "@/components/ui";
 import { Reveal } from "@/components/reveal";
 import { Reactions } from "@/components/reactions";
 import { Comments } from "@/components/comments";
+import { ArticleContent, ArticleCoverImage } from "@/components/article-content";
 import { JsonLd } from "@/components/json-ld";
 import { articleSchema, breadcrumbSchema } from "@/lib/schema";
 import { defaultOgImage, pageMetadata, siteName } from "@/lib/site";
@@ -129,21 +127,13 @@ export default async function ArticlePage({
         )}
 
         {post.cover_image && (
-          <div className="relative mt-8 aspect-[21/9] w-full max-w-2xl overflow-hidden rounded-lg border border-border">
-            <Image
-              src={post.cover_image}
-              alt={`Cover image for ${post.title}`}
-              fill
-              sizes="(min-width: 768px) 672px, 100vw"
-              className="object-cover"
-              priority
-            />
-          </div>
+          <ArticleCoverImage
+            src={post.cover_image}
+            alt={`Cover image for ${post.title}`}
+          />
         )}
 
-        <div className="prose-article mt-10 max-w-2xl">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
-        </div>
+        <ArticleContent content={post.content} />
 
         <div className="mt-8">
           <Reactions targetId={post.id} />

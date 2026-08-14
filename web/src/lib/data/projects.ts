@@ -104,6 +104,49 @@ export const projects: Project[] = [
     links: [{ label: "Visit resolvemeq.net", href: "https://resolvemeq.net", kind: "demo" }],
   },
   {
+    slug: "jotecho",
+    name: "JotEcho",
+    category: "SaaS · Artificial Intelligence · Creator Tools",
+    role: "Lead Full-Stack & AI Engineer",
+    period: "2025 – Present",
+    status: "Live · production",
+    featured: true,
+    summary:
+      "AI publishing workflow for creators and founders: capture one idea and cast platform-native drafts for LinkedIn, X, newsletter, and more, in the writer's voice.",
+    overview:
+      "JotEcho is an AI publishing product built around a simple promise: write it once, set it everywhere. Creators and founders capture an idea once, then generate platform-native drafts across nine formats while keeping a consistent brand voice. I engineered the product across Next.js, Django, LLM workflows, social platform APIs, payments, and SEO.",
+    problem:
+      "Creators and founders burn time rewriting the same idea for LinkedIn, X, newsletters, and other channels, and generic AI drafts rarely keep a consistent brand voice across platforms.",
+    solution:
+      "Built an end-to-end AI publishing system that captures one idea, casts platform-native drafts, supports scheduling and direct publish, and handles subscriptions with local and international payment rails.",
+    highlights: [
+      "Built the Next.js product and marketing surface with bilingual EN/FR routes, SEO metadata, sitemaps, and structured data for public discovery.",
+      "Engineered the Django backend for workspaces, brand-voice profiles, credit-based AI generation, draft history, scheduling, and subscription billing.",
+      "Integrated LLM workflows that turn a single capture into platform-native drafts across LinkedIn, X, Threads, Facebook, newsletter, TikTok script, Instagram, blog outline, and email.",
+      "Configured social platform APIs for publishing and account workflows, including the production paths needed for scheduling and direct publish.",
+      "Integrated local and international payment flows so free, creator, pro, and agency plans can subscribe, upgrade, and top up credits.",
+    ],
+    keyFeatures: [
+      "One-idea capture across text, voice, paste, file, and URL",
+      "Nine platform-native output formats",
+      "Brand voice profiles and isolated workspaces",
+      "Scheduling and direct publish",
+      "Credit-based AI generation with plan top-ups",
+      "Bilingual EN/FR marketing and product surface",
+    ],
+    engineeringHighlights: [
+      "Artificial Intelligence",
+      "Full-Stack Engineering",
+      "Social API Integration",
+      "Payments",
+      "SEO",
+    ],
+    impact:
+      "Shipped a live multi-plan SaaS publishing product used by creators, founders, consultants, and agencies to turn one idea into channel-ready content without rewriting from scratch.",
+    stack: ["Next.js", "Django", "LLMs", "Social APIs", "Payments", "SEO", "PostgreSQL"],
+    links: [{ label: "Visit jotecho.com", href: "https://jotecho.com", kind: "demo" }],
+  },
+  {
     slug: "data2csv",
     name: "Data2CSV",
     category: "Open Source · Python · Django",
@@ -262,6 +305,114 @@ export const projects: Project[] = [
     ],
     stack: ["Next.js", "React", "SEO"],
     links: [{ label: "Visit malegado.com", href: "https://malegado.com", kind: "demo" }],
+  },
+  {
+    slug: "anedian-group",
+    name: "Anedian Group",
+    category: "E-commerce · Client Website · Full Stack",
+    role: "Full-Stack Engineer · Client engagement",
+    period: "Client work",
+    status: "Live · production",
+    summary:
+      "Production e-commerce site for Anedian Group LLC, a U.S. African food store offering retail and wholesale ordering with delivery and pickup.",
+    overview:
+      "Anedian Group LLC sells authentic Cameroonian and West African foods from Stone Mountain, GA. I engineered the client website as a production storefront covering catalog browsing, retail and wholesale flows, checkout, and local fulfillment options.",
+    problem:
+      "The business needed a reliable online storefront that could serve both household shoppers and wholesale buyers without losing the authenticity and operational details of a specialty African food store.",
+    solution:
+      "Built a production web storefront with category-driven shopping, featured product merchandising, retail and wholesale paths, and payment/checkout support for metro Atlanta pickup and delivery.",
+    highlights: [
+      "Shipped a production storefront for retail and wholesale ordering of African food staples.",
+      "Implemented category browsing, featured product merchandising, and clear fulfillment messaging for pickup and local delivery.",
+      "Integrated checkout and payment support suitable for card payments and order confirmation workflows.",
+      "Built SEO-ready marketing pages so the store could be discovered by customers searching for authentic African ingredients in the U.S.",
+    ],
+    keyFeatures: [
+      "Retail and wholesale shopping paths",
+      "Category and featured product catalog",
+      "Pickup and local delivery options",
+      "Checkout and payment integration",
+      "SEO-focused marketing content",
+    ],
+    engineeringHighlights: ["Full-Stack Engineering", "E-commerce", "Payments", "SEO"],
+    impact:
+      "Gave Anedian Group a live online sales channel for authentic African ingredients, serving both retail customers and wholesale buyers around metro Atlanta.",
+    stack: ["Next.js", "React", "Payments", "SEO"],
+    links: [{ label: "Visit anediangroupllc.com", href: "https://anediangroupllc.com", kind: "demo" }],
+  },
+  {
+    slug: "hope-restoration",
+    name: "Hope Restoration",
+    category: "Nonprofit · Client Website · Full Stack",
+    role: "Full-Stack Engineer · Client engagement",
+    period: "Client work",
+    status: "Live · production",
+    summary:
+      "Public website for Hope Restoration, a Bamenda-based organization delivering counseling, peacebuilding, and community training since 2001.",
+    overview:
+      "Hope Restoration works at the intersection of mental health and community peace across Cameroon's Northwest Region. I engineered their public website to present programs, impact, stories, and clear paths to get support or contribute.",
+    problem:
+      "A long-running community organization needed a modern public site that could explain its counseling, peacebuilding, and training work clearly and convert visitors into support requests or donors.",
+    solution:
+      "Built a production nonprofit site with program pages, impact storytelling, and conversion paths for people seeking support or wanting to fund the work.",
+    highlights: [
+      "Shipped a production website covering counseling, peacebuilding, academic empowerment, and capacity-building programs.",
+      "Structured impact storytelling around years of service, people reached, counseling sessions, and trainings delivered.",
+      "Built clear calls to action for people seeking support and for donors or partners who want to fund the work.",
+      "Implemented SEO-ready content architecture so field programs and community work can be discovered online.",
+    ],
+    keyFeatures: [
+      "Program and initiative pages",
+      "Impact and story sections",
+      "Support and donation conversion paths",
+      "Training and capacity-building presentation",
+      "SEO-ready public content",
+    ],
+    engineeringHighlights: ["Full-Stack Engineering", "Nonprofit Web", "SEO", "Content Architecture"],
+    impact:
+      "Gave Hope Restoration a public digital home that communicates its mission and makes it easier for community members and supporters to take the next step.",
+    stack: ["Next.js", "React", "SEO"],
+    links: [{ label: "Visit hoperestorations.org", href: "https://hoperestorations.org", kind: "demo" }],
+  },
+  {
+    slug: "faye-suleiman-foundation",
+    name: "Faye Suleiman Foundation",
+    category: "Nonprofit · Client Website · Full Stack",
+    role: "Full-Stack Engineer · Client engagement",
+    period: "Client work",
+    status: "Live · production",
+    summary:
+      "Public website for the Faye Suleiman Foundation, a multi-cause charity delivering food relief, clothing, education, health, and orphan support across Cameroon and sub-Saharan Africa.",
+    overview:
+      "The Faye Suleiman Foundation runs integrated field programmes across food relief, clothing, education, health, and orphan care. I engineered the foundation website to present the mission, compassion pillars, field stories, and donation or partnership paths for local and international supporters.",
+    problem:
+      "A multi-programme charity needed a trustworthy public site that could explain its pillars clearly, show field work, and invite donations, volunteers, and institutional partners.",
+    solution:
+      "Built a production nonprofit site organized around five compassion pillars, field updates, transparency messaging, and conversion paths for donate, volunteer, and partner actions.",
+    highlights: [
+      "Shipped a production foundation website covering food relief, clothing, education, health, and orphan/child support programmes.",
+      "Structured the site around clear mission messaging, field stories, and pathways for donors, volunteers, and partners.",
+      "Built SEO-ready content so programme updates and fundraising pages can reach international supporters.",
+      "Presented transparency and impact framing so donors can understand how support maps to field work.",
+    ],
+    keyFeatures: [
+      "Five compassion-pillar programme sections",
+      "Field stories and news updates",
+      "Donate, volunteer, and partner calls to action",
+      "Transparency and impact messaging",
+      "SEO-ready public content",
+    ],
+    engineeringHighlights: ["Full-Stack Engineering", "Nonprofit Web", "SEO", "Content Architecture"],
+    impact:
+      "Gave the foundation a live digital presence that explains its programmes and helps supporters take action through donate, volunteer, or partnership paths.",
+    stack: ["Next.js", "React", "SEO"],
+    links: [
+      {
+        label: "Visit fayesuleimanfoundation.org",
+        href: "https://fayesuleimanfoundation.org",
+        kind: "demo",
+      },
+    ],
   },
   {
     slug: "cameroon-digital-trust-network",

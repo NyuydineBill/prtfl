@@ -161,8 +161,17 @@ body::before {
   text-align: left;
 }
 .prose-article img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
   border-radius: 0.5rem;
   border: 1px solid var(--border);
+}
+
+.prose-article button img {
+  border: 0;
+  border-radius: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

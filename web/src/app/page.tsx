@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { GraduationCap, ArrowRight, Layers, Sparkles, Cloud, Download, type LucideIcon } from "lucide-react";
+import { GraduationCap, ArrowRight, Layers, Sparkles, Cloud, type LucideIcon } from "lucide-react";
 import { GithubIcon } from "@/components/brand-icons";
 import { profile } from "@/lib/data/profile";
 import { projects } from "@/lib/data/projects";
@@ -12,6 +12,7 @@ import { AnimatedNumber } from "@/components/animated-number";
 import { HeroHeadline } from "@/components/hero-headline";
 import { TiltCard } from "@/components/tilt-card";
 import { AmbientGlow } from "@/components/ambient-glow";
+import { ResumeRequestButton } from "@/components/resume-request";
 import { pageMetadata } from "@/lib/site";
 
 export const metadata = pageMetadata({
@@ -56,14 +57,7 @@ export default function HomePage() {
             >
               Explore my work
             </Link>
-            <a
-              href={profile.resumeHref}
-              download
-              className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
-            >
-              <Download className="h-3.5 w-3.5" />
-              Download résumé
-            </a>
+            <ResumeRequestButton className="rounded-md border border-border px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent" />
           </div>
         </Reveal>
 

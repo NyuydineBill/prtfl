@@ -9,6 +9,7 @@ import { GithubIcon, LinkedinIcon } from "@/components/brand-icons";
 import { NavLinks } from "@/components/nav-links";
 import { Footer } from "@/components/footer";
 import { ChatWidget } from "@/components/chat-widget";
+import { ResumeRequestButton } from "@/components/resume-request";
 import { profile } from "@/lib/data/profile";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
@@ -54,13 +55,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
             >
               <LinkedinIcon className="h-[18px] w-[18px]" />
             </a>
-            <a
-              href={profile.resumeHref}
-              download
-              className="rounded-md bg-accent px-3.5 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
-            >
-              Download résumé
-            </a>
+            <ResumeRequestButton className="rounded-md bg-accent px-3.5 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90" />
           </div>
 
           <button
@@ -89,13 +84,10 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
               <a href={profile.linkedin} target="_blank" rel="noreferrer" className="text-muted hover:text-foreground">
                 <LinkedinIcon className="h-[18px] w-[18px]" />
               </a>
-              <a
-                href={profile.resumeHref}
-                download
+              <ResumeRequestButton
                 className="ml-auto rounded-md bg-accent px-3.5 py-2 text-sm font-medium text-background"
-              >
-                Download résumé
-              </a>
+                onOpen={() => setOpen(false)}
+              />
             </div>
           </div>
         )}

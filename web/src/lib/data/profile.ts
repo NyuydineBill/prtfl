@@ -8,9 +8,8 @@ export const profile = {
   email: "bill.engineering@outlook.com",
   github: "https://github.com/NyuydineBill",
   linkedin: "https://linkedin.com/in/nyuydine-bill",
-  resumeHref: "/resume.pdf",
   summary:
-    "Software engineer and architect who thinks in systems before writing code. I work across the full stack: product and software architecture, backend, frontend, mobile engineering, AI systems, and cloud infrastructure. I generally spend more time on the design than on any single line of implementation. I built and maintain ResolveMeQ, an AI-powered SaaS platform for IT-helpdesk automation; work as a Full-Stack & AI Engineer on UmEmployed, a USA-based AI recruitment platform; and led the architecture of the Cameroon Digital Trust Network, a national-scale digital trust platform. Much of my work centers on integrating AI into production systems in ways that stay reliable, observable, and secure, and on running the infrastructure that keeps them healthy on Azure and AWS.",
+    "Software engineer and architect who thinks in systems before writing code. I work across the full stack: product and software architecture, backend, frontend, mobile engineering, AI systems, and cloud infrastructure. I generally spend more time on the design than on any single line of implementation. I built and maintain ResolveMeQ, an AI-powered SaaS platform for IT-helpdesk automation; engineered JotEcho, an AI publishing workflow for creators and founders; work as a Full-Stack & AI Engineer on UmEmployed, a USA-based AI recruitment platform; and lead architecture for the Cameroon Digital Trust Network. I also ship production client websites for businesses and nonprofits. Much of my work centers on integrating AI into production systems in ways that stay reliable, observable, and secure, and on running the infrastructure that keeps them healthy on Azure and AWS.",
   expertise: [
     {
       title: "Software Architecture",
@@ -29,17 +28,19 @@ export const profile = {
     },
   ],
   stats: [
-    { value: "6+", label: "Production systems shipped" },
+    { value: "10+", label: "Production systems shipped" },
     { value: "3", label: "Apps on Google Play & App Store" },
     { value: "2", label: "Open-source contributions" },
     { value: "MLSA", label: "Microsoft Learn Student Ambassador" },
   ],
   domains: [
     "Recruitment & HR Tech",
+    "Creator Tools & Social Publishing",
     "Education",
-    "Food Delivery",
+    "Food Delivery & Retail",
     "Property Tech",
     "IT Service Management",
+    "Nonprofit & Community",
     "Artificial Intelligence",
     "Digital Trust & Verification",
   ],

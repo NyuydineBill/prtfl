@@ -56,6 +56,7 @@ export const experience: ExperienceEntry[] = [
     period: "2023 – Present",
     highlights: [
       "Designed and shipped web applications with Django, React, and Tailwind CSS, deployed with Kubernetes Helm and GitHub Actions.",
+      "Engineered production client websites including Anedian Group LLC (U.S. African food e-commerce), Hope Restoration, and the Faye Suleiman Foundation.",
       "Integrated third-party APIs including Stripe and Twilio, collaborated in agile teams maintaining 90% test coverage, and mentored junior developers.",
     ],
   },
