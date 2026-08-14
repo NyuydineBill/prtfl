@@ -50,6 +50,11 @@ export const profile = {
       institution: "University of Bamenda",
       period: "2022 – 2026",
     },
+    {
+      credential: "Software Engineering Program",
+      institution: "ALX Africa",
+      period: "2023 – 2024",
+    },
   ],
   identities: [
     "Software Engineer",
