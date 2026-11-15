@@ -15,11 +15,14 @@ export const metadata = pageMetadata({
 
 export default async function ArticlesPage() {
   const supabase = await createClient();
+  const now = new Date().toISOString();
   const { data: posts } = supabase
     ? await supabase
         .from("posts")
         .select("*")
         .eq("status", "published")
+        .not("published_at", "is", null)
+        .lte("published_at", now)
         .order("published_at", { ascending: false })
     : { data: null as Post[] | null };
 

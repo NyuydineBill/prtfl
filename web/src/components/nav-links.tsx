@@ -29,6 +29,7 @@ const navigation: NavEntry[] = [
   },
   { href: "/work", label: "Work" },
   { href: "/articles", label: "Articles" },
+  { href: "/resources", label: "Resources" },
   {
     label: "More",
     items: [

@@ -17,11 +17,16 @@ create table if not exists posts (
 
 alter table posts enable row level security;
 
--- Anyone (anon key, the public /articles pages) can read published posts only.
+-- Anyone (anon key) can read published posts whose publish time has arrived.
+-- Schedule by setting status='published' with a future published_at.
 create policy "public can read published posts"
   on posts for select
   to anon
-  using (status = 'published');
+  using (
+    status = 'published'
+    and published_at is not null
+    and published_at <= now()
+  );
 
 -- A signed-in admin (there's only one) can read, create, edit, and delete
 -- every post, published or draft.

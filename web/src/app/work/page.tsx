@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/site";
 export const metadata = pageMetadata({
   title: "Work",
   description:
-    "Projects taken from architecture through to deployment: ResolveMeQ, UmEmployed, and other production systems and open-source work.",
+    "Projects taken from architecture through to deployment: ResolveMeQ, Deligon, JotEcho, and other production systems and open-source work.",
   path: "/work",
 });
 

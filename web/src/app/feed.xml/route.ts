@@ -22,6 +22,8 @@ async function getPublishedArticles(): Promise<FeedPost[]> {
     .from("posts")
     .select("slug, title, excerpt, published_at, updated_at")
     .eq("status", "published")
+    .not("published_at", "is", null)
+    .lte("published_at", new Date().toISOString())
     .order("published_at", { ascending: false })
     .limit(50);
 

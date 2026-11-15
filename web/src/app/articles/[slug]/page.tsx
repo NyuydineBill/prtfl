@@ -22,6 +22,8 @@ const getPost = cache(async (slug: string): Promise<Post | null> => {
     .select("*")
     .eq("slug", slug)
     .eq("status", "published")
+    .not("published_at", "is", null)
+    .lte("published_at", new Date().toISOString())
     .maybeSingle();
   return data;
 });

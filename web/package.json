@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "articles:generate": "tsx scripts/generate-scheduled-posts.ts",
+    "articles:generate:local": "tsx scripts/generate-scheduled-posts-local.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",
@@ -30,6 +32,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }

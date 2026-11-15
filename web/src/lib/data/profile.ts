@@ -9,7 +9,7 @@ export const profile = {
   github: "https://github.com/NyuydineBill",
   linkedin: "https://linkedin.com/in/nyuydine-bill",
   summary:
-    "Software engineer and architect who thinks in systems before writing code. I work across the full stack: product and software architecture, backend, frontend, mobile engineering, AI systems, and cloud infrastructure. I generally spend more time on the design than on any single line of implementation. I built and maintain ResolveMeQ, an AI-powered SaaS platform for IT-helpdesk automation; engineered JotEcho, an AI publishing workflow for creators and founders; work as a Full-Stack & AI Engineer on UmEmployed, a USA-based AI recruitment platform; and lead architecture for the Cameroon Digital Trust Network. I also ship production client websites for businesses and nonprofits. Much of my work centers on integrating AI into production systems in ways that stay reliable, observable, and secure, and on running the infrastructure that keeps them healthy on Azure and AWS.",
+    "Software engineer and architect who thinks in systems before writing code. I work across the full stack: product and software architecture, backend, frontend, mobile engineering, AI systems, and cloud infrastructure. I generally spend more time on the design than on any single line of implementation. I built and maintain ResolveMeQ, an AI-powered SaaS platform for IT-helpdesk automation; engineered and continue growing JotEcho, an AI publishing workflow for creators and founders; work as a Full-Stack & AI Engineer on Deligon (formerly UmEmployed), a USA-based skills-first talent intelligence platform; and lead architecture for the Cameroon Digital Trust Network. I also ship production client websites for businesses and nonprofits. Much of my work centers on integrating AI into production systems in ways that stay reliable, observable, and secure, and on running the infrastructure that keeps them healthy on Azure and AWS.",
   expertise: [
     {
       title: "Software Architecture",
@@ -34,7 +34,7 @@ export const profile = {
     { value: "MLSA", label: "Microsoft Learn Student Ambassador" },
   ],
   domains: [
-    "Recruitment & HR Tech",
+    "Recruitment & Talent Intelligence",
     "Creator Tools & Social Publishing",
     "Education",
     "Food Delivery & Retail",

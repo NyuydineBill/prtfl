@@ -6,6 +6,7 @@ import { skillGroups } from "@/lib/data/skills";
 import { teaching } from "@/lib/data/teaching";
 import { leadership } from "@/lib/data/leadership";
 import { certifications } from "@/lib/data/certifications";
+import { resources } from "@/lib/data/resources";
 
 // A single grounded knowledge base assembled from the site's own content
 // data, fed into the chat assistant's system prompt so it can only answer
@@ -57,6 +58,13 @@ Education: ${profile.education.map((e) => `${e.credential}, ${e.institution} (${
 
   sections.push(`# Certifications\n${certifications
     .map((c) => `- ${c.name}, ${c.org} (${c.period})`)
+    .join("\n")}`);
+
+  sections.push(`# Resources\n${resources
+    .map(
+      (r) =>
+        `- ${r.title} (${r.kind}, ${r.level}, ${r.status}): ${r.summary}`,
+    )
     .join("\n")}`);
 
   sections.push(`# Contact\nEmail: ${profile.email}\nGitHub: ${profile.github}\nLinkedIn: ${profile.linkedin}`);

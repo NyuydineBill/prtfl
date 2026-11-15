@@ -10,18 +10,18 @@ export type ExperienceEntry = {
 export const experience: ExperienceEntry[] = [
   {
     role: "Full-Stack & AI Engineer",
-    org: "UmEmployed",
+    org: "Deligon (formerly UmEmployed)",
     location: "USA (Remote)",
-    period: "2023 – 2026",
+    period: "2023 – Present",
     summary:
-      "Worked across backend, frontend, mobile, AI, and cloud engineering on a single recruitment platform, building each layer to function as one coherent product.",
+      "Work across backend, frontend, mobile, AI, and cloud engineering on Deligon, a skills-first talent intelligence platform that evolved from UmEmployed into verified-profile hiring.",
     highlights: [
       "Designed and built the Django and Django REST Framework backend, including API architecture, OAuth2-based authentication, and Stripe/PayPal payment integration.",
-      "Built React dashboard interfaces that surface the platform's AI outputs (resume scores, match results, recommendations) in a form recruiters and candidates could act on directly.",
+      "Built React dashboard interfaces that surface AI outputs (resume scores, match results, recommendations, and skill evidence) in a form recruiters and candidates can act on directly.",
       "Built the cross-platform React Native app end to end, shipped it to both the Google Play Store and Apple App Store, and maintained it in production.",
       "Built resume parsing, resume scoring, AI job matching, skill extraction, an AI recommendation system, MCQ interview-question generation, a Career Roadmap engine, and a Skills Guide engine.",
       "Deployed on Azure and Docker, migrated databases to PostgreSQL with Alembic, and maintained CI/CD and infrastructure across AWS S3, RDS, Lambda, and IAM.",
-      "Deployed 6+ AI models at over 85% accuracy for résumé scoring, job matching, and personalized recommendations, in production use by 500+ users.",
+      "Helped evolve the product from UmEmployed into Deligon: persistent candidate profiles, skills validation, and recruiter discovery grounded in demonstrated ability.",
     ],
   },
   {

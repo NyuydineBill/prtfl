@@ -12,8 +12,10 @@ async function getPublishedArticles() {
   const supabase = createClient(url, anonKey);
   const { data } = await supabase
     .from("posts")
-    .select("slug, updated_at, cover_image")
-    .eq("status", "published");
+    .select("slug, updated_at, cover_image, published_at")
+    .eq("status", "published")
+    .not("published_at", "is", null)
+    .lte("published_at", new Date().toISOString());
 
   return data ?? [];
 }
@@ -31,6 +33,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     { url: `${siteUrl}/work`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteUrl}/articles`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    {
+      url: `${siteUrl}/resources`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.75,
+    },
     {
       url: `${siteUrl}/experience`,
       lastModified: now,
