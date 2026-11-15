@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "articles:generate": "tsx scripts/generate-scheduled-posts.ts",
-    "articles:generate:local": "tsx scripts/generate-scheduled-posts-local.ts"
+    "articles:generate:local": "tsx scripts/generate-scheduled-posts-local.ts",
+    "articles:refresh-covers": "tsx scripts/refresh-covers.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",

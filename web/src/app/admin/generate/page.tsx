@@ -151,7 +151,7 @@ export default function AdminGeneratePage() {
             checked={generateImage}
             onChange={(event) => setGenerateImage(event.target.checked)}
           />
-          Local SVG cover (no image API)
+          Photo cover (Unsplash, no AI image API)
         </label>
         <label className="text-sm text-muted">
           Mode{" "}

@@ -4,10 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { profile } from "@/lib/data/profile";
 import { getTopic } from "@/lib/data/article-topics";
-import { generateSvgCover } from "@/lib/covers/generate-svg-cover";
+import { uploadCoverPhoto } from "@/lib/covers/upload-cover-photo";
 import { slugify } from "@/lib/posts";
-
-const COVER_BUCKET = "post-images";
 
 async function requireAdmin() {
   const supabase = await createClient();
@@ -22,25 +20,6 @@ async function requireAdmin() {
     };
   }
   return { supabase, user, error: null };
-}
-
-async function generateLocalCoverImage(
-  opts: { title: string; cluster: string; seed?: string },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  storageClient: any,
-) {
-  const svg = generateSvgCover(opts);
-  const path = `covers/${crypto.randomUUID()}.svg`;
-
-  const { error } = await storageClient.storage.from(COVER_BUCKET).upload(path, svg, {
-    contentType: "image/svg+xml",
-    cacheControl: "3600",
-    upsert: false,
-  });
-  if (error) throw new Error(error.message);
-
-  const { data } = storageClient.storage.from(COVER_BUCKET).getPublicUrl(path);
-  return data.publicUrl as string;
 }
 
 export async function POST(request: Request) {
@@ -135,14 +114,11 @@ Rules:
     let coverImage: string | null = null;
 
     if (generateImage) {
-      coverImage = await generateLocalCoverImage(
-        {
-          title: draft.title,
-          cluster: curated?.cluster ?? "Software Architecture",
-          seed: curated?.id ?? draft.title,
-        },
-        admin,
-      );
+      coverImage = await uploadCoverPhoto(admin, {
+        seed: curated?.id ?? draft.title,
+        cluster: curated?.cluster,
+        tags: curated?.tags ?? tags,
+      });
     }
 
     if (!save && !publish && !publishAt) {

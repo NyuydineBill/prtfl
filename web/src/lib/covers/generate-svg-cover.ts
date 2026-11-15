@@ -1,110 +1,118 @@
-/** Local editorial cover art. No external image API. */
+/** Local editorial cover art. Abstract only: no titles, labels, or readable text. */
 
-const CLUSTER_PALETTES: Record<string, { bg: string; a: string; b: string; ink: string }> = {
-  "Software Architecture": {
-    bg: "#0f1419",
-    a: "#3d8bfd",
-    b: "#1a3a5c",
-    ink: "#c8d6e5",
-  },
-  "AI Systems": {
-    bg: "#121018",
-    a: "#7c6af5",
-    b: "#2a2450",
-    ink: "#d4cfff",
-  },
-  "Full-Stack": {
-    bg: "#0e1614",
-    a: "#2dd4a8",
-    b: "#1a3d34",
-    ink: "#c5ebe0",
-  },
-  "Full-Stack Development": {
-    bg: "#0e1614",
-    a: "#2dd4a8",
-    b: "#1a3d34",
-    ink: "#c5ebe0",
-  },
-  "DevOps & Reliability": {
-    bg: "#0f1218",
-    a: "#5ec8e8",
-    b: "#1a2a38",
-    ink: "#c8e6f0",
-  },
-  Mentoring: {
-    bg: "#16120e",
-    a: "#e8a85c",
-    b: "#3d2e1a",
-    ink: "#f0e0c8",
-  },
-  "Mentoring & Career": {
-    bg: "#16120e",
-    a: "#e8a85c",
-    b: "#3d2e1a",
-    ink: "#f0e0c8",
-  },
-  "Product Building": {
-    bg: "#141018",
-    a: "#e07a9a",
-    b: "#3a1f2e",
-    ink: "#f0d4e0",
-  },
-  "Django & Python": {
-    bg: "#0f1612",
-    a: "#44b78b",
-    b: "#1a3d2e",
-    ink: "#cfeee0",
-  },
-  "Next.js & Frontend": {
-    bg: "#101014",
-    a: "#a0a0b8",
-    b: "#2a2a38",
-    ink: "#e0e0ec",
-  },
-  Databases: {
-    bg: "#10141a",
-    a: "#6b9fd4",
-    b: "#1e2f45",
-    ink: "#d0e0f0",
-  },
+type Palette = { bg: string; a: string; b: string; c: string };
+
+const CLUSTER_PALETTES: Record<string, Palette> = {
+  "Software Architecture": { bg: "#0b1220", a: "#3d8bfd", b: "#16324f", c: "#7eb6ff" },
+  "AI Systems": { bg: "#100e1a", a: "#8b7cf7", b: "#2a2148", c: "#c4b5fd" },
+  "Full-Stack": { bg: "#0a1412", a: "#2dd4a8", b: "#14352d", c: "#99f6e0" },
+  "Full-Stack Development": { bg: "#0a1412", a: "#2dd4a8", b: "#14352d", c: "#99f6e0" },
+  "DevOps & Reliability": { bg: "#0a1218", a: "#38bdf8", b: "#163041", c: "#bae6fd" },
+  Mentoring: { bg: "#16110c", a: "#f0a468", b: "#3b2a1a", c: "#ffd7a8" },
+  "Mentoring & Career": { bg: "#16110c", a: "#f0a468", b: "#3b2a1a", c: "#ffd7a8" },
+  "Product Building": { bg: "#140f16", a: "#f472b6", b: "#3a1f32", c: "#fbcfe8" },
+  "Django & Python": { bg: "#0c1612", a: "#34d399", b: "#1a3d2e", c: "#a7f3d0" },
+  "Next.js & Frontend": { bg: "#0e0e12", a: "#a1a1aa", b: "#27272a", c: "#e4e4e7" },
+  Databases: { bg: "#0c121a", a: "#60a5fa", b: "#1e2f45", c: "#bfdbfe" },
 };
 
-const FALLBACK = {
-  bg: "#101418",
-  a: "#5b9fd4",
-  b: "#1e2f3d",
-  ink: "#d0dbe6",
-};
+const FALLBACK: Palette = { bg: "#0d1218", a: "#5b9fd4", b: "#1e2f3d", c: "#c8dbe8" };
 
 function hash(input: string) {
-  let h = 0;
-  for (let i = 0; i < input.length; i += 1) h = (h * 31 + input.charCodeAt(i)) >>> 0;
-  return h;
-}
-
-function escapeXml(value: string) {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
-}
-
-function wrapTitle(title: string, maxChars = 28) {
-  const words = title.split(/\s+/);
-  const lines: string[] = [];
-  let current = "";
-  for (const word of words) {
-    const next = current ? `${current} ${word}` : word;
-    if (next.length > maxChars && current) {
-      lines.push(current);
-      current = word;
-    } else {
-      current = next;
-    }
+  let h = 2166136261;
+  for (let i = 0; i < input.length; i += 1) {
+    h ^= input.charCodeAt(i);
+    h = Math.imul(h, 16777619);
   }
-  if (current) lines.push(current);
-  return lines.slice(0, 3);
+  return h >>> 0;
+}
+
+function pick(seed: number, salt: number, mod: number) {
+  return (Math.imul(seed ^ salt, 2654435761) >>> 0) % mod;
+}
+
+function architectureMotif(p: Palette, seed: number) {
+  const blocks = Array.from({ length: 9 }, (_, i) => {
+    const x = 180 + pick(seed, i * 17, 8) * 150;
+    const y = 140 + pick(seed, i * 29, 5) * 120;
+    const w = 110 + pick(seed, i * 41, 160);
+    const h = 70 + pick(seed, i * 53, 110);
+    const op = (18 + pick(seed, i * 7, 28)) / 100;
+    return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="14" fill="${p.a}" opacity="${op}" stroke="${p.c}" stroke-opacity="0.25" stroke-width="1.5"/>`;
+  }).join("\n");
+  const links = Array.from({ length: 6 }, (_, i) => {
+    const x1 = 220 + pick(seed, i * 13, 1200);
+    const y1 = 180 + pick(seed, i * 19, 600);
+    const x2 = 220 + pick(seed, i * 23, 1200);
+    const y2 = 180 + pick(seed, i * 31, 600);
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${p.c}" stroke-opacity="0.2" stroke-width="2"/>`;
+  }).join("\n");
+  return `${links}\n${blocks}`;
+}
+
+function aiMotif(p: Palette, seed: number) {
+  const cx = 980 + pick(seed, 3, 200);
+  const cy = 480 + pick(seed, 5, 120);
+  const rings = [120, 220, 340, 480]
+    .map(
+      (r, i) =>
+        `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${p.a}" stroke-opacity="${0.12 + i * 0.05}" stroke-width="2"/>`,
+    )
+    .join("\n");
+  const nodes = Array.from({ length: 18 }, (_, i) => {
+    const angle = ((pick(seed, i * 11, 360) + i * 20) % 360) * (Math.PI / 180);
+    const radius = 140 + pick(seed, i * 17, 320);
+    const x = cx + Math.cos(angle) * radius;
+    const y = cy + Math.sin(angle) * radius;
+    const r = 5 + pick(seed, i * 7, 10);
+    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${p.c}" opacity="${0.35 + pick(seed, i, 40) / 100}"/>`;
+  }).join("\n");
+  return `${rings}\n${nodes}\n<circle cx="${cx}" cy="${cy}" r="46" fill="${p.a}" opacity="0.35"/>`;
+}
+
+function wavesMotif(p: Palette, seed: number) {
+  const paths = Array.from({ length: 7 }, (_, i) => {
+    const y = 180 + i * 100;
+    const amp = 40 + pick(seed, i * 9, 70);
+    const phase = pick(seed, i * 13, 400);
+    const d = `M -40 ${y} C ${300 + phase} ${y - amp}, ${900 - phase} ${y + amp}, 1840 ${y + pick(seed, i, 40) - 20}`;
+    return `<path d="${d}" fill="none" stroke="${i % 2 ? p.a : p.c}" stroke-opacity="${0.14 + i * 0.04}" stroke-width="${3 + (i % 3)}"/>`;
+  }).join("\n");
+  return paths;
+}
+
+function gridMotif(p: Palette, seed: number) {
+  const cols = Array.from({ length: 14 }, (_, i) => {
+    const x = 80 + i * 120;
+    return `<line x1="${x}" y1="40" x2="${x}" y2="984" stroke="${p.a}" stroke-opacity="0.08" stroke-width="1"/>`;
+  }).join("\n");
+  const rows = Array.from({ length: 8 }, (_, i) => {
+    const y = 60 + i * 120;
+    return `<line x1="40" y1="${y}" x2="1752" y2="${y}" stroke="${p.a}" stroke-opacity="0.08" stroke-width="1"/>`;
+  }).join("\n");
+  const hot = Array.from({ length: 5 }, (_, i) => {
+    const x = 160 + pick(seed, i * 21, 1400);
+    const y = 120 + pick(seed, i * 27, 700);
+    return `<rect x="${x}" y="${y}" width="${180 + pick(seed, i, 220)}" height="${100 + pick(seed, i * 3, 140)}" rx="18" fill="${p.a}" opacity="${0.1 + pick(seed, i, 18) / 100}" />`;
+  }).join("\n");
+  return `${cols}\n${rows}\n${hot}`;
+}
+
+function isometricMotif(p: Palette, seed: number) {
+  const tiles = Array.from({ length: 12 }, (_, i) => {
+    const col = i % 4;
+    const row = Math.floor(i / 4);
+    const x = 520 + col * 180 + row * 40;
+    const y = 220 + row * 140 - col * 20;
+    const h = 50 + pick(seed, i * 7, 90);
+    return `
+      <g opacity="${0.45 + pick(seed, i, 30) / 100}">
+        <polygon points="${x},${y} ${x + 90},${y + 50} ${x},${y + 100} ${x - 90},${y + 50}" fill="${p.b}" stroke="${p.c}" stroke-opacity="0.35"/>
+        <polygon points="${x - 90},${y + 50} ${x},${y + 100} ${x},${y + 100 + h} ${x - 90},${y + 50 + h}" fill="${p.a}" opacity="0.35"/>
+        <polygon points="${x},${y + 100} ${x + 90},${y + 50} ${x + 90},${y + 50 + h} ${x},${y + 100 + h}" fill="${p.c}" opacity="0.2"/>
+      </g>`;
+  }).join("\n");
+  return tiles;
 }
 
 export function generateSvgCover(opts: {
@@ -114,42 +122,47 @@ export function generateSvgCover(opts: {
 }) {
   const palette = CLUSTER_PALETTES[opts.cluster] ?? FALLBACK;
   const seed = hash(opts.seed ?? opts.title);
-  const lines = wrapTitle(opts.title);
-  const shapes = Array.from({ length: 6 }, (_, i) => {
-    const x = 80 + ((seed >> (i * 3)) % 1400);
-    const y = 60 + ((seed >> (i * 5)) % 700);
-    const w = 120 + ((seed >> (i * 2)) % 280);
-    const h = 80 + ((seed >> (i * 4)) % 180);
-    const opacity = 0.08 + ((seed >> i) % 12) / 100;
-    return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="18" fill="${palette.a}" opacity="${opacity}" />`;
-  }).join("\n");
+  const motifId = pick(seed, 99, 5);
+  const motif =
+    motifId === 0
+      ? architectureMotif(palette, seed)
+      : motifId === 1
+        ? aiMotif(palette, seed)
+        : motifId === 2
+          ? wavesMotif(palette, seed)
+          : motifId === 3
+            ? gridMotif(palette, seed)
+            : isometricMotif(palette, seed);
 
-  const titleNodes = lines
-    .map(
-      (line, i) =>
-        `<text x="96" y="${520 + i * 56}" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="600" fill="${palette.ink}">${escapeXml(line)}</text>`,
-    )
-    .join("\n");
+  const orbX = 1280 + pick(seed, 2, 280);
+  const orbY = 220 + pick(seed, 4, 220);
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1792" height="1024" viewBox="0 0 1792 1024">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="${palette.bg}"/>
-      <stop offset="100%" stop-color="${palette.b}"/>
+      <stop offset="55%" stop-color="${palette.b}"/>
+      <stop offset="100%" stop-color="${palette.bg}"/>
     </linearGradient>
-    <radialGradient id="glow" cx="75%" cy="25%" r="55%">
-      <stop offset="0%" stop-color="${palette.a}" stop-opacity="0.35"/>
+    <radialGradient id="orb" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="${palette.a}" stop-opacity="0.55"/>
+      <stop offset="55%" stop-color="${palette.a}" stop-opacity="0.12"/>
       <stop offset="100%" stop-color="${palette.a}" stop-opacity="0"/>
     </radialGradient>
+    <radialGradient id="wash" cx="20%" cy="80%" r="60%">
+      <stop offset="0%" stop-color="${palette.c}" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="${palette.c}" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
   </defs>
-  <rect width="1792" height="1024" fill="url(#g)"/>
-  <rect width="1792" height="1024" fill="url(#glow)"/>
-  ${shapes}
-  <circle cx="1480" cy="280" r="160" fill="none" stroke="${palette.a}" stroke-opacity="0.25" stroke-width="2"/>
-  <circle cx="1480" cy="280" r="95" fill="none" stroke="${palette.a}" stroke-opacity="0.4" stroke-width="2"/>
-  <line x1="96" y1="460" x2="420" y2="460" stroke="${palette.a}" stroke-width="3" stroke-opacity="0.7"/>
-  <text x="96" y="430" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="22" letter-spacing="3" fill="${palette.a}">${escapeXml(opts.cluster.toUpperCase())}</text>
-  ${titleNodes}
+  <rect width="1792" height="1024" fill="url(#bg)"/>
+  <rect width="1792" height="1024" fill="url(#wash)"/>
+  <circle cx="${orbX}" cy="${orbY}" r="320" fill="url(#orb)" filter="url(#soft)"/>
+  <circle cx="260" cy="780" r="220" fill="${palette.a}" opacity="0.08" filter="url(#soft)"/>
+  ${motif}
+  <rect x="0" y="0" width="1792" height="1024" fill="none" stroke="${palette.c}" stroke-opacity="0.08" stroke-width="2"/>
 </svg>`;
 }

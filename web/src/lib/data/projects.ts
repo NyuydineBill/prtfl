@@ -108,7 +108,7 @@ export const projects: Project[] = [
     name: "JotEcho",
     category: "SaaS · Artificial Intelligence · Creator Tools",
     role: "Lead Full-Stack & AI Engineer",
-    period: "2025 - Present",
+    period: "2026 - Present",
     status: "Live · growing · Free + Creator trial",
     featured: true,
     summary:

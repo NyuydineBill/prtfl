@@ -10,7 +10,7 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { createClient } from "@supabase/supabase-js";
-import { generateSvgCover } from "../src/lib/covers/generate-svg-cover";
+import { uploadCoverPhoto } from "../src/lib/covers/upload-cover-photo";
 import { slugify } from "../src/lib/posts";
 import { localBatch01 } from "./local-articles/batch-01";
 import { localBatch02 } from "./local-articles/batch-02";
@@ -109,18 +109,11 @@ async function main() {
     console.log(`\n[${index + 1}/${articles.length}] ${article.topicId} → ${publishAt.toISOString()}`);
 
     const slug = await uniqueSlug(admin, article.title);
-    const svg = generateSvgCover({
-      title: article.title,
-      cluster: article.cluster,
+    const coverImage = await uploadCoverPhoto(admin, {
       seed: article.topicId,
+      cluster: article.cluster,
+      tags: article.tags,
     });
-    const path = `covers/${crypto.randomUUID()}.svg`;
-    const { error: uploadError } = await admin.storage.from("post-images").upload(path, svg, {
-      contentType: "image/svg+xml",
-      upsert: false,
-    });
-    if (uploadError) throw new Error(uploadError.message);
-    const coverImage = admin.storage.from("post-images").getPublicUrl(path).data.publicUrl;
 
     const { data: post, error } = await admin
       .from("posts")
