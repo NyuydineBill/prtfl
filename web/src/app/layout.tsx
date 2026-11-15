@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { SiteShell } from "@/components/site-shell";
 import { JsonLd } from "@/components/json-ld";
@@ -13,16 +13,19 @@ import {
   siteUrl,
 } from "@/lib/site";
 
-const hanken = Hanken_Grotesk({
+// Self-hosted so Vercel builds do not depend on fetching Google Fonts at build time.
+const hanken = localFont({
+  src: "./fonts/hanken-grotesk.woff2",
   variable: "--font-hanken",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: "400 700",
+  display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const jetbrainsMono = localFont({
+  src: "./fonts/jetbrains-mono.woff2",
   variable: "--font-jetbrains",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: "400 600",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
