@@ -39,7 +39,7 @@ export function GuestbookForm() {
   if (submitted) {
     return (
       <p className="rounded-lg border border-border bg-surface p-5 text-base text-muted">
-        Thanks — your note is in and will show up once it&rsquo;s reviewed.
+        Thanks. Your note is in and will show up once it&rsquo;s reviewed.
       </p>
     );
   }

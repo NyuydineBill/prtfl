@@ -13,7 +13,7 @@ export const certifications: Certification[] = [
   {
     name: "Certified Software Engineer, ALX Software Engineering Program",
     org: "ALX Africa",
-    period: "2023 – 2024",
+    period: "2023 - 2024",
     featured: true,
     summary:
       "Completed the intensive ALX Software Engineering Program: full-stack software engineering, Linux systems, algorithms, data structures, databases, networking, DevOps fundamentals, and collaborative software development.",
@@ -33,6 +33,6 @@ export const certifications: Certification[] = [
   {
     name: "Azure Cloud Analyst",
     org: "Microsoft Learn Student Ambassadors",
-    period: "2023 – 2024",
+    period: "2023 - 2024",
   },
 ];

@@ -19,7 +19,7 @@ Name: ${profile.name}
 Role: ${profile.role}
 Location: ${profile.location}
 Summary: ${profile.summary}
-Core expertise: ${profile.expertise.map((e) => `${e.title} — ${e.description}`).join(" | ")}
+Core expertise: ${profile.expertise.map((e) => `${e.title}: ${e.description}`).join(" | ")}
 Domains: ${profile.domains.join(", ")}
 Education: ${profile.education.map((e) => `${e.credential}, ${e.institution} (${e.period})`).join("; ")}`);
 

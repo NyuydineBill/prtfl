@@ -25,7 +25,7 @@ export type Project = {
 };
 
 // Sourced from the résumé and direct project write-ups. Add more entries
-// here as they're ready — the list and detail pages render off this array.
+// here as they're ready - the list and detail pages render off this array.
 // Sections render only when present, so depth varies honestly by how much
 // source material exists for each project.
 export const projects: Project[] = [
@@ -34,7 +34,7 @@ export const projects: Project[] = [
     name: "Self-Healing CI/CD Pipelines Using AI",
     category: "Research · Artificial Intelligence · DevOps",
     role: "Sole Researcher & Engineer · B.Eng. Final-Year Research",
-    period: "2025 – 2026",
+    period: "2025 - 2026",
     status: "Research project",
     featured: true,
     summary:
@@ -84,7 +84,7 @@ export const projects: Project[] = [
     name: "ResolveMeQ",
     category: "SaaS · Artificial Intelligence · Founder",
     role: "Founder, Sole Architect & Engineer",
-    period: "2025 – Present",
+    period: "2025 - Present",
     status: "Beta · early adopters",
     featured: true,
     summary:
@@ -108,7 +108,7 @@ export const projects: Project[] = [
     name: "JotEcho",
     category: "SaaS · Artificial Intelligence · Creator Tools",
     role: "Lead Full-Stack & AI Engineer",
-    period: "2025 – Present",
+    period: "2025 - Present",
     status: "Live · growing · Free + Creator trial",
     featured: true,
     summary:
@@ -192,7 +192,7 @@ export const projects: Project[] = [
     name: "Deligon",
     category: "SaaS · Artificial Intelligence · Talent Intelligence",
     role: "Full-Stack & AI Engineer",
-    period: "2023 – Present",
+    period: "2023 - Present",
     status: "Live · production · evolved from UmEmployed",
     featured: true,
     summary:
@@ -459,7 +459,7 @@ export const projects: Project[] = [
     name: "Z-Learn",
     category: "EdTech · Full Stack",
     role: "Backend Architect · ZiloTech",
-    period: "2023 – 2025",
+    period: "2023 - 2025",
     status: "Production · 20+ releases",
     summary:
       "EdTech platform with AI-powered tutoring modules that personalize learning paths per student.",
@@ -469,7 +469,7 @@ export const projects: Project[] = [
       "Architected and built the backend with Django REST Framework, JWT authentication, and PostgreSQL.",
       "Built AI-powered tutoring modules that personalize learning paths per student.",
       "Integrated local payment channels for course enrollment and billing.",
-      "Automated build-test-deploy with Azure DevOps Pipelines across 20+ releases (2024–2025).",
+      "Automated build-test-deploy with Azure DevOps Pipelines across 20+ releases (2024-2025).",
     ],
     stack: ["Django REST Framework", "PostgreSQL", "JWT", "Azure DevOps"],
   },
@@ -496,7 +496,7 @@ export const projects: Project[] = [
     name: "LandlordNde24",
     category: "Property Tech · Mobile",
     role: "Mobile Engineer · Freelance",
-    period: "2024 – 2025",
+    period: "2024 - 2025",
     status: "Live · Google Play & Apple App Store",
     summary:
       "Property-tech mobile app for landlords, shipped to both major app stores.",

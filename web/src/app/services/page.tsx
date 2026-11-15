@@ -33,7 +33,7 @@ export default function ServicesPage() {
           index={1}
           eyebrow="Engagements"
           title="How we can work together"
-          description="Select remote engagements across AI products, full-stack delivery, architecture consulting, and mentoring—grounded in systems already shipped."
+          description="Select remote engagements across AI products, full-stack delivery, architecture consulting, and mentoring, grounded in systems already shipped."
         />
       </Reveal>
 

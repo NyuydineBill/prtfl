@@ -103,7 +103,7 @@ Rules:
 - Write in first person, as ${profile.name} would write it himself.
 - Do not invent specific metrics, client names, employers, or achievements beyond what the topic itself implies. When unsure, keep claims general rather than fabricating specifics.
 - Direct, technical tone. No marketing language, no filler, no generic AI-sounding phrasing.
-- Never use em dashes (—) or en dashes (–) as punctuation. Use a period, comma, colon, or parentheses instead.
+- Never use em dashes or en dashes as punctuation. Use a period, comma, colon, or parentheses instead.
 - Vary structure. Teach one useful idea.
 - content is Markdown. excerpt is one plain sentence.
 - Aim for roughly 800 to 1400 words unless naturally a short cheatsheet.`;

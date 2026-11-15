@@ -48,12 +48,12 @@ export const profile = {
     {
       credential: "B.Eng. Computer Engineering",
       institution: "University of Bamenda",
-      period: "2022 – 2026",
+      period: "2022 - 2026",
     },
     {
       credential: "Software Engineering Program",
       institution: "ALX Africa",
-      period: "2023 – 2024",
+      period: "2023 - 2024",
     },
   ],
   identities: [

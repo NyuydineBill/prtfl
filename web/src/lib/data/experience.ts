@@ -12,7 +12,7 @@ export const experience: ExperienceEntry[] = [
     role: "Full-Stack & AI Engineer",
     org: "Deligon (formerly UmEmployed)",
     location: "USA (Remote)",
-    period: "2023 – Present",
+    period: "2023 - Present",
     summary:
       "Work across backend, frontend, mobile, AI, and cloud engineering on Deligon, a skills-first talent intelligence platform that evolved from UmEmployed into verified-profile hiring.",
     highlights: [
@@ -39,7 +39,7 @@ export const experience: ExperienceEntry[] = [
     role: "Full-Stack Engineer",
     org: "ZiloTech",
     location: "Cameroon",
-    period: "2023 – 2025",
+    period: "2023 - 2025",
     summary:
       "Delivered multiple production products end to end across EdTech and food delivery, from backend design through mobile and cloud deployment.",
     highlights: [
@@ -53,7 +53,7 @@ export const experience: ExperienceEntry[] = [
     role: "Full-Stack Software Engineer",
     org: "Various US Clients",
     location: "USA (Remote)",
-    period: "2023 – Present",
+    period: "2023 - Present",
     highlights: [
       "Designed and shipped web applications with Django, React, and Tailwind CSS, deployed with Kubernetes Helm and GitHub Actions.",
       "Engineered production client websites including Anedian Group LLC (U.S. African food e-commerce), Hope Restoration, and the Faye Suleiman Foundation.",
@@ -64,7 +64,7 @@ export const experience: ExperienceEntry[] = [
     role: "Mobile Engineer",
     org: "LandlordNde24",
     location: "Property Tech · Freelance",
-    period: "2024 – 2025",
+    period: "2024 - 2025",
     highlights: [
       "Deployed the LandlordNde24 React Native app to both the Google Play Store and Apple App Store; managed release cycles and production maintenance.",
     ],
@@ -73,7 +73,7 @@ export const experience: ExperienceEntry[] = [
     role: "Open Source Contributor",
     org: "Daytona & Outreachy (Fedora)",
     location: "Freelance",
-    period: "2024 – 2025",
+    period: "2024 - 2025",
     highlights: [
       "Contributed backend modules to Daytona, an open-source development-environment platform, working alongside its core maintainers on container orchestration features.",
       "Improved core modules, test coverage, and documentation under Outreachy (Fedora OS), and helped streamline onboarding for incoming contributors.",

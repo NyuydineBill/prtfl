@@ -31,7 +31,7 @@ export async function POST(request: Request) {
 
   if (!allowed) {
     return NextResponse.json(
-      { error: "You've sent a lot of messages — try again in a bit." },
+      { error: "You've sent a lot of messages. Try again in a bit." },
       { status: 429 }
     );
   }
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Missing messages" }, { status: 400 });
   }
 
-  // Cap history sent to the model — keeps token usage and cost bounded.
+  // Cap history sent to the model - keeps token usage and cost bounded.
   const recentMessages = messages.slice(-8);
 
   const systemPrompt = `You are an AI assistant embedded on ${profile.name}'s portfolio website, answering on his behalf using the information below about his background, projects, experience, and skills.
@@ -58,7 +58,8 @@ Rules:
 - Only answer questions about ${profile.name}'s work, background, skills, and projects.
 - If asked something unrelated (general knowledge, coding help unrelated to his work, anything not about him), politely say you can only answer questions about his work and redirect back on topic.
 - Never invent facts, metrics, or claims that aren't in the information below. If you don't know, say so and suggest the visitor use the contact form.
-- Keep answers concise and conversational — a few sentences, not an essay.
+- Keep answers concise and conversational: a few sentences, not an essay.
+- Never use em dashes or en dashes as punctuation. Use a period, comma, colon, or parentheses instead.
 - This renders in a small chat bubble, not an article. Markdown is supported for light formatting (bold, a short bullet list, inline code, links) when it genuinely helps, but skip headings and long code blocks.
 
 ${buildKnowledgeBase()}`;

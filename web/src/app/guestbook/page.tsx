@@ -30,7 +30,7 @@ export default async function GuestbookPage() {
           index={1}
           eyebrow="Guestbook"
           title="Leave a note"
-          description="Worked together, or just visiting? Leave a note — it shows up here once I've had a look."
+          description="Worked together, or just visiting? Leave a note. It shows up here once I've had a look."
         />
         <GuestbookForm />
       </Reveal>
@@ -40,7 +40,7 @@ export default async function GuestbookPage() {
           Notes
         </h2>
         {!entries || entries.length === 0 ? (
-          <p className="mt-4 text-base text-muted">No notes yet — be the first.</p>
+          <p className="mt-4 text-base text-muted">No notes yet. Be the first.</p>
         ) : (
           <RevealGroup className="mt-4 grid gap-4 sm:grid-cols-2" stagger={0.06}>
             {entries.map((entry) => (

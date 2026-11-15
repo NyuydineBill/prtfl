@@ -16,7 +16,7 @@ export const defaultOgImage = {
   url: "/opengraph-image",
   width: 1200,
   height: 630,
-  alt: `${profile.name} — ${profile.role}`,
+  alt: `${profile.name}, ${profile.role}`,
 } as const;
 
 export function absoluteUrl(path = "/") {

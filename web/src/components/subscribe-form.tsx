@@ -63,7 +63,7 @@ export function SubscribeForm() {
         <p className="mt-2 text-sm text-muted">That email&rsquo;s already subscribed.</p>
       )}
       {status === "error" && (
-        <p className="mt-2 text-sm text-red-400">Something went wrong — try again.</p>
+        <p className="mt-2 text-sm text-red-400">Something went wrong. Try again.</p>
       )}
     </div>
   );

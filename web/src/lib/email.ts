@@ -35,13 +35,13 @@ export async function sendEmail({
 }): Promise<{ ok: boolean; error?: string }> {
   const client = getTransporter();
   if (!client) {
-    console.warn("sendEmail skipped — SMTP is not configured");
+    console.warn("sendEmail skipped - SMTP is not configured");
     return { ok: false, error: "SMTP is not configured" };
   }
 
   const from = process.env.EMAIL_FROM;
   if (!from) {
-    console.warn("sendEmail skipped — EMAIL_FROM is not configured");
+    console.warn("sendEmail skipped - EMAIL_FROM is not configured");
     return { ok: false, error: "EMAIL_FROM is not configured" };
   }
 

@@ -118,7 +118,7 @@ export function Comments({ postId, initialComments }: { postId: string; initialC
 
       <div className="mt-4 flex flex-col gap-4">
         {comments.length === 0 && (
-          <p className="text-sm text-muted">No comments yet — be the first.</p>
+          <p className="text-sm text-muted">No comments yet. Be the first.</p>
         )}
         <CommentThread comments={comments} parentId={null} onReply={setReplyTo} />
       </div>

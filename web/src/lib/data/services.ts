@@ -24,9 +24,9 @@ export const services: Service[] = [
     category: "AI Systems",
     headline: "Ship AI features that stay reliable in production",
     description:
-      "Remote AI product engineering for teams that need LLM workflows, retrieval, and automation wired into real products—not demos.",
+      "Remote AI product engineering for teams that need LLM workflows, retrieval, and automation wired into real products, not demos.",
     summary:
-      "I design and implement AI systems that sit inside production products: ticket triage, recruitment matching, conversational assistants, and recovery workflows. The focus is reliable orchestration, clear service boundaries, and observability—so AI work is maintainable after launch.",
+      "I design and implement AI systems that sit inside production products: ticket triage, recruitment matching, conversational assistants, and recovery workflows. The focus is reliable orchestration, clear service boundaries, and observability, so AI work is maintainable after launch.",
     whoFor: [
       "Product teams adding LLM workflows to an existing SaaS product",
       "Founders who need an end-to-end AI feature without a full in-house AI team",
@@ -214,7 +214,7 @@ export const services: Service[] = [
     description:
       "Remote engineering mentoring and technical coaching grounded in real tutoring, IT instruction, and student-ambassador leadership experience.",
     summary:
-      "Alongside product work, I teach and mentor: one-on-one programming tutoring on Preply, IT instruction for working professionals, and leadership of the Microsoft Learn Student Ambassadors chapter at the University of Bamenda. Mentoring here is practical—architecture judgment, debugging, and project delivery.",
+      "Alongside product work, I teach and mentor: one-on-one programming tutoring on Preply, IT instruction for working professionals, and leadership of the Microsoft Learn Student Ambassadors chapter at the University of Bamenda. Mentoring here is practical: architecture judgment, debugging, and project delivery.",
     whoFor: [
       "Early-career engineers who want stronger systems and architecture instincts",
       "Students building portfolio-grade projects with production habits",

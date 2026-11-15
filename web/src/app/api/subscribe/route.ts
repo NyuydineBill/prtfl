@@ -24,7 +24,7 @@ export async function POST(request: Request) {
 
   await sendEmail({
     to: email,
-    subject: `You're subscribed — ${profile.name}`,
+    subject: `You're subscribed: ${profile.name}`,
     html: `<p>Thanks for subscribing. You'll get a short email whenever I publish a new article. No spam, unsubscribe anytime by replying to any of these emails.</p>`,
     text: "Thanks for subscribing. You'll get a short email whenever I publish a new article. No spam, unsubscribe anytime by replying to any of these emails.",
   });
