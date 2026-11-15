@@ -29,10 +29,10 @@ const navigation: NavEntry[] = [
   },
   { href: "/work", label: "Work" },
   { href: "/articles", label: "Articles" },
-  { href: "/resources", label: "Resources" },
   {
     label: "More",
     items: [
+      { href: "/resources", label: "Resources", description: "Books, tools, cheatsheets, and guides" },
       { href: "/experience", label: "Experience", description: "Roles and production systems" },
       { href: "/stack", label: "Stack", description: "Languages, frameworks, infrastructure" },
       { href: "/community", label: "Community", description: "Teaching and leadership" },
