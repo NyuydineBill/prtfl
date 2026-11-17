@@ -75,7 +75,7 @@ export default async function ResourceDetailPage({
       {resource.summary && (
         <p className="mt-6 text-lg leading-relaxed text-muted">{resource.summary}</p>
       )}
-      <div className="prose-portfolio mt-10">
+      <div className="prose-article mt-10">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{resource.body}</ReactMarkdown>
       </div>
       {resource.href && (
