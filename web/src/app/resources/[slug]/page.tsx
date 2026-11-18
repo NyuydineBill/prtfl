@@ -72,7 +72,7 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
         <ArrowLeft className="h-4 w-4" /> Resources
       </Link>
 
-      <header className="pub-hero mt-8">
+      <header className={`pub-hero mt-8${pdf ? " has-cover" : ""}`}>
         <div>
           <p className="pub-series">
             {formatKindLabel(resource.kind)} {series} · Engineering Handbook Series
@@ -105,7 +105,8 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
             <div>
               <dt>Inside</dt>
               <dd>
-                {chapters.filter((c) => c.number).length} chapters · {numberedFigures} figures
+                {chapters.filter((c) => c.number).length} chapters
+                {numberedFigures > 0 ? ` · ${numberedFigures} figures` : ""}
               </dd>
             </div>
             <div>

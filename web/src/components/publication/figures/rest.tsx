@@ -580,7 +580,7 @@ export function VersioningFigure({ number }: FigureProps) {
       </ol>
 
       <div className="pub-grid-2 pub-mt">
-        <div className="pub-panel pub-tone-positive pub-panel-toned">
+        <div className="pub-panel pub-tone-positive">
           <p className="pub-panel-title">Additive: ship in place</p>
           <ul className="pub-ticks">
             <li>New endpoint</li>
@@ -589,7 +589,7 @@ export function VersioningFigure({ number }: FigureProps) {
             <li>New enum value, if clients were told to expect unknowns</li>
           </ul>
         </div>
-        <div className="pub-panel pub-tone-danger pub-panel-toned">
+        <div className="pub-panel pub-tone-danger">
           <p className="pub-panel-title">Breaking: new version or migration</p>
           <ul className="pub-crosses">
             <li>Remove or rename a field</li>
