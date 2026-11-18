@@ -18,7 +18,8 @@ export function getPdfInfo(slug: string): PdfInfo | null {
 
 /**
  * Local preview: with RESOURCES_LOCAL_PREVIEW=1 in development, the body comes from
- * scripts/local-resources/content/<slug>.md instead of Supabase. This lets you review a
+ * scripts/local-resources/content/<slug>.md (and title, summary, level and topics from
+ * scripts/local-resources/index.ts) instead of Supabase. This lets you review a
  * rewrite (and build its PDF) before seeding it into the live database.
  */
 async function localBody(slug: string) {
@@ -47,7 +48,17 @@ export async function getPublishedResource(slug: string): Promise<Resource | nul
 
   const resource = data as Resource;
   const preview = await localBody(slug);
-  return preview ? { ...resource, body: preview } : resource;
+  if (!preview) return resource;
+  // Preview the metadata that seeding would write too, so covers and PDFs match it.
+  const { localResources } = await import("../../../scripts/local-resources");
+  const meta = localResources.find((item) => item.slug === slug);
+  return {
+    ...resource,
+    body: preview,
+    ...(meta
+      ? { title: meta.title, summary: meta.summary, level: meta.level, topics: meta.topics, sort_order: meta.sort_order }
+      : {}),
+  };
 }
 
 export async function getPublishedSiblings(excludeSlug: string) {

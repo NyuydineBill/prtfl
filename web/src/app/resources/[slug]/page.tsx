@@ -8,6 +8,7 @@ import { analyzePublication } from "@/lib/publication/analyze";
 import { getPdfInfo, getPublishedResource, getPublishedSiblings } from "@/lib/publication/get-resource";
 import { PublicationBody } from "@/components/publication/publication-body";
 import { ContentsBar, ReadingProgress } from "@/components/publication/toc";
+import { unnumberedFigures } from "@/components/publication/figures";
 import { JsonLd } from "@/components/json-ld";
 import { profile } from "@/lib/data/profile";
 import { absoluteUrl, defaultDescription, pageMetadata } from "@/lib/site";
@@ -46,7 +47,7 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
   const pdf = getPdfInfo(slug);
   const siblings = await getPublishedSiblings(slug);
   const chapters = analysis.toc.filter((entry) => entry.depth === 2);
-  const numberedFigures = analysis.figures.filter((id) => id !== "rest-quick-reference").length;
+  const numberedFigures = analysis.figures.filter((id) => !unnumberedFigures.has(id)).length;
   const quickRef = chapters.find((entry) => /quick reference/i.test(entry.title));
   const series = String(resource.sort_order || 1).padStart(2, "0");
   const levelBars = LEVELS[resource.level] ?? 2;

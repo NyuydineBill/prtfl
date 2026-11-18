@@ -1,4 +1,9 @@
-Django gives you a lot out of the box, and that is exactly why it is easy to use it badly. Most Django performance problems, security slips and messy codebases I have seen came from a handful of habits: queries in loops, business logic scattered across views, and settings copied from a tutorial into production. This reference collects the patterns I use day to day with Django and Django REST Framework (DRF). Examples target modern Django (5.x) and Python 3.12+.
+Django gives you a lot out of the box, which is exactly why it is easy to use badly. Many performance problems, security slips and tangled codebases in Django projects trace back to a handful of habits: queries in loops, business logic scattered across views, and settings copied from a tutorial into production. This reference collects patterns that hold up in day-to-day work with Django and Django REST Framework (DRF), and the reasons behind them.
+
+It is organised the way a project grows: structure and models first, then the ORM, the API layer, access control, tests, performance and deployment.
+
+> [!NOTE]
+> Examples target Django 5.2 LTS or later with a current DRF release, on PostgreSQL. Version-specific features are marked where they appear. Model and field names (`Project`, `Task`, `budget_cents`) belong to a fictional project-management app.
 
 ## 1. Project structure
 
@@ -33,6 +38,10 @@ Principles:
 - **Apps by domain** (`projects`, `billing`), not by layer (`models`, `views`).
 - **Split settings** by environment. Read secrets from environment variables.
 - **Thin views, thin serializers.** Put business rules in plain functions (a `services.py` module works well). They are easier to test and reuse from views, management commands, tasks and the admin.
+
+```figure
+dj-layers
+```
 
 ## 2. Custom user model: do it first
 
@@ -107,7 +116,7 @@ python manage.py showmigrations
 python manage.py sqlmigrate projects 0004   # see the SQL before it runs
 ```
 
-Commit migrations with the code that needs them. Review them in PRs. On large tables, be careful with operations that lock or rewrite the table (adding a non-nullable column with a default on some databases, adding an index without `CONCURRENTLY` on Postgres). For risky changes, split into steps: add a nullable column, backfill, then add the constraint.
+Commit migrations with the code that needs them, and review them in pull requests. On large tables, watch for operations that lock or rewrite the table, such as adding an index the normal way on PostgreSQL (use `AddIndexConcurrently` from `django.contrib.postgres.operations` in a migration with `atomic = False`). For risky changes, split the work into steps: add a nullable column, backfill, then add the constraint. Chapter 11 shows the full sequence.
 
 ## 4. The ORM
 
@@ -140,6 +149,10 @@ Product.objects.filter(pk=pk, stock__gt=0).update(stock=F("stock") - 1)
 
 The `F()` update is a single SQL statement, so two concurrent requests cannot both read `stock = 1` and both sell the last item.
 
+```figure
+dj-lost-update
+```
+
 ### Aggregation and annotation
 
 ```python
@@ -153,6 +166,10 @@ User.objects.annotate(n=Count("projects")).filter(n__gt=5)
 When you annotate with several `Count`s across different relations, the joins multiply rows. Use `Count("tasks", distinct=True)` or subqueries.
 
 ### The N+1 problem and how to fix it
+
+```figure
+dj-n-plus-one
+```
 
 ```python
 # 1 query for projects, then 1 query per project for its owner: N+1
@@ -174,7 +191,7 @@ Project.objects.prefetch_related(
 )
 ```
 
-`select_related` for "forward, single object" relations. `prefetch_related` for "many" relations. Adding these to list views is the single biggest performance win in most Django apps.
+`select_related` for "forward, single object" relations. `prefetch_related` for "many" relations. On list pages this is often the largest single improvement available, because the query count stops growing with the number of rows.
 
 ### Doing less work
 
@@ -275,6 +292,10 @@ Guidelines:
 - **Never compute queries inside `SerializerMethodField`** for list views. Annotate in the queryset instead, or you have rebuilt the N+1 problem.
 
 ## 6. Views
+
+```figure
+dj-request-cycle
+```
 
 ### Function-based views
 
@@ -378,12 +399,12 @@ from rest_framework.permissions import BasePermission, SAFE_METHODS
 class IsOwner(BasePermission):
     def has_object_permission(self, request, view, obj):
         return obj.owner_id == request.user.id
+```
 
-class IsOwnerOrReadOnly(BasePermission):
-    def has_object_permission(self, request, view, obj):
-        if request.method in SAFE_METHODS:
-            return True
-        return obj.owner_id == request.user.id
+For an "owner can edit, anyone can read" rule, return `True` first when `request.method in SAFE_METHODS`.
+
+```figure
+dj-permissions
 ```
 
 Things that trip people up:
@@ -417,7 +438,7 @@ def test_list_query_count(api, user, django_assert_max_num_queries):
         api.get("/api/projects/")
 ```
 
-What I rely on:
+Practices that pay off:
 
 - **pytest with `pytest-django`**, plus **`factory_boy`** for test data. Factories beat fixtures files because they stay in sync with your models.
 - **Test permissions explicitly.** For every endpoint: anonymous, wrong user, right user.
@@ -427,7 +448,7 @@ What I rely on:
 
 ## 10. Performance
 
-In the order I check things:
+A sensible order to work through:
 
 1. **Count queries.** Install `django-debug-toolbar` in development, or log queries. Look at every list page.
 2. **Fix N+1** with `select_related` and `prefetch_related`.
@@ -458,7 +479,7 @@ def dashboard_stats(org_id):
     return stats
 ```
 
-7. **Move slow work out of requests** into a task queue (Celery, RQ, Dramatiq, or Django's built-in tasks framework if you are on a version that has it). Emails, exports, image processing and third-party API calls all belong there.
+7. **Move slow work out of requests** into a task queue such as Celery, RQ or Dramatiq. Django 6.0 added a built-in tasks framework (`django.tasks`) that standardises how tasks are defined and enqueued; its bundled backends are for development and testing, so production use needs a third-party backend and worker. Emails, exports, image processing and third-party API calls all belong in a task.
 8. **Reuse database connections.** Set `CONN_MAX_AGE`, or on Django 5.1+ with PostgreSQL and psycopg 3, enable the built-in pool with `"OPTIONS": {"pool": True}`. Behind many workers, a pooler such as PgBouncer is still worth considering.
 
 ## 11. Deployment
@@ -466,6 +487,7 @@ def dashboard_stats(org_id):
 ### Settings for production
 
 ```python
+# env() here is django-environ; any way of reading environment variables works.
 DEBUG = False
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
@@ -476,7 +498,6 @@ SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 31536000   # start lower while you verify HTTPS everywhere
-SECURE_CONTENT_TYPE_NOSNIFF = True
 ```
 
 Then run Django's own checklist:
@@ -489,19 +510,23 @@ python manage.py check --deploy
 
 - `python manage.py collectstatic` during the build.
 - Serve static files with **WhiteNoise** or a CDN. Do not rely on `runserver`.
-- User uploads (media) go to object storage (S3, Azure Blob, GCS) via `django-storages`, not the container's disk, which disappears on redeploy.
+- User uploads (media) go to object storage (Amazon S3, Azure Blob Storage, Google Cloud Storage) through `django-storages`, configured in the `STORAGES` setting. A container's disk does not survive a redeploy.
 
 ### Application server
 
 ```bash
 gunicorn config.wsgi:application --workers 3 --timeout 30
-# or for async views and websockets
-gunicorn config.asgi:application -k uvicorn.workers.UvicornWorker
+# or, for async views and websockets (pip install uvicorn-worker)
+gunicorn config.asgi:application -k uvicorn_worker.UvicornWorker
 ```
 
-A common starting point for workers is around two per CPU core plus one, then tune from metrics.
+Gunicorn's documentation suggests `(2 × CPU cores) + 1` workers as a starting point; tune from there using real metrics.
 
 ### Release steps
+
+```figure
+dj-migrations
+```
 
 1. Build the image, run tests, run `check --deploy`.
 2. Run `migrate` as a **separate release step**, once, not on every container start.
@@ -515,33 +540,56 @@ A common starting point for workers is around two per CPU core plus one, then tu
 - Automated database backups, with a restore you have actually tried.
 - Keep Django and dependencies updated. Read release notes for deprecations before major upgrades.
 
-## Quick reference
+## Checklist
 
-```bash
-django-admin startproject config .
-python manage.py startapp projects
-python manage.py makemigrations && python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
-python manage.py shell
-python manage.py dbshell
-python manage.py test           # or: pytest
-python manage.py check --deploy
-python manage.py collectstatic --noinput
-```
-
-| Need | Reach for |
-|---|---|
-| Avoid N+1 on FK | `select_related()` |
-| Avoid N+1 on reverse FK or M2M | `prefetch_related()` / `Prefetch()` |
-| Atomic counter or stock update | `F()` with `update()` |
-| OR conditions | `Q()` |
-| Per-row computed values | `annotate()` |
-| One summary value | `aggregate()` |
-| Multiple writes that must all succeed | `transaction.atomic` |
-| Prevent concurrent edits | `select_for_update()` inside a transaction |
-| Side effect after commit | `transaction.on_commit()` |
-| Data integrity | `UniqueConstraint`, `CheckConstraint` |
-| Restrict API data per user | Filter in `get_queryset()` |
+- [ ] A custom user model exists from the first migration
+- [ ] Business rules live in services, not in views or serializers
+- [ ] Every list endpoint uses `select_related` / `prefetch_related` as needed and has a query-count test
+- [ ] Serializers list `fields` explicitly
+- [ ] `get_queryset()` is scoped to the requesting user or tenant
+- [ ] `IsAuthenticated` is the default permission
+- [ ] Data integrity rules are database constraints, not only validation
+- [ ] Concurrent updates use `F()` or `select_for_update()`
+- [ ] Side effects run in `transaction.on_commit()`
+- [ ] Every list is paginated
+- [ ] `check --deploy` passes, and secrets come from the environment
+- [ ] Migrations are backward compatible and run once per release
 
 Django rewards boring, consistent code. Keep logic in services, keep queries visible and counted, let the database enforce what it can, and the framework will carry a project much further than people give it credit for.
+
+## References and further reading
+
+### Django
+
+- [Database access optimization](https://docs.djangoproject.com/en/stable/topics/db/optimization/)
+- [Making queries](https://docs.djangoproject.com/en/stable/topics/db/queries/) and [Query expressions: F()](https://docs.djangoproject.com/en/stable/ref/models/expressions/#f-expressions)
+- [Database transactions](https://docs.djangoproject.com/en/stable/topics/db/transactions/), including `on_commit()`
+- [Constraints reference](https://docs.djangoproject.com/en/stable/ref/models/constraints/)
+- [Substituting a custom User model](https://docs.djangoproject.com/en/stable/topics/auth/customizing/#substituting-a-custom-user-model)
+- [Migrations](https://docs.djangoproject.com/en/stable/topics/migrations/) and [PostgreSQL migration operations](https://docs.djangoproject.com/en/stable/ref/contrib/postgres/operations/)
+- [Databases: connection pooling and persistent connections](https://docs.djangoproject.com/en/stable/ref/databases/#persistent-connections)
+- [Tasks framework](https://docs.djangoproject.com/en/stable/topics/tasks/) (Django 6.0 and later)
+- [Deployment checklist](https://docs.djangoproject.com/en/stable/howto/deployment/checklist/) and [Security in Django](https://docs.djangoproject.com/en/stable/topics/security/)
+- [Testing tools](https://docs.djangoproject.com/en/stable/topics/testing/tools/), including `assertNumQueries` and `captureOnCommitCallbacks`
+
+### Django REST Framework
+
+- [Serializers](https://www.django-rest-framework.org/api-guide/serializers/) and [ViewSets](https://www.django-rest-framework.org/api-guide/viewsets/)
+- [Authentication](https://www.django-rest-framework.org/api-guide/authentication/), [Permissions](https://www.django-rest-framework.org/api-guide/permissions/) and [Throttling](https://www.django-rest-framework.org/api-guide/throttling/)
+- [Pagination](https://www.django-rest-framework.org/api-guide/pagination/)
+- [Simple JWT](https://django-rest-framework-simplejwt.readthedocs.io/)
+
+### Tools
+
+- [pytest-django](https://pytest-django.readthedocs.io/) and [factory_boy](https://factoryboy.readthedocs.io/)
+- [Django Debug Toolbar](https://django-debug-toolbar.readthedocs.io/)
+- [WhiteNoise](https://whitenoise.readthedocs.io/) and [django-storages](https://django-storages.readthedocs.io/)
+- [Gunicorn: how many workers?](https://gunicorn.org/design/#how-many-workers) and [Uvicorn deployment](https://uvicorn.dev/deployment/)
+
+## Quick reference
+
+A one-page summary of the patterns in this guide. In the PDF edition it sits on its own page so it can be printed and kept nearby.
+
+```figure
+dj-quick-reference
+```

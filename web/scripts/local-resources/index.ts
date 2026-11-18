@@ -1,7 +1,7 @@
 /**
  * Handwritten resources for the /resources library.
  * Bodies live in ./content/<slug>.md so Markdown and code fences need no escaping.
- * Voice: first person as Nyuydine Bill Leynyuy. No em/en dashes.
+ * Voice: plain and direct, no invented personal claims. No em/en dashes.
  */
 import type { ResourceLevel } from "../../src/lib/resources";
 
@@ -61,7 +61,7 @@ export const localResources: LocalResource[] = [
     title: "Django Developer's Practical Reference",
     kind: "guide",
     summary:
-      "Models, the ORM, serializers, views, authentication, permissions, testing, performance and deployment, with the patterns I use day to day in Django and Django REST Framework. For Python and Django developers.",
+      "Models, the ORM, serializers, views, authentication, permissions, testing, performance and deployment, with patterns that hold up in day-to-day Django and Django REST Framework work. For Python and Django developers.",
     level: "intermediate",
     topics: ["django", "python", "drf"],
     sort_order: 5,

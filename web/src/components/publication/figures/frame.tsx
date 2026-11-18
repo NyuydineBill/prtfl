@@ -38,3 +38,16 @@ export function Tag({
 }) {
   return <span className={`pub-tag pub-tone-${tone}`}>{children}</span>;
 }
+
+export type Mark = "yes" | "no" | "some";
+
+/** Yes / No / Depends cell used in comparison matrices. */
+export function MarkCell({ mark, label, text }: { mark: Mark; label: string; text?: string }) {
+  const shown = text ?? (mark === "yes" ? "Yes" : mark === "no" ? "No" : "Depends");
+  return (
+    <span className={`pub-mark pub-mark-${mark}`} aria-label={`${label}: ${shown}`}>
+      <span className="pub-mark-dot" aria-hidden />
+      <span className="pub-mark-text">{shown}</span>
+    </span>
+  );
+}

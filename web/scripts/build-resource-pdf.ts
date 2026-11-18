@@ -82,12 +82,16 @@ async function main() {
         document.querySelectorAll("nextjs-portal, [data-nextjs-toast], next-route-announcer").forEach((el) => el.remove());
       });
       await page.evaluate(() => document.fonts.ready);
+      // Let React finish hydrating (and a dev server finish recompiling) before Paged.js takes
+      // the DOM apart; a late re-render would otherwise duplicate or drop content.
+      await page.waitForTimeout(2000);
       await page.addScriptTag({ path: pagedPath });
 
       const pages = await page.evaluate(async () => {
         const css = document.getElementById("pub-page-css")?.textContent ?? "";
         const root = document.getElementById("pub-print-root");
         if (!root) throw new Error("print root not found");
+        const headings = root.querySelectorAll("h2.pub-h2").length;
 
         const content = document.createDocumentFragment();
         while (root.firstChild) content.appendChild(root.firstChild);
@@ -98,7 +102,15 @@ async function main() {
         type PagedGlobal = { Previewer: new () => { preview: (c: DocumentFragment, s: object[], t: HTMLElement) => Promise<{ total: number }> } };
         const { Previewer } = (window as unknown as { Paged: PagedGlobal }).Paged;
         const flow = await new Previewer().preview(content, [{ [`${location.href}#paged`]: css }], target);
+        const paged = document.querySelectorAll(".pagedjs_pages h2.pub-h2").length;
+        if (paged !== headings) throw new Error(`layout check failed: ${headings} chapter headings in, ${paged} out`);
         return flow.total;
+      });
+
+      // Paged.js gives every page a page break after it; on the last one Chrome turns that into
+      // an extra blank sheet.
+      await page.addStyleTag({
+        content: "@media print { .pagedjs_page:last-of-type { break-after: auto !important; page-break-after: auto !important; } }",
       });
 
       const raw = await page.pdf({
@@ -123,6 +135,7 @@ async function main() {
       const file = `/resources/pdf/${current}.pdf`;
       writeFileSync(resolve(outDir, `${current}.pdf`), bytes);
       manifest[current] = { file, pages, bytes: bytes.length, generatedAt: new Date().toISOString() };
+      writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
       console.log(`  ✓ ${pages} pages, ${(bytes.length / 1024).toFixed(0)} KB → public${file}`);
   }
 }

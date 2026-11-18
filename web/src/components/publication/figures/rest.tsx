@@ -1,4 +1,4 @@
-import { FigureFrame, Tag } from "./frame";
+import { FigureFrame, MarkCell, Tag, type Mark } from "./frame";
 import { SequenceDiagram } from "./sequence-diagram";
 
 type FigureProps = { number?: number };
@@ -94,7 +94,6 @@ export function HttpLifecycleFigure({ number }: FigureProps) {
 /* 2. Methods                                                           */
 /* ------------------------------------------------------------------ */
 
-type Mark = "yes" | "no" | "some";
 const METHODS: {
   method: string;
   intent: string;
@@ -112,16 +111,6 @@ const METHODS: {
   { method: "DELETE", intent: "Remove", safe: "no", idempotent: "yes", body: "no", cacheable: "no", success: "204 · 200 · 202" },
   { method: "OPTIONS", intent: "Discover capabilities, CORS", safe: "yes", idempotent: "yes", body: "no", cacheable: "no", success: "204 · 200" },
 ];
-
-function MarkCell({ mark, label }: { mark: Mark; label: string }) {
-  const text = mark === "yes" ? "Yes" : mark === "no" ? "No" : "Depends";
-  return (
-    <span className={`pub-mark pub-mark-${mark}`} aria-label={`${label}: ${text}`}>
-      <span className="pub-mark-dot" aria-hidden />
-      <span className="pub-mark-text">{text}</span>
-    </span>
-  );
-}
 
 export function HttpMethodsFigure({ number }: FigureProps) {
   return (

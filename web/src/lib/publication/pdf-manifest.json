@@ -2,7 +2,31 @@
   "practical-rest-api-handbook": {
     "file": "/resources/pdf/practical-rest-api-handbook.pdf",
     "pages": 31,
-    "bytes": 976197,
-    "generatedAt": "2026-11-18T00:30:18.546Z"
+    "bytes": 975250,
+    "generatedAt": "2026-11-18T18:47:01.226Z"
+  },
+  "git-github-field-guide": {
+    "file": "/resources/pdf/git-github-field-guide.pdf",
+    "pages": 25,
+    "bytes": 688861,
+    "generatedAt": "2026-11-18T18:50:00.182Z"
+  },
+  "system-design-fundamentals": {
+    "file": "/resources/pdf/system-design-fundamentals.pdf",
+    "pages": 27,
+    "bytes": 704168,
+    "generatedAt": "2026-11-18T18:50:17.775Z"
+  },
+  "ai-prototype-to-production": {
+    "file": "/resources/pdf/ai-prototype-to-production.pdf",
+    "pages": 20,
+    "bytes": 572614,
+    "generatedAt": "2026-11-18T18:50:31.990Z"
+  },
+  "django-practical-reference": {
+    "file": "/resources/pdf/django-practical-reference.pdf",
+    "pages": 26,
+    "bytes": 749016,
+    "generatedAt": "2026-11-18T18:56:31.016Z"
   }
 }
