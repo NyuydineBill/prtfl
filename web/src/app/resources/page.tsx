@@ -4,6 +4,8 @@ import { groupResourcesByKind, type Resource } from "@/lib/resources";
 import { SectionHeading, Chip, Eyebrow } from "@/components/ui";
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal";
 import { pageMetadata } from "@/lib/site";
+import { analyzePublication } from "@/lib/publication/analyze";
+import { getPdfInfo } from "@/lib/publication/get-resource";
 
 export const metadata = pageMetadata({
   title: "Resources",
@@ -72,6 +74,14 @@ export default async function ResourcesPage() {
                       <article className="h-full rounded-lg border border-border bg-surface p-5">
                         <div className="flex flex-wrap items-center gap-2">
                           <Chip>{resource.level === "all" ? "All levels" : resource.level}</Chip>
+                          {resource.body ? (
+                            <Chip>{analyzePublication(resource.body).readingMinutes} min read</Chip>
+                          ) : null}
+                          {getPdfInfo(resource.slug) ? (
+                            <span className="rounded-md border border-accent/40 bg-accent/10 px-2.5 py-1 font-mono text-xs text-accent">
+                              PDF
+                            </span>
+                          ) : null}
                         </div>
                         <h2 className="mt-3 text-lg font-medium text-foreground">
                           {resource.title}

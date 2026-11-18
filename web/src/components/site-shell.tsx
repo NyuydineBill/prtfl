@@ -17,6 +17,11 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
 
+  // PDF print source: no site chrome, the page is rendered onto paper by Paged.js.
+  if (pathname && /^\/resources\/[^/]+\/print$/.test(pathname)) {
+    return <>{children}</>;
+  }
+
   return (
     <div className="flex min-h-screen flex-col overflow-x-hidden">
       <header className="sticky top-0 z-40 border-b border-border/80 bg-background/85 backdrop-blur-md">
