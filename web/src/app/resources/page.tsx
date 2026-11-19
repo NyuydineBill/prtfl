@@ -10,7 +10,7 @@ import { getPdfInfo } from "@/lib/publication/get-resource";
 export const metadata = pageMetadata({
   title: "Resources",
   description:
-    "Books, cheatsheets, tools, videos, and practical guides for software architecture, AI systems, DevOps, and product engineering.",
+    "The Engineering Resource Series by Nyuydine Bill: free practical guides on APIs, Git, system design, AI in production and Django, each with a typeset PDF.",
   path: "/resources",
 });
 
@@ -38,7 +38,7 @@ export default async function ResourcesPage() {
           index={1}
           eyebrow="Library"
           title="Resources"
-          description="Books, cheatsheets, tools, videos, and guides collected for engineers who want leverage. New material lands here as I publish it."
+          description="The Engineering Resource Series by Nyuydine Bill: practical guides for working engineers, each with original diagrams, references and a free typeset PDF. New editions land here as they are published."
         />
       </Reveal>
 

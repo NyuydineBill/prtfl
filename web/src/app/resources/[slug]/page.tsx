@@ -76,7 +76,7 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
       <header className={`pub-hero mt-8${pdf ? " has-cover" : ""}`}>
         <div>
           <p className="pub-series">
-            {formatKindLabel(resource.kind)} {series} · Engineering Handbook Series
+            {formatKindLabel(resource.kind)} {series} · The Engineering Resource Series
           </p>
           <h1 className="pub-title">{resource.title}</h1>
           {resource.summary ? (
@@ -145,7 +145,7 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
               <FileText className="h-3 w-3" /> PDF
             </span>
             <span className="pub-cover-card-inner">
-              <span className="pub-cover-card-series">Handbook {series}</span>
+              <span className="pub-cover-card-series">Resource Series</span>
               <span className="pub-cover-card-num">{series}</span>
               <span className="pub-cover-card-title">{resource.title}</span>
               <span className="pub-cover-card-foot">

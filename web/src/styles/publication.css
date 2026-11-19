@@ -71,12 +71,6 @@
   text-transform: uppercase;
   color: var(--pub-accent);
 }
-.pub-series::before {
-  content: "";
-  width: 1.75rem;
-  height: 1px;
-  background: currentColor;
-}
 .pub-title {
   margin-top: 1rem;
   font-size: clamp(2.1rem, 4.6vw, 3.4rem);

@@ -100,7 +100,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
 
       <div className="mx-auto flex w-full max-w-7xl flex-1 gap-12 px-4 sm:px-8">
         {/* Persistent sidebar (desktop only) */}
-        <aside className="hidden shrink-0 lg:sticky lg:top-16 lg:block lg:h-fit lg:w-64 lg:py-14">
+        <aside className="hidden shrink-0 lg:sticky lg:top-16 lg:block lg:h-fit lg:w-64 lg:pt-8 lg:pb-14">
           <Image
             src="/profile.jpeg"
             alt={profile.name}
@@ -132,7 +132,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           </div>
         </aside>
 
-        <main className="min-w-0 flex-1 py-8 sm:py-20">
+        <main className="min-w-0 flex-1 pt-6 pb-12 sm:pt-8 sm:pb-20">
           {children}
           <Footer />
         </main>

@@ -1,6 +1,6 @@
 export const profile = {
   name: "Nyuydine Bill Leynyuy",
-  role: "Senior Software Engineer · Software Architect",
+  role: "Software Engineer · Full-Stack Developer · Applied AI",
   headline: "Software Engineer building AI-powered products.",
   tagline:
     "Full-stack development and software architecture, from backend to cloud infrastructure, shipped end to end.",

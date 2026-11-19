@@ -68,7 +68,7 @@ export default async function ResourcePrintPage({ params }: { params: Promise<{ 
       <div id="pub-print-root" className="pub pub-print">
         <section className="pdf-cover">
           <div className="pdf-cover-top">
-            <span>Engineering Handbook Series</span>
+            <span>The Engineering Resource Series by Nyuydine Bill</span>
             <span>No. {series}</span>
           </div>
 
